@@ -53,12 +53,16 @@ const server = http.createServer((req, res) => {
 
                 generalProcessData(JSON.parse(data.toString()));
 
-                if (connectionCount !== 0) {
-                    io.emit("update", JSON.parse(data.toString()));
-                    log.info("[SYSTEM] Sent data to frontend via socket")
+                if (connectionCount === 0) {
+                    log.error('[SYSTEM] Frontend connection not found via socket')
+                }
+                else if (!JSON.parse(data).allplayers) {
+                    log.info('[SYSTEM] Player is not a spectator, refusing to send information via socket')
+                    io.emit("err");
                 }
                 else {
-                    log.error("[SYSTEM] Frontend connection not found via socket")
+                    io.emit("update", JSON.parse(data.toString()));
+                    log.info('[SYSTEM] Sent data to frontend via socket')
                 }
                 if (config.application.logLevel === "trace" || config.application.logLevel === "debug") {
                     fs.writeFile(`${__dirname}/export/${JSON.parse(data.toString()).provider.timestamp}.json`, data.toString(), (err) => {

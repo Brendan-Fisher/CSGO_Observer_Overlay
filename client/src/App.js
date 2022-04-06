@@ -19,6 +19,10 @@ function App() {
       console.log(`connect_error due to ${err.message}`);
     });
 
+    socket.on("err", () => {
+      setData(null);
+    });
+
     socket.on("update", (update) => {
       console.log(update)
       setData(update);
