@@ -25,9 +25,11 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.3",
+    "fs": "^0.0.1-security",
     "helmet": "^4.6.0",
     "morgan": "^1.10.0",
-    "npm": "^8.6.0"
+    "npm": "^8.6.0",
+    "simple-node-logger": "^21.8.12"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
