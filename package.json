@@ -4,13 +4,13 @@
   "description": " A basic starter for an express.js API",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/app.js",
     "server-install": "npm install",
     "client-install": "cd client && npm install",
-    "server": "nodemon src/index.js",
+    "server": "nodemon src/app.js",
     "lint": "eslint --fix src",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
     "test": "mocha --exit"
   },
   "keywords": [],
@@ -27,6 +27,7 @@
     "express": "^4.17.3",
     "fs": "^0.0.1-security",
     "helmet": "^4.6.0",
+    "http": "^0.0.1-security",
     "morgan": "^1.10.0",
     "npm": "^8.6.0",
     "simple-node-logger": "^21.8.12"

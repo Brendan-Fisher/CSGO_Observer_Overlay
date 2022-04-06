@@ -5,6 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 const config = require('./config');
 const log = require('simple-node-logger').createSimpleLogger('csgo-gamestate.log');
+const http = require('http');
 
 require('dotenv').config();
 
@@ -31,27 +32,42 @@ let general_data = {
   bombtimer: false
 };
 
-app.post("/", (req, res) => {
+const server = http.createServer((req, res) => {
   
-  res.json(req.body);
+  if(req.method == 'POST'){
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    log.trace("Handline POST Request");
 
-  try{
-    //console.log(req.body);
+    req.on('data', (data) => {
+      try {
+        console.log(JSON.parse(data));
 
-    generalProcessData(req.body);
+        generalProcessData(JSON.parse(data.toString()));
 
-    if (config.application.logLevel === "trace" || config.application.logLevel === "debug") {
-      fs.writeFile(`${__dirname}/export/${req.body.provider.timestamp}.json`, JSON.stringify(req.body), (err) => {
-          if (err) {
-              return log.error(`[FILE] Error writing file: ${err}`);
-          }
-      });
-    }
+        if (config.application.logLevel === "trace" || config.application.logLevel === "debug") {
+            fs.writeFile(`${__dirname}/export/${JSON.parse(data.toString()).provider.timestamp}.json`, data.toString(), (err) => {
+                if (err) {
+                    return log.error(`[FILE] Error writing file: ${err}`);
+                }
+            });
+        }
+      } catch (e) {
+          log.error(`[WEBDATA] Error retrieving data from API: ${e}`)
+      }
+    });
+
+    req.on('end', () => {
+      res.end('');
+    })
   }
-  catch (e) {
-    console.log(`Error retrieving data from API: ${e}`);
+  else {
+    console.log("Not expecting other request types...");
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    var html = '<html><body>HTTP Server at http://' + host + ':' + port + '</body></html>';
+    res.end(html);
   }
-})
+  
+});
 
 function generalProcessData(data) {
   if (typeof data.map !== "undefined") {
@@ -200,15 +216,18 @@ function processPlayerId(data) {
       general_data.players.push({id: data.player.steamid, name: data.player.name});
       log.info(`[PLAYER] New player found: ${data.player.steamid} (${data.player.name})`);
 
+      /*
       fs.writeFile(`${__dirname}/export/players.json`, JSON.stringify(general_data.players), (err) => {
           if (err) {
               return log.error(`[FILE] Error writing file: ${err}`);
           }
       });
+      */
   }
 }
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
-module.exports = app;
+server.listen(config.application.port, config.application.host);
+log.info(`[SYSTEM] Monitoring CS:GO on: ${config.application.host}:${config.application.port}`);

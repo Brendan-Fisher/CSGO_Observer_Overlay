@@ -2,12 +2,11 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/"
 
 export async function queryAPI(){
-    //console.log(query);
     return axios   
-        .post(API_URL)
+        .get(API_URL + "api")
         .then((result) => {
-            console.log("HELLO");
-            console.log(result.data);
+            console.log("Hello");
+            console.log(result);
             return result.data;
         })
 }
