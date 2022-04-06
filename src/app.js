@@ -37,6 +37,8 @@ let general_data = {
   bombtimer: false
 };
 
+var all_data;
+
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   
@@ -68,12 +70,13 @@ const server = http.createServer((req, res) => {
   }
   else {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(JSON.stringify(general_data));
+    res.end(JSON.stringify(all_data));
   }
   
 });
 
 function generalProcessData(data) {
+  all_data = data;
   if (typeof data.map !== "undefined") {
       log.trace("processMap");
 

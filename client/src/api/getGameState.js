@@ -5,8 +5,6 @@ export async function queryAPI(){
     return axios   
         .get(API_URL)
         .then((result) => {
-            console.log("Hello");
-            console.log(result);
             return result.data;
         })
 }
