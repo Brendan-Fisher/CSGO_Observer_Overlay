@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
+    "server-install": "npm install",
+    "client-install": "cd client && npm install",
     "server": "nodemon src/index.js",
     "lint": "eslint --fix src",
     "client": "npm start --prefix client",
