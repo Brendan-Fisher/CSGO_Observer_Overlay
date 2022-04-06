@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "server": "nodemon src/index.js",
     "lint": "eslint --fix src",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "mocha --exit"
   },
   "keywords": [],
@@ -17,11 +19,13 @@
   },
   "license": "MIT",
   "dependencies": {
+    "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.3",
     "helmet": "^4.6.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "npm": "^8.6.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
