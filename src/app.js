@@ -3,9 +3,11 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const fs = require('fs');
 const cors = require('cors');
+const router = express.Router();
 const config = require('./config');
 const log = require('simple-node-logger').createSimpleLogger('csgo-gamestate.log');
 const http = require('http');
+const EventEmitter = require('events');
 
 require('dotenv').config();
 
@@ -17,6 +19,9 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use((req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+})
 
 /**
  * Set global vars for later use
@@ -33,14 +38,15 @@ let general_data = {
 };
 
 const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   
   if(req.method == 'POST'){
     res.writeHead(200, {'Content-Type': 'text/html'});
-    log.trace("Handline POST Request");
+    log.trace("Handling POST Request");
 
     req.on('data', (data) => {
       try {
-        console.log(JSON.parse(data));
+        //console.log(JSON.parse(data));
 
         generalProcessData(JSON.parse(data.toString()));
 
@@ -61,10 +67,8 @@ const server = http.createServer((req, res) => {
     })
   }
   else {
-    console.log("Not expecting other request types...");
     res.writeHead(200, {'Content-Type': 'text/html'});
-    var html = '<html><body>HTTP Server at http://' + host + ':' + port + '</body></html>';
-    res.end(html);
+    res.end(JSON.stringify(general_data));
   }
   
 });

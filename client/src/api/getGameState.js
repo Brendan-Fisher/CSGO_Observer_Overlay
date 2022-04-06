@@ -3,7 +3,7 @@ const API_URL = "http://localhost:5000/"
 
 export async function queryAPI(){
     return axios   
-        .get(API_URL + "api")
+        .get(API_URL)
         .then((result) => {
             console.log("Hello");
             console.log(result);

@@ -11,6 +11,7 @@
     "lint": "eslint --fix src",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "dashboard": "node src/server-dashboard.js",
     "test": "mocha --exit"
   },
   "keywords": [],
@@ -21,6 +22,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0",
     "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
