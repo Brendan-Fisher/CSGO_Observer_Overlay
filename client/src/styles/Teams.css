@@ -1,14 +1,23 @@
 .CTplayers {
+    width: 20%;
     position: absolute;
-    top: 600px;
-    left: 0px;
-
+    background-color: blue;
+    text-align: left;
+    opacity: 80%;
+    bottom: 25px;
+    left: 25px;
 }
 
 .Tplayers {
+    width: 20%;
+    background-color: orange;
+    opacity: 80%;
     position: absolute;
     text-align: right;
-    top: 600px;
-    left: 1700px;
+    bottom: 25px;
+    right: 25px;
+}
 
+tr {
+    width: 20%;
 }
