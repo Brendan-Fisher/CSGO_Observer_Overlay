@@ -23,8 +23,7 @@ export function Current() {
             <div className="currentPlayer">
                 <div>
                     {" "}
-                    {player.name} {player.state.health} {player.state.armor}{" "}
-                    {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
+                    {player.name} {player.state.health} {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
                 </div>
                 <div>K A D ADR KILLS </div>
                 <div>
