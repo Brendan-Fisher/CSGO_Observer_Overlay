@@ -1,5 +1,6 @@
-import io from "socket.io-client";
+import "./../styles/Teams.css";
 import { useEffect, useState } from "react";
+import io from "socket.io-client";
 
 const socket = io("http://localhost:5001");
 
@@ -26,8 +27,7 @@ export function Teams() {
                     {teamT.map((player, index) => (
                         <tr
                             key={player.observer_slot}
-                            style={{ backgroundColor: "rgba(0, 19, 127, 0.35)" }}
-                        >
+                            style={{ backgroundColor: "rgba(0, 19, 127, 0.35)" }}>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
@@ -36,7 +36,7 @@ export function Teams() {
 
                             <div>
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor} {player.state.helmet ? "HELMET" : "NO HELMET"}{" "}
+                                {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
                             </div>
                         </tr>
                     ))}

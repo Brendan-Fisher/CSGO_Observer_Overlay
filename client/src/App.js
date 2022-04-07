@@ -1,5 +1,5 @@
+import "./styles/App.css";
 import { useEffect, useState } from "react";
-import "./App.css";
 import io from "socket.io-client";
 
 import Teams from "./components/Teams";

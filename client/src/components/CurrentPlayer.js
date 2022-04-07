@@ -1,7 +1,10 @@
-import io from "socket.io-client";
+import "./../styles/CurrentPlayer.css";
 import { useEffect, useState } from "react";
+import io from "socket.io-client";
+
 
 const socket = io("http://localhost:5001");
+
 
 export function Current() {
     const [player, setPlayer] = useState(null);
@@ -14,15 +17,16 @@ export function Current() {
         });
     });
 
+
     if (player) {
         return (
             <div className="currentPlayer">
                 <div>
                     {" "}
                     {player.name} {player.state.health} {player.state.armor}{" "}
-                    {player.state.helmet ? "HELMET" : "NO HELMET"}{" "}
+                    {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
                 </div>
-                <div>K A D ADR</div> KILLS
+                <div>K A D ADR KILLS </div>
                 <div>
                     {" "}
                     {player.match_stats.kills} {player.match_stats.assists}{" "}
