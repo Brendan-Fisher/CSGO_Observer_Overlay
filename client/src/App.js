@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import io from "socket.io-client"
 
-
 function App() {
   const [data, setData] = useState(null);
   const [scoreBoard, setSB] = useState(null);
@@ -37,16 +36,20 @@ function App() {
       let scoreboard = {
         phase: data.map.phase,
         round: data.map.round,
-        phase_ends_in: data.phase_countdowns.phase_ends_in,
+        phase_ends_in: data.phase_countdowns.phase_ends_in < 0 ? 0 : data.phase_countdowns.phase_ends_in,
         CTScore: data.map.team_ct.score,
         TScore: data.map.team_t.score,
+        CTName: "CT",
+        TName: "T"
       }
 
+      let time = parseInt(scoreboard.phase_ends_in - 0.2) + 1; // 0.2 for delay generated from communication
+      scoreboard.phase_ends_in = (parseInt(time / 60)) + ":" + (time % 60 < 10 ? "0" : "") + (time % 60);
 
-      if (data.phase_countdowns == null) {
-        scoreboard.phase_ends_in = scoreBoard.phase_ends_in;
-      }
-      else scoreboard.phase_ends_in = data.phase_countdowns.phase_ends_in;
+      // if (data.phase_countdowns == null) {
+      //   scoreboard.phase_ends_in = scoreBoard.phase_ends_in;
+      // }
+      // else scoreboard.phase_ends_in = data.phase_countdowns.phase_ends_in;
 
       setSB(scoreboard);
     }
@@ -57,6 +60,8 @@ function App() {
         phase_ends_in: 0,
         CTScore: 0,
         TScore: 0,
+        CTName: "CT",
+        TName: "T"
       }
 
       setSB(scoreboard);
@@ -78,13 +83,14 @@ function App() {
       <div className="App">
         <div className="scoreboard">
           <div className="Team_one">
-            <p id="CT_score">{scoreBoard.CTScore}</p>
+            <p id="CT_score">{scoreBoard.CTName} {scoreBoard.CTScore}</p>
           </div>
           <div className="Match_info">
-            <p id="time">{parseInt(scoreBoard.phase_ends_in) + 1}</p>
+            <p id="time">{scoreBoard.phase_ends_in}</p>
+            <p id="time">ROUND  {scoreBoard.round + 1}/30</p>
           </div>
           <div className="Team_two">
-            <p id="T_score">{scoreBoard.TScore}</p>
+            <p id="T_score">{scoreBoard.TScore} {scoreBoard.TName}</p>
           </div>
         </div>
       </div>
