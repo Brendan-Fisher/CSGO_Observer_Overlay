@@ -5,6 +5,16 @@
   pointer-events: none;
 }
 
+
+.no-game {
+  text-align: center;
+  height: 15vh;
+  color: black;
+  width: 30%;
+  margin: auto;
+  margin-top: 10px;
+}
+
 .CTplayers {
   position: absolute;
   top: 600px;

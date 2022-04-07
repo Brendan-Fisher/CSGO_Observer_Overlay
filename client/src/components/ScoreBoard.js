@@ -34,11 +34,7 @@ export function ScoreBoard() {
         );
     } else {
         return (
-            <div className="scoreboard">
-                <div>
-                    <p>Awaiting Game</p>
-                </div>
-            </div>
+            <div></div>
         );
     }
 }

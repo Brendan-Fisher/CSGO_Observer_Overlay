@@ -11,26 +11,37 @@ const ENDPOINT = "http://localhost:5001/";
 export const socket = io(ENDPOINT);
 
 function App() {
-    const [data, setData] = useState(null);
-    //const [inGame, setInGame] = useState(null);
+  const [isSpec, setIsSpec] = useState(null);
+  //const [inGame, setInGame] = useState(null);
 
-    useEffect(() => {
-        socket.on("connect_error", (err) => {
-            console.log(`connect_error due to ${err.message}`);
-        });
+  useEffect(() => {
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
 
-        socket.on("err", () => {
-            setData(null);
-        });
-    }, []);
+    socket.on("spec", (bool) => {
+      bool ? setIsSpec(true) : setIsSpec(false);
+    });
 
+  }, []);
+
+  if (!isSpec) {
     return (
-        <div className="App">
-            <Current />
-            <ScoreBoard />
-            <Teams />
+      <div className="no-game">
+        <div>
+          <p>Awaiting Game</p>
         </div>
+      </div>
     );
+  }
+
+  return (
+    <div className="App">
+      <Current />
+      <ScoreBoard />
+      <Teams />
+    </div>
+  );
 }
 
 export default App;

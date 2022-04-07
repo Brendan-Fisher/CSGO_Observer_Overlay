@@ -49,15 +49,15 @@ const server = http.createServer((req, res) => {
 
         req.on("data", (data) => {
             try {
+                let jsonData;
                 if (connectionCount === 0) {
                     log.error("[SYSTEM] Frontend connection not found via socket");
-                } else if (!JSON.parse(data).allplayers) {
-                    log.info(
-                        "[SYSTEM] Player is not a spectator, refusing to send information via socket"
-                    );
-                    io.emit("err");
+                } else if (!(jsonData = JSON.parse(data)).allplayers) {
+                    io.emit("spec", false);
+                    log.info("[SYSTEM] Player is not a spectator, refusing to send information via socket");
                 } else {
-                    parseGamestate(JSON.parse(data));
+                    io.emit("spec", true);
+                    parseGamestate(jsonData);
                     log.info("[SYSTEM] Sent data to frontend via socket");
                 }
                 if (
@@ -65,8 +65,7 @@ const server = http.createServer((req, res) => {
                     config.application.logLevel === "debug"
                 ) {
                     fs.writeFile(
-                        `${__dirname}/export/${
-                            JSON.parse(data.toString()).provider.timestamp
+                        `${__dirname}/export/${JSON.parse(data.toString()).provider.timestamp
                         }.json`,
                         data.toString(),
                         (err) => {
@@ -109,7 +108,7 @@ io.on("connection", (socket) => {
 });
 
 const parseGamestate = (raw) => {
-    //console.log(JSON.parse(data));
+    //console.log(raw);
     if (!raw.allplayers || !raw.map || !raw.phase_countdowns) {
         return null;
     }
