@@ -25,7 +25,7 @@ export function Teams() {
             <div>
                 <div className="Tplayers">
                     {teamT.map((player, index) => (
-                        <tr className="TplayerBlock" key={player.observer_slot}>
+                        <div className="TplayerBlock" key={player.observer_slot}>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
@@ -41,12 +41,12 @@ export function Teams() {
                                     ? "NO HELMET"
                                     : "NO ARMOR"}{" "}
                             </div>
-                        </tr>
+                        </div>
                     ))}
                 </div>
                 <div className="CTplayers">
                     {teamCT.map((player, index) => (
-                        <tr className="CTplayerBlock" key={player.observer_slot}>
+                        <div className="CTplayerBlock" key={player.observer_slot}>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
@@ -57,7 +57,7 @@ export function Teams() {
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
                                 {player.state.armor} {player.state.helmet ? "HELMET" : "NO HELMET"}{" "}
                             </div>
-                        </tr>
+                        </div>
                     ))}
                 </div>
             </div>
