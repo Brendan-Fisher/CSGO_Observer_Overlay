@@ -10,12 +10,12 @@ export function Teams() {
 
     useEffect(() => {
         socket.on("CTTeam", (CTTeam) => {
-            console.log("Setting CT team");
+            //console.log("Setting CT team");
             setTeamCT(CTTeam);
         });
 
         socket.on("TTeam", (TTeam) => {
-            console.log("Setting T team");
+            //console.log("Setting T team");
             setTeamT(TTeam);
         });
     });
@@ -25,9 +25,7 @@ export function Teams() {
             <div>
                 <div className="Tplayers">
                     {teamT.map((player, index) => (
-                        <tr
-                            key={player.observer_slot}
-                            style={{ backgroundColor: "rgba(0, 19, 127, 0.35)" }}>
+                        <tr className="TplayerBlock" key={player.observer_slot}>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
@@ -36,17 +34,19 @@ export function Teams() {
 
                             <div>
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
+                                {player.state.armor}{" "}
+                                {player.state.helmet
+                                    ? "HELMET"
+                                    : player.state.armor > 0
+                                    ? "NO HELMET"
+                                    : "NO ARMOR"}{" "}
                             </div>
                         </tr>
                     ))}
                 </div>
                 <div className="CTplayers">
                     {teamCT.map((player, index) => (
-                        <tr
-                            key={player.observer_slot}
-                            style={{ backgroundColor: "rgba(0, 19, 127, 0.35)" }}
-                        >
+                        <tr className="CTplayerBlock" key={player.observer_slot}>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}

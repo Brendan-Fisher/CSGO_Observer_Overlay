@@ -1,6 +1,7 @@
 .currentPlayer {
     position: absolute;
-    top: 800px;
-    left: 885px;
+
+    bottom: 60px;
+    left: 50%;
     background-color: rgba(0, 19, 127, 0.35);
 }
