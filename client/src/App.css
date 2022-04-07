@@ -1,17 +1,37 @@
-.App {
-  text-align: center;
-}
+.App {}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+.CTplayers {
+  position: absolute;
+  top: 600px;
+  left: 0px;
+
+}
+
+.Tplayers {
+  position: absolute;
+  text-align: right;
+  top: 600px;
+  left: 1700px;
+
+}
+
+.currentPlayer {
+  position: absolute;
+  top: 800px;
+  left: 885px;
+  background-color: rgba(0, 19, 127, 0.35);
+}
+
 .scoreboard {
-  height: 10vh;
-  background-color: white;
+  text-align: center;
+  height: 15vh;
+  background-color: rgba(0, 19, 127, 0.35);
   width: 30%;
-  opacity: 90%;
   margin: auto;
   margin-top: 10px;
 }
@@ -22,6 +42,13 @@
   width: 33%;
   align-items: center;
   height: 100%;
+  opacity: 100%;
+}
+
+.Team_two {
+  float: left;
+  width: 33%;
+  opacity: 100%;
 }
 
 #CT_score {
@@ -30,6 +57,7 @@
   align-content: center;
   flex-direction: column;
   font-size: 48px;
+  opacity: 100%;
 }
 
 #T_score {
@@ -38,17 +66,16 @@
   align-content: center;
   flex-direction: column;
   font-size: 48px;
+  opacity: 100%;
 }
 
 .scoreboard .Match_info {
   float: left;
   width: 33%;
+  opacity: 100%;
 }
 
-.scoreboard .Team_two {
-  float: left;
-  width: 33%;
-}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
