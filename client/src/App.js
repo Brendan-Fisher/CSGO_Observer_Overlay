@@ -6,6 +6,8 @@ import io from "socket.io-client"
 function App() {
   const [data, setData] = useState(null);
   const [scoreBoard, setSB] = useState(null);
+  const [players, setPlayers] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState(null);
   //const [inGame, setInGame] = useState(null);
 
   const ENDPOINT = 'http://localhost:5001/'
@@ -23,13 +25,38 @@ function App() {
     });
 
     socket.on("update", (update) => {
-      console.log(update)
+      //console.log(update)
       setData(update);
       setScoreBoard(update);
+      setPlayersData(update)
       //setInGame(true);
     });
 
   }, []);
+
+  function setPlayersData(data) {
+    if (data.map === undefined) return;
+    //console.log(data);
+    setCurrentPlayer(data.player);
+
+    let playersList = Object.entries(data.allplayers).map(([key, value]) => (
+      {
+        steamid: key,
+        name: value.name,
+        team: value.team,
+        observer_slot: value.observer_slot,
+        state: value.state,
+        match_stats: value.match_stats,
+        weapons: value.weapons,
+        position: value.position,
+        forward: value.forward
+      }));
+
+    setPlayers(playersList);
+
+    //console.log(playersList);
+    //console.log(players);
+  }
 
   function setScoreBoard(data) {
     if (data.map != undefined) {
@@ -52,6 +79,7 @@ function App() {
       // else scoreboard.phase_ends_in = data.phase_countdowns.phase_ends_in;
 
       setSB(scoreboard);
+      //console.log(scoreBoard);
     }
     else {
       let scoreboard = {
@@ -68,6 +96,14 @@ function App() {
     }
   }
 
+  function CurrentPlayer() {
+    let player = currentPlayer;
+    if (!player || player.steamid === player.spectarget) return <div></div>;
+    console.log(player)
+    return <div>
+      <p>{player.name}</p>
+    </div>
+  }
 
   if (data == null || data.map == undefined || scoreBoard == undefined) {
     return (
@@ -94,6 +130,7 @@ function App() {
           </div>
         </div>
       </div>
+
     )
   }
 };
