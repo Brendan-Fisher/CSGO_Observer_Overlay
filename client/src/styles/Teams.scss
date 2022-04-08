@@ -22,12 +22,12 @@
 
 .TplayerBlock {
     margin-bottom: 5px;
-    background-color: #002226e4;
+    background-color: #002217a3;
     height: 60px;
 }
 .CTplayerBlock {
     margin-bottom: 5px;
-    background-color: #002226e4;
+    background-color: #002217a3;
     height: 60px;
 }
 
@@ -36,7 +36,7 @@
     width: 20%;
     height: 60px;
     float: left;
-    background-color: #002226e4;
+    background-color: #001316e4;
     text-align: center;
 
     p {
@@ -58,6 +58,7 @@
     float: left;
     width: 80%;
     max-height: 30px;
+    background-color: #00000062;
 }
 
 .TArmor {
@@ -65,7 +66,7 @@
     width: 20%;
     height: 60px;
     float: right;
-    background-color: #002226e4;
+    background-color: #001316e4;
     text-align: center;
 
     p {
@@ -84,6 +85,7 @@
 .TplayerInfo {
     display: table-cell;
     position: relative;
+    background-color: #00000062;
     float: right;
     width: 80%;
     height: 30px;
@@ -148,14 +150,14 @@
 
 .CTbar-D {
     transition: all 0.6s ease;
-    background-color: #002226e4;
+    background-color: transparent;
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
 }
 .Tbar-D {
     transition: all 0.6s ease;
-    background-color: #002226e4;
+    background-color: transparent;
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
