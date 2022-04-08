@@ -2,6 +2,7 @@
     background-color: transparent;
     height: 100vh;
     position: relative;
+    overflow: hidden;
 }
 
 .App-logo {
