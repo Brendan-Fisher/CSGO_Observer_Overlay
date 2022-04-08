@@ -26,11 +26,11 @@ export function Teams() {
                 <div className="Tplayers">
                     {teamT.map((player, index) => (
                         <div className="TplayerBlock" key={player.observer_slot}>
-                            <div className="chart">
+                            <div className="Tchart">
                                 {player.state.health > 0 ? (
-                                    <div className={"bar-" + player.state.health}></div>
+                                    <div className={"Tbar-" + player.state.health}></div>
                                 ) : (
-                                    <div className="bar-0"></div>
+                                    <div className="Tbar-0"></div>
                                 )}
                             </div>
                             <div>
@@ -54,23 +54,30 @@ export function Teams() {
 
                 <div className="CTplayers">
                     {teamCT.map((player, index) => (
-                        <div className="CTplayerBlock" key={player.observer_slot}>
-                            <div>
-                                {" "}
-                                {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
-                            </div>
+                      <div className="CTplayerBlock" key={player.observer_slot}>
+                          <div className="CTchart">
+                              {player.state.health > 0 ? (
+                                <div className={"CTbar-" + player.state.health}></div>
+                              ) : (
+                                <div className="CTbar-0"></div>
+                              )}
+                          </div>
+                          <div>
+                              {" "}
+                              {player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                              {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                          </div>
 
-                            <div>
-                                {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor}{" "}
-                                {player.state.helmet
-                                    ? "HELMdET"
-                                    : player.state.armor > 0
-                                    ? "NO HELMET"
-                                    : "NO ARMOR"}{" "}
-                            </div>
-                        </div>
+                          <div>
+                              {player.observer_slot}. {player.name} {player.state.health}{" "}
+                              {player.state.armor}{" "}
+                              {player.state.helmet
+                                ? "HELMET"
+                                : player.state.armor > 0
+                                  ? "NO HELMET"
+                                  : "NO ARMOR"}{" "}
+                          </div>
+                      </div>
                     ))}
                 </div>
             </div>
