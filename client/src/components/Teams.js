@@ -10,7 +10,7 @@ export function Teams() {
 
     useEffect(() => {
         socket.on("switchedSides", (switchedSides) => {
-            console.log("Switched sides");
+            //console.log("Switched sides");
             setSwitched(switchedSides);
         });
 
@@ -22,6 +22,7 @@ export function Teams() {
 
         socket.on("rightTeam", (rightTeam) => {
             //console.log("Setting T team");
+            //console.log(rightTeam)
             setTeamRight(rightTeam);
         });
     });
@@ -29,12 +30,41 @@ export function Teams() {
     if (teamLeft && teamRight) {
         return (
             <div>
+                <div className="CTplayers">
+                    {teamLeft.map((player, index) => (
+                        <div className="CTplayerBlock" key={player.observer_slot}>
+                            <div className={!switched ? "CTchart" : "Tchart"}>
+                                {player.state.health > 0 ? (
+                                    <div className={(teamLeft[0].team === "CT" ? "C" : "") + "Tbar-" + player.state.health}></div>
+                                ) : (
+                                    <div className="CTbar-D"></div>
+                                )}
+                            </div>
+                            <div>
+                                {" "}
+                                {player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                            </div>
+
+                            <div>
+                                {player.observer_slot}. {player.name} {player.state.health}{" "}
+                                {player.state.armor}{" "}
+                                {player.state.helmet
+                                    ? "HELMET"
+                                    : player.state.armor > 0
+                                        ? "NO HELMET"
+                                        : "NO ARMOR"}{" "}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
                 <div className="Tplayers">
                     {teamRight.map((player, index) => (
                         <div className="TplayerBlock" key={player.observer_slot}>
                             <div className="Tchart">
                                 {player.state.health > 0 ? (
-                                    <div className={(!switched ? "" : "C") + "Tbar-" + player.state.health}></div>
+                                    <div className={(teamRight[0].team === "CT" ? "C" : "") + "Tbar-" + player.state.health}></div>
                                 ) : (
                                     <div className="Tbar-D"></div>
                                 )}
@@ -58,34 +88,7 @@ export function Teams() {
                     ))}
                 </div>
 
-                <div className="CTplayers">
-                    {teamLeft.map((player, index) => (
-                        <div className="CTplayerBlock" key={player.observer_slot}>
-                            <div className={!switched ? "CTchart" : "Tchart"}>
-                                {player.state.health > 0 ? (
-                                    <div className={(!switched ? "C" : "") + "Tbar-" + player.state.health}></div>
-                                ) : (
-                                    <div className="CTbar-D"></div>
-                                )}
-                            </div>
-                            <div>
-                                {" "}
-                                {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
-                            </div>
 
-                            <div>
-                                {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor}{" "}
-                                {player.state.helmet
-                                    ? "HELMET"
-                                    : player.state.armor > 0
-                                        ? "NO HELMET"
-                                        : "NO ARMOR"}{" "}
-                            </div>
-                        </div>
-                    ))}
-                </div>
             </div>
         );
     } else return <div></div>;
