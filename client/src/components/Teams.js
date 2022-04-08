@@ -1,7 +1,6 @@
-import "./../styles/Teams.css";
+import "./../styles/Teams.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-
 const socket = io("http://localhost:5001");
 
 export function Teams() {
@@ -19,13 +18,21 @@ export function Teams() {
             setTeamT(TTeam);
         });
     });
-
+    let teamSlotLeft = 0;
+    let teamSlotRight = 0;
     if (teamCT && teamT) {
         return (
             <div>
                 <div className="Tplayers">
                     {teamT.map((player, index) => (
                         <div className="TplayerBlock" key={player.observer_slot}>
+                            <div className="chart">
+                                {player.state.health > 0 ? (
+                                    <div className={"bar-" + player.state.health}></div>
+                                ) : (
+                                    <div className="bar-0"></div>
+                                )}
+                            </div>
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
@@ -44,6 +51,7 @@ export function Teams() {
                         </div>
                     ))}
                 </div>
+
                 <div className="CTplayers">
                     {teamCT.map((player, index) => (
                         <div className="CTplayerBlock" key={player.observer_slot}>
@@ -55,7 +63,12 @@ export function Teams() {
 
                             <div>
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor} {player.state.helmet ? "HELMET" : "NO HELMET"}{" "}
+                                {player.state.armor}{" "}
+                                {player.state.helmet
+                                    ? "HELMdET"
+                                    : player.state.armor > 0
+                                    ? "NO HELMET"
+                                    : "NO ARMOR"}{" "}
                             </div>
                         </div>
                     ))}
