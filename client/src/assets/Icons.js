@@ -1,4 +1,4 @@
-import { ReactComponent as ArmorFull } from "./images/icon_armor_helmet_default.svg";
+import { ReactComponent as ArmorFull } from "./images/icon_armor_full_default.svg";
 import { ReactComponent as ArmorHalf } from "./images/icon_armor_half_default.svg";
 import { ReactComponent as ArmorHalfHelmet } from "./images/icon_armor_half_helmet_default.svg";
 import { ReactComponent as ArmorHelmet } from "./images/icon_armor_helmet_default.svg";
