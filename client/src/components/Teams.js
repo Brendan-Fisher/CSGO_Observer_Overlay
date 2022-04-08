@@ -1,6 +1,9 @@
 import "./../styles/Teams.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+
+import { ArmorHelmet, ArmorFull, Defuse, SmallBomb } from "../assets/Icons";
+
 const socket = io("http://localhost:5001");
 
 export function Teams() {
@@ -16,7 +19,6 @@ export function Teams() {
 
         socket.on("leftTeam", (leftTeam) => {
             //console.log("Setting CT team");
-
             setTeamLeft(leftTeam);
         });
 
@@ -33,27 +35,39 @@ export function Teams() {
                 <div className="CTplayers">
                     {teamLeft.map((player, index) => (
                         <div className="CTplayerBlock" key={player.observer_slot}>
-                            <div className={!switched ? "CTchart" : "Tchart"}>
-                                {player.state.health > 0 ? (
-                                    <div className={(teamLeft[0].team === "CT" ? "C" : "") + "Tbar-" + player.state.health}></div>
+                            <div className="CTArmor">
+                                <p>{player.state.health}</p>
+                                {player.state.helmet ? (
+                                    <ArmorHelmet />
                                 ) : (
-                                    <div className="CTbar-D"></div>
+                                    player.state.armor > 0 && <ArmorFull />
                                 )}
                             </div>
-                            <div>
-                                {" "}
-                                {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                            <div className="CTplayerInfo">
+                                <div className="healthBarText">
+                                    <p>
+                                        {" "}
+                                        {player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                                        {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                                    </p>
+                                </div>
+                                <div className={!switched ? "CTchart" : "Tchart"}>
+                                    {player.state.health > 0 ? (
+                                        <div
+                                            className={
+                                                (teamLeft[0].team === "CT" ? "C" : "") +
+                                                "Tbar-" +
+                                                player.state.health
+                                            }
+                                        ></div>
+                                    ) : (
+                                        <div className="CTbar-D"></div>
+                                    )}
+                                </div>
                             </div>
 
-                            <div>
+                            <div className="subText">
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor}{" "}
-                                {player.state.helmet
-                                    ? "HELMET"
-                                    : player.state.armor > 0
-                                        ? "NO HELMET"
-                                        : "NO ARMOR"}{" "}
                             </div>
                         </div>
                     ))}
@@ -62,33 +76,43 @@ export function Teams() {
                 <div className="Tplayers">
                     {teamRight.map((player, index) => (
                         <div className="TplayerBlock" key={player.observer_slot}>
-                            <div className="Tchart">
-                                {player.state.health > 0 ? (
-                                    <div className={(teamRight[0].team === "CT" ? "C" : "") + "Tbar-" + player.state.health}></div>
+                            <div className="TArmor">
+                                <p>{player.state.health}</p>
+                                {player.state.helmet ? (
+                                    <ArmorHelmet />
                                 ) : (
-                                    <div className="Tbar-D"></div>
+                                    player.state.armor > 0 && <ArmorFull />
                                 )}
                             </div>
-                            <div>
-                                {" "}
-                                {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                            <div className="TplayerInfo">
+                                <div className="healthBarText">
+                                    <p>
+                                        {" "}
+                                        {player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                                        {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                                    </p>
+                                </div>
+                                <div className="Tchart">
+                                    {player.state.health > 0 ? (
+                                        <div
+                                            className={
+                                                (teamRight[0].team === "CT" ? "C" : "") +
+                                                "Tbar-" +
+                                                player.state.health
+                                            }
+                                        ></div>
+                                    ) : (
+                                        <div className="Tbar-D"></div>
+                                    )}
+                                </div>
                             </div>
 
-                            <div>
+                            <div className="subText">
                                 {player.observer_slot}. {player.name} {player.state.health}{" "}
-                                {player.state.armor}{" "}
-                                {player.state.helmet
-                                    ? "HELMET"
-                                    : player.state.armor > 0
-                                        ? "NO HELMET"
-                                        : "NO ARMOR"}{" "}
                             </div>
                         </div>
                     ))}
                 </div>
-
-
             </div>
         );
     } else return <div></div>;
