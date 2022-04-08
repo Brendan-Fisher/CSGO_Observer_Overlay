@@ -199,22 +199,25 @@ const parsePlayers = (raw) => {
         forward: player.forward,
     }));
 
+    // Set ADRs to 0 at beginning of game
     for (const p of players) {
-        //console.log(parseInt(playersMatchDamage.get(p.steamid)));
-        //console.log("ROUND " + raw.numrounds);
         p.match_stats.adr = raw.numrounds === 0 ? 0 :
             parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds));
-        //console.log(p.match_stats.adr);
     }
 
+    // Set ADR of current player
     players.find(p => p.steamid === raw.player.steamid) ?
         raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
         : 0;
-    let CTTeam = players.filter((p) => p.team === "CT");
-    let TTeam = players.filter((p) => p.team === "T");
 
-    io.emit("CTTeam", CTTeam);
-    io.emit("TTeam", TTeam);
+    let leftTeam = players.filter((p) => p.observer_slot < 6 && p.observer_slot !== 0);
+    let rightTeam = players.filter((p) => p.observer_slot >= 6 || p.observer_slot === 0);
+
+
+    raw.numrounds >= 15 ? io.emit("switchedSides", true) : io.emit("switchedSides", false)
+
+    io.emit("leftTeam", leftTeam);
+    io.emit("rightTeam", rightTeam);
     io.emit("player", raw.player);
     io.emit("playerList", players);
 };
