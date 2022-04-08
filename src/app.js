@@ -206,12 +206,12 @@ const parsePlayers = (raw) => {
         //console.log(parseInt(playersMatchDamage.get(p.steamid)));
         //console.log("ROUND " + raw.numrounds);
         p.match_stats.adr = raw.numrounds === 0 ? 0 :
-            parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds);
+            parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds));
         //console.log(p.match_stats.adr);
     }
 
     players.find(p => p.steamid === raw.player.steamid) ?
-        raw.player.match_stats.adr = parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds)
+        raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
         : 0;
     let CTTeam = players.filter((p) => p.team === "CT");
     let TTeam = players.filter((p) => p.team === "T");
