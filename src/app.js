@@ -125,7 +125,7 @@ const parseGamestate = (raw) => {
         player: raw.player,
         numrounds: raw.map.round
     };
-
+    parseMinimap(raw);
     parseADR(raw);
     parsePlayers(playerInfo);
 };
@@ -182,6 +182,16 @@ const parseScoreboard = (raw) => {
         parseInt(time / 60) + ":" + (time % 60 < 10 ? "0" : "") + (time % 60);
 
     io.emit("scoreboard", scoreboard);
+};
+
+const parseMinimap = (raw) => {
+
+    let map = {
+        mapinfo: raw.map,
+        playerLocation: raw.allplayers,
+    };
+
+    io.emit("map", map);
 };
 
 const parsePlayers = (raw) => {

@@ -1,0 +1,17 @@
+.map {
+  height: 20%;
+  background-color: rgba(0, 19, 127, 0.35);
+  width: 20%;
+  margin: 20px;
+}
+
+.miniMap {
+  display: table-cell;
+  float: left;
+  width: 100%;
+  align-items: center;
+  height: 100%;
+  opacity: 100%;
+  padding-right: 5px;
+  margin-top: -200px;
+}
