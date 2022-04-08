@@ -25,8 +25,6 @@ export function Teams() {
             setTeamRight(rightTeam);
         });
     });
-    let teamSlotLeft = 0;
-    let teamSlotRight = 0;
 
     if (teamLeft && teamRight) {
         return (
