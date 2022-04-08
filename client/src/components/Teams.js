@@ -100,8 +100,8 @@ export function Teams() {
         return (
 
             <div>
-                <Team team={teamLeft} switched={teamLeft}> </Team>
-                <Team team={teamRight} switched={teamRight}> </Team>
+                <Team team={teamLeft}></Team>
+                <Team team={teamRight}></Team>
             </div>
         );
     } else return <div></div>;
