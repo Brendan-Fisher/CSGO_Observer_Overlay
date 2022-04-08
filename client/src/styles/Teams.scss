@@ -1,7 +1,7 @@
 .CTplayers {
     width: 20%;
     position: absolute;
-    background-color: blue;
+    background-color: transparent;
     text-align: left;
     opacity: 80%;
     bottom: 25px;
@@ -10,7 +10,7 @@
 
 .Tplayers {
     width: 20%;
-    background-color: orange;
+    background-color: transparent;
     opacity: 80%;
     position: absolute;
     text-align: right;
@@ -18,20 +18,37 @@
     right: 25px;
 }
 
+.TplayerBlock {
+    margin-bottom: 5px;
+    background-color: rgb(46, 46, 46);
+}
+.CTplayerBlock {
+    margin-bottom: 5px;
+    background-color: rgb(46, 46, 46);
+}
+
 .chart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    //grid-template-rows: repeat(5, 1fr);
     grid-row-gap: 0px;
     height: 20px;
     width: 100%;
     padding: 0px;
 }
 
-[class*="bar"] {
-    border-radius: 20px 0 0 0;
+[class*="Tbar"] {
+    //border-radius: 20px 0 0 0;
     transition: all 0.6s ease;
-    background-color: blue;
+    background-color: rgb(255, 0, 0);
+    grid-column-start: 0;
+    grid-column-end: 101;
+}
+
+[class*="CTbar"] {
+    //border-radius: 20px 0 0 0;
+    transition: all 0.6s ease;
+    background-color: rgb(0, 195, 255);
     grid-column-start: 0;
     grid-column-end: 101;
 }
@@ -44,7 +61,11 @@ $totalColumns: 101;
 }
 
 @for $i from 0 through $totalColumns {
-    .bar-#{$i} {
+    .Tbar-#{$i} {
+        @include chartValue($i);
+    }
+
+    .CTbar-#{$i} {
         @include chartValue($i);
     }
 }
