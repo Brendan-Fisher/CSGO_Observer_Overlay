@@ -29,10 +29,8 @@ export function Teams() {
     });
 
 
-    // L/R and halftime
     const Team = (props) => {
 
-        //console.log(teamLeft)
         let side = props.team === teamLeft ? "L" : "R";
         let switched = props.team[0].team === "CT" ? "C" : ""
         // console.log(side);
@@ -103,7 +101,7 @@ export function Teams() {
 
             <div>
                 <Team team={teamLeft} switched={teamLeft}> </Team>
-                <Team team={teamRight} switched={teamRight[0].team === "CT" ? "C" : ""}> </Team>
+                <Team team={teamRight} switched={teamRight}> </Team>
             </div>
         );
     } else return <div></div>;
