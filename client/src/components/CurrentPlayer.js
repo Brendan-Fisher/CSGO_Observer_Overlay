@@ -1,4 +1,4 @@
-import "./../styles/CurrentPlayer.css";
+import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
@@ -17,18 +17,18 @@ export function Current() {
 
     if (player) {
         return (
-            <div className="currentPlayer">
-                <div>
-                    {" "}
-                    {player.name} {player.state.health} {player.state.armor} {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
+            <div className="playerBlock">
+                <div className="playerName">
+                    {player.name}{" "}
+                    <span style={{ color: '#FF0000' }}>HEALTH</span>{player.state.health}{" "}
+                    <span style={{ color: '#FF0000' }}>ARMOR</span>{player.state.armor}{" "}
+                    {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
                 </div>
-                <div>K A D ADR ROUND_KILLS </div>
-                <div>
-                    {" "}
-                    {player.match_stats.kills} {player.match_stats.assists}{" "}
-                    {player.match_stats.deaths} {player.match_stats.adr}{" "}
-                    {player.state.round_kills}{" "}
-                </div>
+                <div className="playerInfo">
+                    <span style={{ color: '#FF0000' }}>ADR</span>{player.match_stats.adr}{" | "}
+                    <span style={{ color: '#FF0000' }}>K</span>{player.match_stats.kills}{" "}
+                    <span style={{ color: '#FF0000' }}>A</span>{player.match_stats.assists}{" "}
+                    <span style={{ color: '#FF0000' }}>D</span>{player.match_stats.deaths}</div>
             </div>
         );
     } else {
