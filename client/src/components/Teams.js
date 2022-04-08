@@ -29,7 +29,7 @@ export function Teams() {
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths}
+                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
                             </div>
 
                             <div>
@@ -38,8 +38,8 @@ export function Teams() {
                                 {player.state.helmet
                                     ? "HELMET"
                                     : player.state.armor > 0
-                                    ? "NO HELMET"
-                                    : "NO ARMOR"}{" "}
+                                        ? "NO HELMET"
+                                        : "NO ARMOR"}{" "}
                             </div>
                         </div>
                     ))}
@@ -50,7 +50,7 @@ export function Teams() {
                             <div>
                                 {" "}
                                 {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                {player.match_stats.deaths}
+                                {player.match_stats.deaths} ADR: {player.match_stats.adr}
                             </div>
 
                             <div>
