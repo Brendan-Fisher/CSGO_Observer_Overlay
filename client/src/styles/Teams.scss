@@ -1,5 +1,5 @@
 .CTplayers {
-    width: 20%;
+    width: 25%;
     position: absolute;
     background-color: transparent;
     text-align: left;
@@ -9,7 +9,7 @@
 }
 
 .Tplayers {
-    width: 20%;
+    width: 25%;
     background-color: transparent;
     opacity: 80%;
     position: absolute;
@@ -41,7 +41,7 @@
     //border-radius: 20px 0 0 0;
     transition: all 0.6s ease;
     background-color: rgb(255, 0, 0);
-    grid-column-start: 0;
+    grid-column-start: 1;
     grid-column-end: 101;
 }
 
@@ -49,27 +49,27 @@
     //border-radius: 20px 0 0 0;
     transition: all 0.6s ease;
     background-color: rgb(0, 195, 255);
-    grid-column-start: 0;
+    grid-column-start: 1;
     grid-column-end: 101;
 }
 
 $totalColumns: 101;
 
-@mixin chartValue($data) {
+@mixin TchartValue($data) {
     $result: $totalColumns - $data;
     grid-column-start: $result;
 }
 
+@mixin CTchartValue($data) {
+    grid-column-end: $data + 1;
+}
+
 @for $i from 0 through $totalColumns {
     .Tbar-#{$i} {
-        @include chartValue($i);
+        @include TchartValue($i);
     }
 
     .CTbar-#{$i} {
-        @include chartValue($i);
+        @include CTchartValue($i);
     }
-}
-
-tr {
-    width: 20%;
 }
