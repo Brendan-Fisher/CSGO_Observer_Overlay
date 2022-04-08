@@ -18,8 +18,7 @@ export function Teams() {
             setTeamT(TTeam);
         });
     });
-    let teamSlotLeft = 0;
-    let teamSlotRight = 0;
+
     if (teamCT && teamT) {
         return (
             <div>
