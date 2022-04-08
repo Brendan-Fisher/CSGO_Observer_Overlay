@@ -2,7 +2,7 @@ import "./../styles/Teams.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-import { ArmorHelmet, ArmorFull, Defuse, SmallBomb } from "../assets/Icons";
+import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
 
@@ -10,6 +10,7 @@ export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
     const [teamRight, setTeamRight] = useState(null);
     const [switched, setSwitched] = useState(false);
+    const [currentSpec, setCurrentSpec] = useState(false);
 
     useEffect(() => {
         socket.on("switchedSides", (switchedSides) => {
@@ -27,6 +28,12 @@ export function Teams() {
             //console.log(rightTeam)
             setTeamRight(rightTeam);
         });
+
+        socket.on("player", (player) => {
+            //console.log(`Spectating ${player.name}`);
+            setCurrentSpec(player);
+            //console.log(player);
+        });
     });
 
     if (teamLeft && teamRight) {
@@ -35,12 +42,28 @@ export function Teams() {
                 <div className="CTplayers">
                     {teamLeft.map((player, index) => (
                         <div className="CTplayerBlock" key={player.observer_slot}>
-                            <div className="CTArmor">
-                                <p>{player.state.health}</p>
-                                {player.state.helmet ? (
-                                    <ArmorHelmet />
+                            <div
+                                className="CTArmor"
+                                id={player.steamid === currentSpec.steamid ? "spec" : ""}
+                            >
+                                {player.state.health > 0 ? (
+                                    <div>
+                                        <p
+                                            style={{
+                                                color: player.state.health <= 20 ? "red" : "white",
+                                            }}
+                                        >
+                                            {player.state.health}
+                                        </p>
+
+                                        {player.state.helmet ? (
+                                            <ArmorHelmet />
+                                        ) : (
+                                            player.state.armor > 0 && <ArmorFull />
+                                        )}
+                                    </div>
                                 ) : (
-                                    player.state.armor > 0 && <ArmorFull />
+                                    <Skull className="skull" />
                                 )}
                             </div>
                             <div className="CTplayerInfo">
@@ -76,12 +99,28 @@ export function Teams() {
                 <div className="Tplayers">
                     {teamRight.map((player, index) => (
                         <div className="TplayerBlock" key={player.observer_slot}>
-                            <div className="TArmor">
-                                <p>{player.state.health}</p>
-                                {player.state.helmet ? (
-                                    <ArmorHelmet />
+                            <div
+                                className="TArmor"
+                                id={player.steamid === currentSpec.steamid ? "spec" : ""}
+                            >
+                                {player.state.health > 0 ? (
+                                    <div>
+                                        <p
+                                            style={{
+                                                color: player.state.health <= 20 ? "red" : "white",
+                                            }}
+                                        >
+                                            {player.state.health}
+                                        </p>
+
+                                        {player.state.helmet ? (
+                                            <ArmorHelmet />
+                                        ) : (
+                                            player.state.armor > 0 && <ArmorFull />
+                                        )}
+                                    </div>
                                 ) : (
-                                    player.state.armor > 0 && <ArmorFull />
+                                    <Skull className="skull" />
                                 )}
                             </div>
                             <div className="TplayerInfo">
