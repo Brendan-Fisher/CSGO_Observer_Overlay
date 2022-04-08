@@ -10,7 +10,6 @@ export function ScoreBoard() {
 
     useEffect(() => {
         socket.on("scoreboard", (scoreboard) => {
-            console.log("Received scoreboard");
             setSB(scoreboard);
         });
     });
