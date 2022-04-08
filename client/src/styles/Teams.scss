@@ -1,5 +1,6 @@
 .CTplayers {
-    width: 25%;
+    font-family: Roboto-Bold;
+    width: 20%;
     position: absolute;
     background-color: transparent;
     text-align: left;
@@ -9,7 +10,8 @@
 }
 
 .Tplayers {
-    width: 25%;
+    font-family: Roboto-Bold;
+    width: 20%;
     background-color: transparent;
     opacity: 80%;
     position: absolute;
@@ -20,18 +22,100 @@
 
 .TplayerBlock {
     margin-bottom: 5px;
-    background-color: rgb(46, 46, 46);
+    background-color: #002226e4;
+    height: 60px;
 }
 .CTplayerBlock {
     margin-bottom: 5px;
-    background-color: rgb(46, 46, 46);
+    background-color: #002226e4;
+    height: 60px;
+}
+
+.CTArmor {
+    display: table-cell;
+    width: 20%;
+    height: 60px;
+    float: left;
+    background-color: #002226e4;
+    text-align: center;
+
+    p {
+        margin-top: 5px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    svg {
+        height: 30px;
+        width: 30px;
+        fill: white;
+    }
+}
+
+.CTplayerInfo {
+    display: table-cell;
+    position: relative;
+    float: left;
+    width: 80%;
+    max-height: 30px;
+}
+
+.TArmor {
+    display: table-cell;
+    width: 20%;
+    height: 60px;
+    float: right;
+    background-color: #002226e4;
+    text-align: center;
+
+    p {
+        margin-top: 5px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    svg {
+        height: 30px;
+        width: 30px;
+        fill: white;
+    }
+}
+
+.TplayerInfo {
+    display: table-cell;
+    position: relative;
+    float: right;
+    width: 80%;
+    height: 30px;
+    max-height: 30px;
+}
+
+.healthBarText {
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    overflow: visible;
+    p {
+        margin: 0;
+        max-height: 30px;
+        overflow: visible;
+        min-width: 150px;
+    }
+}
+
+.subText {
+    height: 30px;
+    max-height: 30px;
 }
 
 .Tchart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 0px;
-    height: 20px;
+    height: 30px;
+    max-height: 30px;
     width: 100%;
     padding: 0px;
 }
@@ -40,7 +124,8 @@
     display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 0px;
-    height: 20px;
+    height: 30px;
+    max-height: 30px;
     width: 100%;
     padding: 0px;
 }
@@ -50,6 +135,7 @@
     background-color: rgb(255, 0, 0);
     grid-column-start: 1;
     grid-column-end: 101;
+    max-height: 30px;
 }
 
 [class*="CTbar"] {
@@ -57,21 +143,22 @@
     background-color: rgb(0, 195, 255);
     grid-column-start: 1;
     grid-column-end: 101;
+    max-height: 30px;
 }
 
 .CTbar-D {
     transition: all 0.6s ease;
-    background-color: rgb(0, 195, 255);
+    background-color: #002226e4;
     grid-column-start: 1;
     grid-column-end: 101;
-    opacity: 0%
+    max-height: 30px;
 }
 .Tbar-D {
     transition: all 0.6s ease;
-    background-color: rgb(255, 0, 0);
+    background-color: #002226e4;
     grid-column-start: 1;
     grid-column-end: 101;
-    opacity: 0%
+    max-height: 30px;
 }
 $totalColumns: 101;
 
