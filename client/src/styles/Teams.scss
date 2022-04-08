@@ -27,10 +27,18 @@
     background-color: rgb(46, 46, 46);
 }
 
-.chart {
+.Tchart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
-    //grid-template-rows: repeat(5, 1fr);
+    grid-row-gap: 0px;
+    height: 20px;
+    width: 100%;
+    padding: 0px;
+}
+
+.CTchart {
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 0px;
     height: 20px;
     width: 100%;
@@ -38,7 +46,6 @@
 }
 
 [class*="Tbar"] {
-    //border-radius: 20px 0 0 0;
     transition: all 0.6s ease;
     background-color: rgb(255, 0, 0);
     grid-column-start: 1;
@@ -46,7 +53,6 @@
 }
 
 [class*="CTbar"] {
-    //border-radius: 20px 0 0 0;
     transition: all 0.6s ease;
     background-color: rgb(0, 195, 255);
     grid-column-start: 1;

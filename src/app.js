@@ -132,39 +132,36 @@ const parseGamestate = (raw) => {
 
 var playersMatchDamage = new Map();
 
-var lastRoundPhase = "";
+var roundOverFlag = false;
 const parseADR = (raw) => {
     //console.log(raw);
     if (!raw.allplayers || !raw.map || !raw.phase_countdowns || !raw.round) {
         return null;
     }
     // update players adr at the end of every round
-    if (lastRoundPhase !== "over" && raw.round.phase == "over") {
+    if (!roundOverFlag && raw.round.phase === "over") {
         Object.entries(raw.allplayers).map(([id, player]) => {
-            //console.log(id);
 
             if (playersMatchDamage.has(id)) {
                 playersMatchDamage.set(id, parseInt(player.state.round_totaldmg) + parseInt(playersMatchDamage.get(id)));
-                //console.log("existing player at end of round " + raw.map.round + " " + playersMatchDamage.get(id) + " " +
-                //parseInt(player.state.round_totaldmg) + parseInt(playersMatchDamage.get(id)))
             }
             else {
-                //console.log("new player at end of round " + playersMatchDamage.get(id))
                 playersMatchDamage.set(id, parseInt(player.state.round_totaldmg));
             }
 
-            //console.log("new player " + playersADR.get(id))
         });
 
     }
     // if player is new, make their adr 0.
-    else {
+    else if (raw.round.phase !== "over") {
         Object.entries(raw.allplayers).map(([id, player]) => {
-            //console.log(id);
             if (!playersMatchDamage.has(id)) playersMatchDamage.set(id, 0);
         });
     }
-    lastRoundPhase = raw.round.phase;
+
+    if (raw.round.phase === "over") {
+        roundOverFlag = true;
+    } else if (roundOverFlag) roundOverFlag = false;
 }
 
 const parseScoreboard = (raw) => {
@@ -206,12 +203,12 @@ const parsePlayers = (raw) => {
         //console.log(parseInt(playersMatchDamage.get(p.steamid)));
         //console.log("ROUND " + raw.numrounds);
         p.match_stats.adr = raw.numrounds === 0 ? 0 :
-            parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds);
+            parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds));
         //console.log(p.match_stats.adr);
     }
 
     players.find(p => p.steamid === raw.player.steamid) ?
-        raw.player.match_stats.adr = parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds)
+        raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
         : 0;
     let CTTeam = players.filter((p) => p.team === "CT");
     let TTeam = players.filter((p) => p.team === "T");
