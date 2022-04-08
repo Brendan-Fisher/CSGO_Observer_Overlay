@@ -33,6 +33,7 @@
     "http": "^0.0.1-security",
     "morgan": "^1.10.0",
     "npm": "^8.6.0",
+    "sass": "^1.50.0",
     "simple-node-logger": "^21.8.12",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1"
