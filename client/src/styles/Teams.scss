@@ -25,6 +25,7 @@
     background-color: #002217a3;
     height: 60px;
 }
+
 .CTplayerBlock {
     margin-bottom: 5px;
     background-color: #002217a3;
@@ -111,17 +112,38 @@
     position: absolute;
     top: 0;
     overflow: visible;
-    p {
+
+    .pLeft {
         margin: 0;
         max-height: 30px;
         overflow: visible;
         min-width: 150px;
+        padding-top: 5px;
+        padding-left: 9px;
+    }
+
+    .pRight {
+        margin: 0;
+        max-height: 30px;
+        overflow: visible;
+        min-width: 150px;
+        padding-top: 5px;
+        padding-right: 9px;
     }
 }
 
-.subText {
+.subTextLeft {
     height: 30px;
     max-height: 30px;
+    padding-top: 35px;
+    padding-left: 85px;
+}
+
+.subTextRight {
+    height: 30px;
+    max-height: 30px;
+    padding-top: 35px;
+    padding-right: 85px;
 }
 
 .Tchart {
@@ -167,6 +189,7 @@
     grid-column-end: 101;
     max-height: 30px;
 }
+
 .Tbar-D {
     transition: all 0.6s ease;
     background-color: transparent;
@@ -174,6 +197,7 @@
     grid-column-end: 101;
     max-height: 30px;
 }
+
 $totalColumns: 101;
 
 @mixin TchartValue($data) {

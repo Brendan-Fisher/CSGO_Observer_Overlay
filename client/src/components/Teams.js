@@ -28,6 +28,8 @@ export function Teams() {
         //console.log(player);
     });
 
+
+    // L/R and halftime
     if (teamLeft && teamRight) {
         return (
             <div>
@@ -42,7 +44,7 @@ export function Teams() {
                                     <div>
                                         <p
                                             style={{
-                                                color: player.state.health <= 20 ? "red" : "white",
+                                                color: player.state.health > 50 ? "white" : player.state.health > 20 ? "orange" : "red",
                                             }}
                                         >
                                             {player.state.health}
@@ -60,7 +62,7 @@ export function Teams() {
                             </div>
                             <div className="CTplayerInfo">
                                 <div className="healthBarText">
-                                    <p>
+                                    <p className="pLeft">
                                         {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}
                                         {player.match_stats.deaths} ADR: {player.match_stats.adr}
@@ -81,8 +83,8 @@ export function Teams() {
                                 </div>
                             </div>
 
-                            <div className="subText">
-                                {player.observer_slot}. {player.name} {player.state.health}{" "}
+                            <div className="subTextLeft">
+                                {player.observer_slot}. {player.name}{" "}
                             </div>
                         </div>
                     ))}
@@ -99,7 +101,7 @@ export function Teams() {
                                     <div>
                                         <p
                                             style={{
-                                                color: player.state.health <= 20 ? "red" : "white",
+                                                color: player.state.health > 50 ? "white" : player.state.health > 20 ? "orange" : "red",
                                             }}
                                         >
                                             {player.state.health}
@@ -117,7 +119,7 @@ export function Teams() {
                             </div>
                             <div className="TplayerInfo">
                                 <div className="healthBarText">
-                                    <p>
+                                    <p className="pRight">
                                         {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}
                                         {player.match_stats.deaths} ADR: {player.match_stats.adr}
@@ -138,8 +140,8 @@ export function Teams() {
                                 </div>
                             </div>
 
-                            <div className="subText">
-                                {player.observer_slot}. {player.name} {player.state.health}{" "}
+                            <div className="subTextRight">
+                                {player.name} {player.observer_slot}.{" "}
                             </div>
                         </div>
                     ))}
