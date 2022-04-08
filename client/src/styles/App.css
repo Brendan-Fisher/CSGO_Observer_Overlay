@@ -1,5 +1,7 @@
 .App {
     background-color: transparent;
+    height: 100vh;
+    position: relative;
 }
 
 .App-logo {
