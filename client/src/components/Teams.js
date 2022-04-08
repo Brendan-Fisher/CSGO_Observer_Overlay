@@ -30,7 +30,7 @@ export function Teams() {
                                 {player.state.health > 0 ? (
                                     <div className={"Tbar-" + player.state.health}></div>
                                 ) : (
-                                    <div className="Tbar-0"></div>
+                                    <div className="Tbar-D"></div>
                                 )}
                             </div>
                             <div>
@@ -59,7 +59,7 @@ export function Teams() {
                                 {player.state.health > 0 ? (
                                     <div className={"CTbar-" + player.state.health}></div>
                                 ) : (
-                                    <div className="CTbar-0"></div>
+                                    <div className="CTbar-D"></div>
                                 )}
                             </div>
                             <div>
