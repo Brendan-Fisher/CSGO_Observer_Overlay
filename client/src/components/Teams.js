@@ -6,6 +6,58 @@ import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull } from "../assets/Icon
 
 const socket = io("http://localhost:5001");
 
+function getPrimaryWeapon(player) {
+    if(player.weapons == null) {
+        return "";
+    }
+    if(player.weapons.weapon_0 == null) {
+        return "";
+    }
+    var gun;
+    var x = "";
+    Object.keys(player.weapons).forEach(function(key) {
+        gun = player.weapons[key];
+        if(gun.type == "Rifle" || gun.type == "SniperRifle" || gun.type == "Submachine Gun" || gun.type == "Shotgun" || gun.type == "Machine Gun") {
+            x = gun.name;
+        }
+
+    });
+    if(x == "") {
+        Object.keys(player.weapons).forEach(function(key) {
+            gun = player.weapons[key];
+            if(gun.type == "Pistol") {
+                x = gun.name;
+            }
+        });
+    }
+    if(x == "") {
+        x = player.weapon.weapon_0.name;
+    }
+    return x;
+}
+function getSecondaryWeapon(player) {
+    if(player.weapons == null) {
+        return "";
+    }
+    if(player.weapons.weapon_0 == null) {
+        return "";
+    }
+    var gun;
+    var x = "";
+    Object.keys(player.weapons).forEach(function(key) {
+        gun = player.weapons[key];
+        if(gun.type == "Pistol") {
+            x = gun.name;
+        }
+    });
+
+    if(x == "") {
+        x = player.weapon.weapon_0.name;
+    }
+    return x;
+}
+
+
 export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
     const [teamRight, setTeamRight] = useState(null);
@@ -36,6 +88,7 @@ export function Teams() {
         // console.log(side);
         // console.log(props.team);
         // console.log(props.switched);
+
         return (
             <div>
                 <div className={side == "L" ? "CTplayers" : "Tplayers"} >
@@ -67,11 +120,19 @@ export function Teams() {
                             </div>
                             <div className={side == "L" ? "CTplayerInfo" : "TplayerInfo"}>
                                 <div className="healthBarText">
+                                    <p className={side == "L" ? "GunL" : "GunR"}>
+                                        {getPrimaryWeapon(player)}
+                                    </p>
+                                    <p className={side == "L" ? "GunL2" : "GunR2"}>
+                                        {}
+                                        {}
+                                    </p>
                                     <p className={side == "L" ? "pLeft" : "pRight"}>
                                         {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}
                                         {player.match_stats.deaths} ADR: {player.match_stats.adr}
                                     </p>
+
                                 </div>
                                 <div className={side == "L" ? "CTchart" : "Tchart"}>
                                     {player.state.health > 0 ? (

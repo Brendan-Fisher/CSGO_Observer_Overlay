@@ -218,3 +218,34 @@ $totalColumns: 101;
         @include CTchartValue($i);
     }
 }
+
+.GunL {
+    position: absolute;
+    background-color: transparent;
+    height: 30px;
+    opacity: 100%;
+    left: 105%;
+}
+
+.GunR {
+    position: absolute;
+    background-color: transparent;
+    height: 30px;
+    opacity: 100%;
+    right: 105%;
+}
+.GunL2 {
+    position: absolute;
+    background-color: transparent;
+    height: 10px;
+    opacity: 100%;
+    left: 200%;
+}
+
+.GunR2 {
+    position: absolute;
+    background-color: transparent;
+    height: 10px;
+    opacity: 100%;
+    right: 200%;
+}
