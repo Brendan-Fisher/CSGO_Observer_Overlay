@@ -1,43 +1,40 @@
 .scoreboard {
-    display: table;
+    display: flex;
     font-family: GoBold;
     background-color: rgba(0, 19, 127, 0);
     //margin: auto;
     position: absolute;
-    margin-top: 10px;
     left: 50%;
-    height: 5%;
-    transform: translate(-50%);
+    transform: translate(-50%, -10%);
 
 
 }
 
 .Match_info {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
-    width: 50%;
-    height: 20%;
+    align-self: center;
+    margin: 0 auto;
+    width: 40%;
     background-color: rgba(46, 46, 46, 0.859);
 
     #time {
         font-size: 36px;
-        margin: 0%;
+        //margin: 0%;
     }
 
     #round {
 
         font-size: medium;
-        margin: 0%;
+        //margin: 0%;
     }
 }
 
 .TeamLeft {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
-    width: 80px;
-    //height: 100px;
+    align-self: center;
+    margin: 0 auto;
+    width: 100px;
+
 
     #CT_score {
         //display: block;
@@ -51,11 +48,10 @@
 }
 
 .TeamRight {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
-    width: 80px;
-    //height: 100%;
+    align-self: center;
+    margin: 0 auto;
+    width: 100px;
 
     #T_score {
         // display: block;
@@ -81,6 +77,6 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -35%);
+    transform: translate(-50%, -30%);
     margin: auto;
 }
