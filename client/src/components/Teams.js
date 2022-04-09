@@ -3,14 +3,18 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull, LogoT, LogoCT } from '../assets/Icons';
-import {weapon_ak47, weapon_aug, weapon_awp, weapon_bayonet, weapon_bizon, weapon_c4, weapon_cz75a, weapon_deagle, weapon_decoy, weapon_elite, weapon_famas, weapon_fiveseven, weapon_flashbang, weapon_g3sg1, weapon_galilar, weapon_glock, weapon_hegrenade, weapon_hkp2000, weapon_incgrenade, weapon_inferno, weapon_knife, weapon_knife_bayonet, weapon_knife_butterfly, weapon_knife_canis, weapon_knife_cord, weapon_knife_css, weapon_knife_falchion, weapon_knife_flip, weapon_knife_gut, weapon_knife_gypsy_jackknife, weapon_knife_karambit, weapon_knife_m9_bayonet, weapon_knife_outdoor, weapon_knife_push, weapon_knife_skeleton, weapon_knife_stiletto, weapon_knife_survival_bowie, weapon_knife_t, weapon_knife_tactical, weapon_knife_ursus, weapon_knife_widowmaker, weapon_m249, weapon_m4a1, weapon_m4a1_silencer, weapon_m4a1_silencer_off, weapon_mac10, weapon_mag7, weapon_molotov, weapon_mp5sd, weapon_mp7, weapon_mp9, weapon_negev, weapon_nova, weapon_out, weapon_p250, weapon_p90, weapon_revolver, weapon_sawedoff, weapon_scar20, weapon_sg556, weapon_smokegrenade, weapon_ssg08, weapon_taser, weapon_tec9, weapon_trigger_hurt, weapon_ump45, weapon_usp_silencer, weapon_usp_silencer_off, weapon_world, weapon_xm1014} from "../assets/Weapons";
+import {gunMap} from '../assets/Weapons';
 const socket = io("http://localhost:5001");
+
 
 function getPrimaryWeapon(player) {
     if(player.weapons == null) {
         return "";
     }
     if(player.weapons.weapon_0 == null) {
+        return "";
+    }
+    if(player.state.health == 0) {
         return "";
     }
     var gun;
@@ -33,13 +37,16 @@ function getPrimaryWeapon(player) {
     if(x == "") {
         x = player.weapon.weapon_0.name;
     }
-    return x;
+    return gunMap.get(x);
 }
 function getSecondaryWeapon(player) {
     if(player.weapons == null) {
         return "";
     }
     if(player.weapons.weapon_0 == null) {
+        return "";
+    }
+    if(!hasPrimary(player)) {
         return "";
     }
     var gun;
@@ -50,6 +57,9 @@ function getSecondaryWeapon(player) {
             x = gun.name;
         }
     });
+    if(gunMap.get(x) != null) {
+        return gunMap.get(x);
+    }
     return x;
 }
 function hasPrimary(player) {
@@ -128,11 +138,8 @@ export function Teams() {
                             </div>
                             <div className={side == "L" ? "CTplayerInfo" : "TplayerInfo"}>
                                 <div className="healthBarText">
-                                    <img className="GunL" src={weapon_awp}></img>
-                                    <p className={side == "L" ? "GunL2" : "GunR2"}>
-                                        {hasPrimary(player) ? getSecondaryWeapon(player) : ""}
-                                        {}
-                                    </p>
+                                    <img className={side=="L" ? "GunL": "GunR"} src={getPrimaryWeapon(player)}></img>
+                                    <img className={side=="L" ? "GunL2": "GunR2"} src={getSecondaryWeapon(player)}></img>
                                     <p className={side == "L" ? "pLeft" : "pRight"}>
                                         {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}

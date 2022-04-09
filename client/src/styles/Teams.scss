@@ -233,19 +233,23 @@ $totalColumns: 101;
     height: 50px;
     opacity: 100%;
     right: 105%;
+    transform: rotateY(180deg);
 }
 .GunL2 {
     position: absolute;
     background-color: transparent;
-    height: 10px;
-    opacity: 100%;
-    left: 200%;
+    height: 40px;
+    opacity: 50%;
+    left: 100%;
+    top:40px;
 }
 
 .GunR2 {
     position: absolute;
     background-color: transparent;
-    height: 10px;
-    opacity: 100%;
-    right: 200%;
+    height: 40px;
+    opacity: 50%;
+    top:40px;
+    right: 100%;
+    transform: rotateY(180deg);
 }
