@@ -75,6 +75,7 @@ function getPrimaryWeapon(side,player) {
 }
 function getSecondaryWeapon(side,player) { //Returns an img containing the secondary weapon of a player
     var playerSide;
+
     if(side == "L") {
         playerSide = "GunL2";
     } else { //Get the side of the HUD that the player is on, left or right
@@ -85,6 +86,7 @@ function getSecondaryWeapon(side,player) { //Returns an img containing the secon
     //than the primary weapon icons
     var x = ""; //Initialize secondary weapon name to ""
     if(player.weapons == null) {
+        console.log("a");
         return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(player.weapons.weapon_0 == null) {
@@ -98,7 +100,6 @@ function getSecondaryWeapon(side,player) { //Returns an img containing the secon
         return (<img className={playerSide} src={gunMap.get("")}></img>);
     } //If the player has no primary weapon, exit this function
     //Since the primary weapon in that case would just be their pistol/knife
-
     var gun;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
@@ -111,28 +112,27 @@ function getSecondaryWeapon(side,player) { //Returns an img containing the secon
             //GunR2e and GunL2e are also classes, which are identical to the non-e except they're not as opaque
         }
     });
-
     if(gunMap.get(x) != null) {
         return(<img className={playerSide} src={gunMap.get(x)}></img>); //Accesses the map storing all the gun's icons and returns the image
     }
-    return (<img className={playerSide} src={gunMap.get("")}></img>); //If you somehow get here, we have a huge problem
+    return (<img className={playerSide} src={gunMap.get(x)}></img>); //If you somehow get here, we have a huge problem
 
 }
 function hasPrimary(player) {
     //Function checks if the player has a primary weapon
     //Due to the TERRIBLE way that the game sends information of player weapons
     //There are not many better ways of doing this, sadly
-
+    var primary = false;
     var gun;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
         if(gun.type == "Rifle" || gun.type == "SniperRifle" || gun.type == "Submachine Gun" || gun.type == "Shotgun" || gun.type == "Machine Gun") {
-            return  true;
+            primary = true;
         }
         //Iterates through entire weapon list, and if a primary is found returns true
 
     });
-    return false; //Returns false otherwise
+    return primary; //Returns false otherwise
 }
 
 export function Teams() {
