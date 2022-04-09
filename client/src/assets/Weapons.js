@@ -1,6 +1,6 @@
 import  weapon_ak47  from "./weapons/ak47.svg";
 import  weapon_aug  from "./weapons/aug.svg";
-import  weapon_awp  from "./weapons/awp.svg";
+import  weapon_awp  from "./weapons/awp_2.svg";
 import  weapon_bayonet  from "./weapons/bayonet.svg";
 import  weapon_bizon  from "./weapons/bizon.svg";
 import  weapon_c4  from "./weapons/c4.svg";
@@ -59,7 +59,7 @@ import  weapon_sawedoff  from "./weapons/sawedoff.svg";
 import  weapon_scar20  from "./weapons/scar20.svg";
 import  weapon_sg556  from "./weapons/sg556.svg";
 import  weapon_smokegrenade  from "./weapons/smokegrenade.svg";
-import  weapon_ssg08  from "./weapons/ssg08.svg";
+import  weapon_ssg08  from "./weapons/ssg08_2.svg";
 import  weapon_taser  from "./weapons/taser.svg";
 import  weapon_tec9  from "./weapons/tec9.svg";
 import  weapon_trigger_hurt  from "./weapons/trigger_hurt.svg";

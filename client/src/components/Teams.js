@@ -156,6 +156,58 @@ function hasPrimary(player) {
     });
     return primary; //Returns false otherwise
 }
+function hasKit(player) {
+    if (player.team != "CT") {
+        return;
+    }
+
+    if (player.state.defusekit != null) {
+        if (player.state.defusekit == true) {
+            return <Defuse />;
+        }
+    }
+}
+function printArmorKitHealth(player, side) {
+    if (side != "L") {
+        return (
+            <div>
+                {" "}
+                <p
+                    style={{
+                        color:
+                            player.state.health > 50
+                                ? "white"
+                                : player.state.health > 20
+                                ? "orange"
+                                : "red",
+                    }}
+                >
+                    {player.state.health}
+                </p>
+                {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 && <ArmorFull />}
+                {hasKit(player)}
+            </div>
+        );
+    }
+    return (
+        <div>
+            <p
+                style={{
+                    color:
+                        player.state.health > 50
+                            ? "white"
+                            : player.state.health > 20
+                            ? "orange"
+                            : "red",
+                }}
+            >
+                {player.state.health}
+            </p>
+            {hasKit(player)}
+            {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 && <ArmorFull />}
+        </div>
+    );
+}
 
 export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
@@ -189,38 +241,19 @@ export function Teams() {
         // console.log(props.switched);
 
         return (
-            <div className={side === "L" ? "CTplayers" : "Tplayers"}>
+            <div className={side == "L" ? "CTplayers" : "Tplayers"}>
                 {/* Checks if players are left or right side, misleading variable names */}
                 {props.team.map((player, index) => (
                     <div
-                        className={side === "L" ? "CTplayerBlock" : "TplayerBlock"}
+                        className={side == "L" ? "CTplayerBlock" : "TplayerBlock"}
                         key={player.observer_slot}
                     >
                         <div
-                            className={side === "L" ? "CTArmor" : "TArmor"}
+                            className={side == "L" ? "CTArmor" : "TArmor"}
                             id={player.steamid === currentSpec.steamid ? "spec" : ""}
                         >
                             {player.state.health > 0 ? (
-                                <div>
-                                    <p
-                                        style={{
-                                            color:
-                                                player.state.health > 50
-                                                    ? "white"
-                                                    : player.state.health > 20
-                                                    ? "orange"
-                                                    : "red",
-                                        }}
-                                    >
-                                        {player.state.health}
-                                    </p>
-
-                                    {player.state.helmet ? (
-                                        <ArmorHelmet />
-                                    ) : (
-                                        player.state.armor > 0 && <ArmorFull />
-                                    )}
-                                </div>
+                                <div>{printArmorKitHealth(player, side)}</div>
                             ) : (
                                 <Skull className="skull" />
                             )}

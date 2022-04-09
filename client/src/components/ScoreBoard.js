@@ -5,7 +5,6 @@ import { LogoCT, LogoT, Bomb } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
 function printTime(scoreBoard) {
-    console.log(scoreBoard.phaseInfo);
     if (scoreBoard.phaseInfo.phase == "bomb") {
         return <img className="bombImage" src={Bomb}></img>;
     }
