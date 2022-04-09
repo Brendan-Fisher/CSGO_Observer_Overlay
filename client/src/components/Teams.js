@@ -7,22 +7,32 @@ import {gunMap} from '../assets/Weapons';
 const socket = io("http://localhost:5001");
 
 
-function getPrimaryWeapon(player) {
+function getPrimaryWeapon(side,player) {
+    var playerSide;
+    if(side == "L") {
+        playerSide = "GunL";
+    } else {
+        playerSide = "GunR";
+    }
     if(player.weapons == null) {
-        return "";
+        return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(player.weapons.weapon_0 == null) {
-        return "";
+        return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(player.state.health == 0) {
-        return "";
+         return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     var gun;
     var x = "";
+    var equipped = true;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
         if(gun.type == "Rifle" || gun.type == "SniperRifle" || gun.type == "Submachine Gun" || gun.type == "Shotgun" || gun.type == "Machine Gun") {
             x = gun.name;
+            if(gun.state != "active") {
+                equipped = false;
+            }
         }
 
     });
@@ -31,36 +41,56 @@ function getPrimaryWeapon(player) {
             gun = player.weapons[key];
             if(gun.type == "Pistol") {
                 x = gun.name;
+                if(gun.state != "active") {
+                    equipped = false;
+                }
             }
         });
     }
     if(x == "") {
-        x = player.weapon.weapon_0.name;
+        if(player.weapons.weapon_0.state != "active") {
+            playerSide=playerSide + "u";
+        }
+        return(<img className={playerSide} src={gunMap.get(player.weapons.weapon_0.name)}></img>);
     }
-    return gunMap.get(x);
+    if(!equipped) {
+        playerSide=playerSide + "u";
+    }
+    return(<img className={playerSide} src={gunMap.get(x)}></img>);
 }
-function getSecondaryWeapon(player) {
+function getSecondaryWeapon(side,player) {
+    var playerSide;
+    if(side == "L") {
+        playerSide = "GunL2";
+    } else {
+        playerSide = "GunR2";
+    }
+    var x = "";
     if(player.weapons == null) {
-        return "";
+        return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(player.weapons.weapon_0 == null) {
-        return "";
+        return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(!hasPrimary(player)) {
-        return "";
+        return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     var gun;
-    var x = "";
+    var equipped = false;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
         if(gun.type == "Pistol") {
             x = gun.name;
+            if(gun.state == "active") {
+                playerSide = playerSide + "e";
+            }
         }
     });
     if(gunMap.get(x) != null) {
-        return gunMap.get(x);
+        return(<img className={playerSide} src={gunMap.get(x)}></img>);
     }
-    return x;
+    return (<img className={playerSide} src={gunMap.get("")}></img>);
+
 }
 function hasPrimary(player) {
     var x = false;
@@ -138,8 +168,8 @@ export function Teams() {
                             </div>
                             <div className={side == "L" ? "CTplayerInfo" : "TplayerInfo"}>
                                 <div className="healthBarText">
-                                    <img className={side=="L" ? "GunL": "GunR"} src={getPrimaryWeapon(player)}></img>
-                                    <img className={side=="L" ? "GunL2": "GunR2"} src={getSecondaryWeapon(player)}></img>
+                                    <div>{getPrimaryWeapon(side,player)}</div>
+                                    <div>{getSecondaryWeapon(side,player)}</div>
                                     <p className={side == "L" ? "pLeft" : "pRight"}>
                                         {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}
