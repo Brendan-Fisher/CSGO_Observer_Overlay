@@ -8,101 +8,131 @@ const socket = io("http://localhost:5001");
 
 
 function getPrimaryWeapon(side,player) {
+    //Returns image of primary weapon for a player
     var playerSide;
     if(side == "L") {
         playerSide = "GunL";
-    } else {
+    } else { //Checks the side of the HUD that the player is at
         playerSide = "GunR";
     }
+
     if(player.weapons == null) {
         return (<img className={playerSide} src={gunMap.get("")}></img>);
-    }
+    } //If player somehow doesn't have weapons
+    //Don't know what would cause this, but it has led to crashes
     if(player.weapons.weapon_0 == null) {
         return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
+    //Checks if they have no knife
+    //Which shouldn't happen either but this also caused crashes
+
     if(player.state.health == 0) {
          return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
+    //If player is dead, no need to render any image, just returns a blank png
     var gun;
     var x = "";
-    var equipped = true;
+    var equipped = true; //Assumes weapon is equipped unless told otherwise
     Object.keys(player.weapons).forEach(function(key) {
+        //Iterates through all weapons of the given player
         gun = player.weapons[key];
         if(gun.type == "Rifle" || gun.type == "SniperRifle" || gun.type == "Submachine Gun" || gun.type == "Shotgun" || gun.type == "Machine Gun") {
+            //Checks all types of primary weapons to see if it is primary
+            //Unfortunately the game doesn't give us a flag saying "primary: yes"
             x = gun.name;
             if(gun.state != "active") {
                 equipped = false;
+                //If weapon is unequipped, set equipped to false
             }
         }
 
     });
-    if(x == "") {
+    if(x == "") { //If we get here, then it means that there were no primary weapons
+        //This loop then checks for any pistols
         Object.keys(player.weapons).forEach(function(key) {
             gun = player.weapons[key];
             if(gun.type == "Pistol") {
                 x = gun.name;
-                if(gun.state != "active") {
+                if(gun.state != "active") {//Checks if weapon is equipped
                     equipped = false;
                 }
             }
         });
     }
-    if(x == "") {
+    if(x == "") { //If we get here, then there are no pistols or primary weapons
+        //Meaning there is only a knife and potentially utility
         if(player.weapons.weapon_0.state != "active") {
             playerSide=playerSide + "u";
-        }
+        } //If knife is unequipped, change playerSide so a different class will grey out the knife
         return(<img className={playerSide} src={gunMap.get(player.weapons.weapon_0.name)}></img>);
+        //Return the knife icon, haven't tested yet with non-default knives but it should work
     }
     if(!equipped) {
         playerSide=playerSide + "u";
     }
-    return(<img className={playerSide} src={gunMap.get(x)}></img>);
+    //Check is equipped, if not, change playerSide so it will be a different class
+    return(<img className={playerSide} src={gunMap.get(x)}></img>); //Return image of weapon
 }
-function getSecondaryWeapon(side,player) {
+function getSecondaryWeapon(side,player) { //Returns an img containing the secondary weapon of a player
     var playerSide;
     if(side == "L") {
         playerSide = "GunL2";
-    } else {
+    } else { //Get the side of the HUD that the player is on, left or right
         playerSide = "GunR2";
     }
-    var x = "";
+    //playerSide is the side the player is on the hud, left or right
+    //L2 and R2 are classes for the secondary weapons, and are smaller
+    //than the primary weapon icons
+    var x = ""; //Initialize secondary weapon name to ""
     if(player.weapons == null) {
         return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
     if(player.weapons.weapon_0 == null) {
         return (<img className={playerSide} src={gunMap.get("")}></img>);
     }
+    //Two checks just to make sure nothing crashes,
+    //Honestly could probably get rid of one of these and nothing happens
+    //Will look into removing later if there are performance issues
+
     if(!hasPrimary(player)) {
         return (<img className={playerSide} src={gunMap.get("")}></img>);
-    }
+    } //If the player has no primary weapon, exit this function
+    //Since the primary weapon in that case would just be their pistol/knife
+
     var gun;
-    var equipped = false;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
-        if(gun.type == "Pistol") {
+        if(gun.type == "Pistol") { //Searches for a pistol, among all the player's weapons
             x = gun.name;
             if(gun.state == "active") {
                 playerSide = playerSide + "e";
             }
+            //If the weapon is equipped, add e to playerSide
+            //GunR2e and GunL2e are also classes, which are identical to the non-e except they're not as opaque
         }
     });
+
     if(gunMap.get(x) != null) {
-        return(<img className={playerSide} src={gunMap.get(x)}></img>);
+        return(<img className={playerSide} src={gunMap.get(x)}></img>); //Accesses the map storing all the gun's icons and returns the image
     }
-    return (<img className={playerSide} src={gunMap.get("")}></img>);
+    return (<img className={playerSide} src={gunMap.get("")}></img>); //If you somehow get here, we have a huge problem
 
 }
 function hasPrimary(player) {
-    var x = false;
+    //Function checks if the player has a primary weapon
+    //Due to the TERRIBLE way that the game sends information of player weapons
+    //There are not many better ways of doing this, sadly
+
     var gun;
     Object.keys(player.weapons).forEach(function(key) {
         gun = player.weapons[key];
         if(gun.type == "Rifle" || gun.type == "SniperRifle" || gun.type == "Submachine Gun" || gun.type == "Shotgun" || gun.type == "Machine Gun") {
-            x = true;
+            return  true;
         }
+        //Iterates through entire weapon list, and if a primary is found returns true
 
     });
-    return x;
+    return false; //Returns false otherwise
 }
 
 export function Teams() {
@@ -140,13 +170,12 @@ export function Teams() {
         return (
             <div>
                 <div className={side == "L" ? "CTplayers" : "Tplayers"} >
+                    {/* Checks if players are left or right side, misleading variable names */}
                     {props.team.map((player, index) => (
                         <div className={side == "L" ? "CTplayerBlock" : "TplayerBlock"} key={player.observer_slot}>
-                            <div
-                                className={side == "L" ? "CTArmor" : "TArmor"}
-                                id={player.steamid === currentSpec.steamid ? "spec" : ""}
-                            >
+                            <div className={side == "L" ? "CTArmor" : "TArmor"} id={player.steamid === currentSpec.steamid ? "spec" : ""}>
                                 {player.state.health > 0 ? (
+
                                     <div>
                                         <p
                                             style={{

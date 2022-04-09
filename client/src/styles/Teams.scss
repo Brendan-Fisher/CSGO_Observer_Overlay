@@ -7,7 +7,9 @@
     opacity: 80%;
     bottom: 25px;
     left: 25px;
+    /* Players on the left side of the hud */
 }
+
 
 .Tplayers {
     font-family: Roboto-Bold;
@@ -18,18 +20,22 @@
     text-align: right;
     bottom: 25px;
     right: 25px;
+    /* Players on the right side of the hud */
 }
+
 
 .TplayerBlock {
     margin-bottom: 5px;
     background-color: #002217a3;
     height: 60px;
+    /* Height and margin of Right Side Block, honestly not sure what this is used for -zach */
 }
 
 .CTplayerBlock {
     margin-bottom: 5px;
     background-color: #002217a3;
     height: 60px;
+    /* Height and  margin of Left Side Block*/
 }
 
 .CTArmor {
@@ -45,7 +51,7 @@
         margin-bottom: 0;
         text-align: center;
     }
-
+    /* used for displaying the armor icon on left side */
     svg {
         height: 30px;
         width: 30px;
@@ -59,6 +65,7 @@
 
 #spec {
     background-color: #fbff006a;
+    /* Player being currently viewed */
 }
 
 .CTplayerInfo {
@@ -68,6 +75,7 @@
     width: 80%;
     max-height: 30px;
     background-color: #00000062;
+    /* Left side info, takes up most of the block except for the area reserved for armor and health */
 }
 
 .TArmor {
@@ -89,7 +97,7 @@
         width: 30px;
         fill: white;
     }
-
+    /* used for displaying armor icon for right side */
     .skull {
         margin-top: 15px;
     }
@@ -103,6 +111,7 @@
     width: 80%;
     height: 30px;
     max-height: 30px;
+    /* right side info, basically everything except health and armor */
 }
 
 .healthBarText {
@@ -121,7 +130,7 @@
         padding-top: 5px;
         padding-left: 9px;
     }
-
+    /* K,D,A and ADR */
     .pRight {
         margin: 0;
         max-height: 30px;
@@ -154,6 +163,7 @@
     max-height: 30px;
     width: 100%;
     padding: 0px;
+    /* Right Side Health Bars */
 }
 
 .CTchart {
@@ -164,6 +174,7 @@
     max-height: 30px;
     width: 100%;
     padding: 0px;
+    /* Left Side Health Bars */
 }
 
 [class*="Tbar"] {
@@ -172,6 +183,7 @@
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
+    /* More right side health bar stuff */
 }
 
 [class*="CTbar"] {
@@ -180,6 +192,7 @@
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
+    /* More left side health bar stuff*/
 }
 
 .CTbar-D {
@@ -188,6 +201,7 @@
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
+    /* Health bar if dead & left side, doesn't do much except play a fading animation */
 }
 
 .Tbar-D {
@@ -196,6 +210,7 @@
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
+    /* Health bar if dead & right side, doesn't do much except play a fading animation */
 }
 
 $totalColumns: 101;
@@ -203,10 +218,12 @@ $totalColumns: 101;
 @mixin TchartValue($data) {
     $result: $totalColumns - $data;
     grid-column-start: $result;
+    /* Sets grid coordinates for health bar right side */
 }
 
 @mixin CTchartValue($data) {
     grid-column-end: $data + 1;
+    /*  Sets grid coordinates for the health bar left side */
 }
 
 @for $i from 0 through $totalColumns {
@@ -217,6 +234,7 @@ $totalColumns: 101;
     .CTbar-#{$i} {
         @include CTchartValue($i);
     }
+    /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
 }
 
 .GunL {
@@ -225,6 +243,7 @@ $totalColumns: 101;
     height: 50px;
     opacity: 100%;
     left: 105%;
+    /* Left player primary weapon */
 
 }
 .GunLu {
@@ -234,6 +253,7 @@ $totalColumns: 101;
     opacity: 45%;
     left: 105%;
     fill:grey;
+    /* Left player primary weapon unequipped */
 }
 .GunR {
     position: absolute;
@@ -242,6 +262,7 @@ $totalColumns: 101;
     opacity: 100%;
     right: 105%;
     transform: rotateY(180deg);
+    /* Right player primary weapon  */
 }
 .GunRu {
     position: absolute;
@@ -250,6 +271,7 @@ $totalColumns: 101;
     opacity: 45%;
     right: 105%;
     transform: rotateY(180deg);
+    /* Right player primary weapon unequipped */
 }
 .GunL2 {
     position: absolute;
@@ -258,6 +280,7 @@ $totalColumns: 101;
     opacity: 40%;
     left: 100%;
     top:40px;
+    /* Left secondary weapon  */
 }
 
 .GunR2 {
@@ -268,6 +291,7 @@ $totalColumns: 101;
     top:40px;
     right: 100%;
     transform: rotateY(180deg);
+    /* Right secondary weapon */
 }
 .GunL2e {
     position: absolute;
@@ -276,6 +300,7 @@ $totalColumns: 101;
     opacity: 90%;
     left: 100%;
     top:40px;
+    /* Left secondary weapon unequipped */
 }
 
 .GunR2e {
@@ -286,4 +311,5 @@ $totalColumns: 101;
     top:40px;
     right: 100%;
     transform: rotateY(180deg);
+    /* Right secondary weapon unequipped */
 }
