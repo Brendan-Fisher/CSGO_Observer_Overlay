@@ -39,7 +39,6 @@ function App() {
       <ScoreBoard />
       <Current />
       <Teams />
-      <MiniMap />
     </div>
   );
 }
