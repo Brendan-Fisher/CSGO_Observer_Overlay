@@ -17,8 +17,8 @@ export function ScoreBoard() {
     if (scoreBoard) {
         return (
             <div className="scoreboard">
-                <div class="TeamLogo">
-                    <img class="teamImage" src={scoreBoard.round < 15 ? LogoCT : LogoT}></img>
+                <div className="TeamLogo">
+                    <img className="teamImage" src={scoreBoard.round < 15 ? LogoCT : LogoT}></img>
                 </div>
                 <div className="TeamLeft">
                     <p id="CT_score">{scoreBoard.round < 15 ? scoreBoard.CTScore : scoreBoard.TScore}</p>
@@ -30,8 +30,8 @@ export function ScoreBoard() {
                 <div className="TeamRight">
                     <p id="T_score">{scoreBoard.round < 15 ? scoreBoard.TScore : scoreBoard.CTScore}</p>
                 </div>
-                <div class="TeamLogo">
-                    <img class="teamImage" src={scoreBoard.round < 15 ? LogoT : LogoCT}></img>
+                <div className="TeamLogo">
+                    <img className="teamImage" src={scoreBoard.round < 15 ? LogoT : LogoCT}></img>
                 </div>
 
             </div>
