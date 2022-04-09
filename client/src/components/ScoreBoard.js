@@ -1,4 +1,4 @@
-import "./../styles/ScoreBoard.css";
+import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { LogoCT, LogoT } from "../assets/Icons";
@@ -17,18 +17,23 @@ export function ScoreBoard() {
     if (scoreBoard) {
         return (
             <div className="scoreboard">
-                <div className="Team_one">
-                    <img className="TeamLogo" src={!(scoreBoard.round >= 15) ? LogoCT : LogoT}></img>
-                    <p id="CT_score">{!(scoreBoard.round >= 15) ? scoreBoard.CTScore : scoreBoard.TScore}</p>
+                <div className="TeamLogo">
+                    <img className="teamImage" src={scoreBoard.round < 15 ? LogoCT : LogoT}></img>
+                </div>
+                <div className="TeamLeft">
+                    <p id="CT_score">{scoreBoard.round < 15 ? scoreBoard.CTScore : scoreBoard.TScore}</p>
                 </div>
                 <div className="Match_info">
-                    <p id="time">{scoreBoard.phase_ends_in}</p>
-                    <p id="time">ROUND {scoreBoard.round + 1}/30</p>
+                    <div id="time">{scoreBoard.phase_ends_in}</div>
+                    <div id="round">ROUND {scoreBoard.round + 1}/30</div>
                 </div>
-                <div className="Team_two">
-                    <img className="TeamLogo" src={!(scoreBoard.round >= 15) ? LogoT : LogoCT}></img>
-                    <p id="T_score">{!(scoreBoard.round >= 15) ? scoreBoard.TScore : scoreBoard.CTScore}</p>
+                <div className="TeamRight">
+                    <p id="T_score">{scoreBoard.round < 15 ? scoreBoard.TScore : scoreBoard.CTScore}</p>
                 </div>
+                <div className="TeamLogo">
+                    <img className="teamImage" src={scoreBoard.round < 15 ? LogoT : LogoCT}></img>
+                </div>
+
             </div>
         );
     } else {
