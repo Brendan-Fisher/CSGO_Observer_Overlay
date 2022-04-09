@@ -134,6 +134,52 @@ function hasPrimary(player) {
     });
     return primary; //Returns false otherwise
 }
+function hasKit(player){
+    if(player.team != "CT") {
+        return;
+    }
+
+    if(player.state.defusekit != null) {
+        if(player.state.defusekit == true ) {
+            return <Defuse />
+        }
+    }
+}
+function printArmorKitHealth (player,side) {
+    if(side != "L") {
+        return<div> <p
+          style={{
+              color: player.state.health > 50 ? "white" : player.state.health > 20 ? "orange" : "red",
+          }}
+        >
+            {player.state.health}
+        </p>
+
+            {player.state.helmet ? (
+              <ArmorHelmet />
+            ) : (
+              player.state.armor > 0 && <ArmorFull />
+            )}
+            {hasKit(player)}
+        </div>
+    }
+    return<div>
+
+        <p
+      style={{
+          color: player.state.health > 50 ? "white" : player.state.health > 20 ? "orange" : "red",
+      }}
+    >
+        {player.state.health}
+    </p>{hasKit(player)}
+    {player.state.helmet ? (
+      <ArmorHelmet />
+    ) : (
+      player.state.armor > 0 && <ArmorFull />
+    )}
+
+    </div>
+}
 
 export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
@@ -177,19 +223,7 @@ export function Teams() {
                                 {player.state.health > 0 ? (
 
                                     <div>
-                                        <p
-                                            style={{
-                                                color: player.state.health > 50 ? "white" : player.state.health > 20 ? "orange" : "red",
-                                            }}
-                                        >
-                                            {player.state.health}
-                                        </p>
-
-                                        {player.state.helmet ? (
-                                            <ArmorHelmet />
-                                        ) : (
-                                            player.state.armor > 0 && <ArmorFull />
-                                        )}
+                                        {printArmorKitHealth(player,side)}
                                     </div>
                                 ) : (
                                     <Skull className="skull" />
@@ -200,7 +234,6 @@ export function Teams() {
                                     <div>{getPrimaryWeapon(side,player)}</div>
                                     <div>{getSecondaryWeapon(side,player)}</div>
                                     <p className={side == "L" ? "pLeft" : "pRight"}>
-                                        {" "}
                                         {player.match_stats.kills} / {player.match_stats.assists} /{" "}
                                         {player.match_stats.deaths} ADR: {player.match_stats.adr}
                                     </p>
