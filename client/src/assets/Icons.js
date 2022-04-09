@@ -4,7 +4,7 @@ import { ReactComponent as ArmorHalfHelmet } from "./images/icon_armor_half_helm
 import { ReactComponent as ArmorHelmet } from "./images/icon_armor_helmet_default.svg";
 import { ReactComponent as ArmorNone } from "./images/icon_armor_none_default.svg";
 import { ReactComponent as Blind } from "./images/icon_blind.svg";
-import { ReactComponent as Bomb } from "./images/icon_bomb_default.svg";
+import  Bomb  from "./images/icon_bomb_white.svg";
 import { ReactComponent as BombExplosion } from "./images/icon_bomb_explosion_default.svg";
 import { ReactComponent as Bullets } from "./images/icon_bullets_default.svg";
 import { ReactComponent as Burning } from "./images/icon_burning.svg";

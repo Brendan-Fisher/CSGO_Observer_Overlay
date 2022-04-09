@@ -1,10 +1,16 @@
 import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { LogoCT, LogoT } from "../assets/Icons";
+import { LogoCT, LogoT,Bomb } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
-
+function printTime(scoreBoard) {
+  console.log(scoreBoard.phaseInfo)
+  if(scoreBoard.phaseInfo.phase == "bomb" ) {
+    return <img className="bombImage" src={Bomb}></img>
+  }
+  return <div id="time">{scoreBoard.phase_ends_in}</div>
+}
 export function ScoreBoard() {
     const [scoreBoard, setSB] = useState(null);
 
@@ -13,7 +19,6 @@ export function ScoreBoard() {
             setSB(scoreboard);
         });
     });
-
     if (scoreBoard) {
         return (
             <div className="scoreboard">
@@ -24,7 +29,7 @@ export function ScoreBoard() {
                     <p id="CT_score">{scoreBoard.round < 15 ? scoreBoard.CTScore : scoreBoard.TScore}</p>
                 </div>
                 <div className="Match_info">
-                    <div id="time">{scoreBoard.phase_ends_in}</div>
+                  {printTime(scoreBoard)}
                     <div id="round">ROUND {scoreBoard.round + 1}/30</div>
                 </div>
                 <div className="TeamRight">

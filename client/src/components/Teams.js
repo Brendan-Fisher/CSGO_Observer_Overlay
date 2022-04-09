@@ -130,7 +130,7 @@ function hasPrimary(player) {
             primary = true;
         }
         //Iterates through entire weapon list, and if a primary is found returns true
-
+        //I tried putting a return statement here, and it broke everything so var primary stays
     });
     return primary; //Returns false otherwise
 }

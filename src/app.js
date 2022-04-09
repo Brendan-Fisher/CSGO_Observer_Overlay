@@ -175,6 +175,7 @@ const parseScoreboard = (raw) => {
         CTName: "CT",
         TName: "T",
         phase_ends_in: raw.phaseInfo.phase_ends_in < 0 ? 0 : raw.phaseInfo.phase_ends_in,
+        phaseInfo: raw.phaseInfo,
     };
 
     let time = parseInt(scoreboard.phase_ends_in - 0.2) + 1; // 0.2 for delay generated from communication
