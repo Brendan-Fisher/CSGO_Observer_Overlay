@@ -1,3 +1,5 @@
+@import "_variables";
+
 .CTplayers {
     font-family: Roboto-Bold;
     width: 20%;
@@ -9,7 +11,6 @@
     left: 25px;
     /* Players on the left side of the hud */
 }
-
 
 .Tplayers {
     font-family: Roboto-Bold;
@@ -23,17 +24,16 @@
     /* Players on the right side of the hud */
 }
 
-
 .TplayerBlock {
     margin-bottom: 5px;
-    background-color: #002217a3;
+    background-color: $Background-opacity;
     height: 60px;
     /* Height and margin of Right Side Block, honestly not sure what this is used for -zach */
 }
 
 .CTplayerBlock {
     margin-bottom: 5px;
-    background-color: #002217a3;
+    background-color: $Background-opacity;
     height: 60px;
     /* Height and  margin of Left Side Block*/
 }
@@ -43,7 +43,7 @@
     width: 20%;
     height: 60px;
     float: left;
-    background-color: #001316e4;
+    background-color: $Background-solid;
     text-align: center;
 
     p {
@@ -83,7 +83,7 @@
     width: 20%;
     height: 60px;
     float: right;
-    background-color: #001316e4;
+    background-color: $Background-solid;
     text-align: center;
 
     p {
@@ -179,7 +179,7 @@
 
 [class*="Tbar"] {
     transition: all 0.6s ease;
-    background-color: rgb(255, 0, 0);
+    background-color: $T-color;
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
@@ -188,7 +188,7 @@
 
 [class*="CTbar"] {
     transition: all 0.6s ease;
-    background-color: rgb(0, 195, 255);
+    background-color: $CT-color;
     grid-column-start: 1;
     grid-column-end: 101;
     max-height: 30px;
@@ -240,76 +240,75 @@ $totalColumns: 101;
 .GunL {
     position: absolute;
     background-color: transparent;
-    height: 50px;
+    height: 30px;
     opacity: 100%;
-    left: 105%;
+    right: 0px;
     /* Left player primary weapon */
-
 }
 .GunLu {
     position: absolute;
     background-color: transparent;
-    height: 50px;
+    height: 30px;
     opacity: 45%;
-    left: 105%;
-    fill:grey;
+    right: 0;
+    fill: grey;
     /* Left player primary weapon unequipped */
 }
 .GunR {
     position: absolute;
     background-color: transparent;
-    height: 50px;
+    height: 30px;
     opacity: 100%;
-    right: 105%;
+    left: 0;
     transform: rotateY(180deg);
     /* Right player primary weapon  */
 }
 .GunRu {
     position: absolute;
     background-color: transparent;
-    height: 50px;
+    height: 30px;
     opacity: 45%;
-    right: 105%;
+    left: 0;
     transform: rotateY(180deg);
     /* Right player primary weapon unequipped */
 }
 .GunL2 {
     position: absolute;
     background-color: transparent;
-    height: 40px;
+    height: 30px;
     opacity: 40%;
-    left: 100%;
-    top:40px;
+    right: 0;
+    top: 30px;
     /* Left secondary weapon  */
 }
 
 .GunR2 {
     position: absolute;
     background-color: transparent;
-    height: 40px;
+    height: 30px;
     opacity: 40%;
-    top:40px;
-    right: 100%;
+    top: 30px;
+    left: 0;
     transform: rotateY(180deg);
     /* Right secondary weapon */
 }
 .GunL2e {
     position: absolute;
     background-color: transparent;
-    height: 40px;
+    height: 30px;
     opacity: 90%;
-    left: 100%;
-    top:40px;
+    right: 0;
+    top: 30px;
     /* Left secondary weapon unequipped */
 }
 
 .GunR2e {
     position: absolute;
     background-color: transparent;
-    height: 40px;
+    height: 30px;
     opacity: 90%;
-    top:40px;
-    right: 100%;
+    top: 30px;
+    left: 0;
     transform: rotateY(180deg);
     /* Right secondary weapon unequipped */
 }

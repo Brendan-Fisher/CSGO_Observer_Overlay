@@ -1,21 +1,35 @@
+@import "_variables";
+
 .scoreboard {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
     font-family: GoBold;
-    background-color: rgba(0, 19, 127, 0);
-    //margin: auto;
     position: absolute;
     left: 50%;
     transform: translate(-50%, -10%);
-
-
+    height: 10vh;
+    top: 20px;
 }
 
 .Match_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     align-self: center;
+    align-content: center;
     margin: 0 auto;
-    width: 40%;
-    background-color: rgba(46, 46, 46, 0.859);
+    min-width: 150px;
+    height: 100%;
+    background-color: $Background-solid;
+
+    .bombImage {
+        margin-top: 5px;
+        max-height: 48px;
+    }
 
     #time {
         font-size: 36px;
@@ -23,64 +37,74 @@
     }
 
     #round {
-
         font-size: medium;
+        margin-bottom: 5px;
         //margin: 0%;
     }
 }
 
 .TeamLeft {
-    text-align: center;
-    align-self: center;
+    display: table;
     margin: 0 auto;
-    width: 100px;
-
+    text-align: center;
+    height: 100%;
+    min-width: 100px;
 
     #CT_score {
-        //display: block;
-        //justify-content: center;
-        //align-content: center;
-        //flex-direction: row;
+        display: table-cell;
+        vertical-align: middle;
         font-size: 48px;
-        background-color: rgb(0, 195, 255);
+        background-color: $CT-color;
+        height: 100%;
+        margin: 0;
     }
-
 }
 
 .TeamRight {
+    display: table;
     text-align: center;
-    align-self: center;
     margin: 0 auto;
-    width: 100px;
+    min-width: 100px;
+    height: 100%;
 
     #T_score {
-        // display: block;
-        // justify-content: center;
-        // align-content: center;
-        // flex-direction: row;
+        display: table-cell;
+        vertical-align: middle;
         font-size: 48px;
-        background-color: rgb(255, 0, 0);
+        background-color: $T-color;
+        height: 100%;
+        margin: 0;
     }
 }
 
-.TeamLogo {
-    height: 120px;
-    width: 120px;
-    position: relative;
-}
-
 .teamImage {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -30%);
-    margin: auto;
+    min-width: 120px;
+    text-align: center;
+    position: relative;
+    background-color: $Background-opacity;
+
+    img {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        position: absolute;
+        vertical-align: middle;
+        height: 80%;
+    }
 }
 
-.bombImage {
-    max-height: 36px;
+.TeamName {
+    transition: all 0.6s ease;
+    text-align: center;
+    display: table;
+    width: 120px;
+
+    p {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 36px;
+        color: black;
+    }
 }
