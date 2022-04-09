@@ -1,7 +1,7 @@
 import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-
+import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT } from '../assets/Icons';
 const socket = io("http://localhost:5001");
 
 export function Current() {
@@ -10,6 +10,7 @@ export function Current() {
     useEffect(() => {
         //console.log("Current Player");
         socket.on("player", (player) => {
+            console.log(player);
             //console.log(`Spectating ${player.name}`);
             setPlayer(player);
         });
@@ -17,19 +18,33 @@ export function Current() {
 
     if (player) {
         return (
-            <div className="playerBlock">
-                <div className="playerName">
-                    {player.name}{" "}
-                    <span style={{ color: '#FF0000' }}>HEALTH</span>{player.state.health}{" "}
-                    <span style={{ color: '#FF0000' }}>ARMOR</span>{player.state.armor}{" "}
-                    {player.state.helmet ? "HELMET" : player.state.armor > 0 ? "NO HELMET" : "NO ARMOR"}{" "}
+            <div className="currentPlayer">
+                <div className="playerBlock">
+                    <div className="playerInfoTop">
+                        <div className="playerVitals">
+                            <HealthFull></HealthFull>
+                            {player.state.health}
+                            {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 ? <ArmorFull /> : <ArmorNone />}
+                            {player.state.armor}
+
+                        </div>
+                        <div className="playerName"> {player.name} </div>
+                        <Defuse />
+                    </div>
+                    <div className="playerInfoBottom">
+                        <div className="team">
+                            <img className="teamImage" src={player.team === "CT" ? LogoCT : LogoT}></img>
+                        </div>
+                        <div className="playerInfo">
+                            <span style={{ color: '#FF0000' }}>ADR</span>{player.match_stats.adr}{" | "}
+                            <span style={{ color: '#FF0000' }}>K</span>{player.match_stats.kills}{" "}
+                            <span style={{ color: '#FF0000' }}>A</span>{player.match_stats.assists}{" "}
+                            <span style={{ color: '#FF0000' }}>D</span>{player.match_stats.deaths}</div>
+                    </div>
+
                 </div>
-                <div className="playerInfo">
-                    <span style={{ color: '#FF0000' }}>ADR</span>{player.match_stats.adr}{" | "}
-                    <span style={{ color: '#FF0000' }}>K</span>{player.match_stats.kills}{" "}
-                    <span style={{ color: '#FF0000' }}>A</span>{player.match_stats.assists}{" "}
-                    <span style={{ color: '#FF0000' }}>D</span>{player.match_stats.deaths}</div>
             </div>
+
         );
     } else {
         return <div></div>;

@@ -1,26 +1,100 @@
+.currentPlayer {
+    display: flex;
+    width: 25%;
+    height: 10%;
+    position: absolute;
+    left: 50%;
+    top: 86.5%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 127, 97, 0.0); //transparent;
+}
+
 .playerBlock {
     text-align: center;
-    background-color: rgba(0, 127, 97, 0); //transparent;
-    width: 30%;
+    //align-self: center; // vertical centering
+    margin: 0 auto;
+    width: 85%;
+    background-color: rgba(0, 127, 97, 0.2); //transparent;
+}
+
+
+.playerInfoTop {
+    display: flex;
+    text-align: left;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     height: 30%;
-    margin: auto;
-    margin-top: 60vh;
+    background-color: rgba(60, 5, 155, 0.557);
+
+    .playerVitals {
+        text-align: center;
+        align-self: center; // vertical centering
+
+        height: 100%;
+        width: 37%;
+        background-color: rgba(155, 90, 5, 0.557);
+    }
+
+    .playerName {
+        text-align: left;
+        //align-self: center; // vertical centering
+        height: 100%;
+        padding-left: 5%;
+        width: 48%;
+        background-color: rgba(228, 0, 0, 0.557);
+    }
 }
 
-.playerName {
-    text-align: center;
-    background-color: rgba(46, 46, 46, 0.759);
+.playerInfoBottom {
+    display: flex;
+    text-align: left;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    height: 50%;
+    height: 60%;
+    background-color: rgba(7, 148, 30, 0.35);
+
+
+    .team {
+        height: 100%;
+        width: 37%;
+        position: relative;
+        background-color: rgba(7, 148, 30, 0.35);
+
+        .teamImage {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: auto;
+        }
+    }
+
+
+
+
+    .playerName {
+        text-align: left;
+        //align-self: center; // vertical centering
+        height: 100%;
+        padding-left: 5%;
+        width: 48%;
+        background-color: rgba(228, 0, 0, 0.557);
+    }
 }
 
-.playerInfo {
-    text-align: center;
-    background-color: rgba(46, 46, 46, 0.35);
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 50%;
+svg {
+    height: 30px;
+    width: 30px;
+    fill: white;
+}
+
+/* used for displaying armor icon for right side */
+.skull {
+    margin-top: 15px;
 }
