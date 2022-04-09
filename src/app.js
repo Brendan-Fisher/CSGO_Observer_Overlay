@@ -196,7 +196,6 @@ const parseMinimap = (raw) => {
 
 const parsePlayers = (raw) => {
     //log.info(`Sending player info`);
-
     let players = Object.entries(raw.allplayers).map(([id, player]) => ({
         steamid: id,
         name: player.name,
@@ -220,6 +219,7 @@ const parsePlayers = (raw) => {
         raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
         : 0;
 
+    // must ensure 5v5
     let leftTeam = players.filter((p) => p.observer_slot < 6 && p.observer_slot !== 0);
     let rightTeam = players.filter((p) => p.observer_slot >= 6 || p.observer_slot === 0);
 
