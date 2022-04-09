@@ -8,6 +8,9 @@ function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase == "bomb") {
         return <img className="bombImage" src={Bomb}></img>;
     }
+    if(scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase == "live") {
+      return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
+    }
     return <div id="time">{scoreBoard.phase_ends_in}</div>;
 }
 export function ScoreBoard() {
