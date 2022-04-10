@@ -312,3 +312,84 @@ $totalColumns: 101;
     transform: rotateY(180deg);
     /* Right secondary weapon unequipped */
 }
+
+.NadesL1 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    top: 30px;
+    left: 65%
+
+    /* Right secondary weapon */
+}
+.NadesL2 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    top: 30px;
+    left: 70%;
+
+    /* Right secondary weapon */
+}
+.NadesL3 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    top: 30px;
+    left: 75%;
+
+    /* Right secondary weapon */
+}
+.NadesL4 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    top: 30px;
+    left: 80%;
+
+    /* Right secondary weapon */
+}
+.NadesR1 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    right: 60%;
+    top: 30px;
+    transform: rotateY(180deg);
+    /* Left secondary weapon  */
+}
+.NadesR2 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    right: 65%;
+    top: 30px;
+    transform: rotateY(180deg);
+    /* Left secondary weapon  */
+}
+.NadesR3 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    right: 70%;
+    top: 30px;
+    transform: rotateY(180deg);
+    /* Left secondary weapon  */
+}
+.NadesR4 {
+    position: absolute;
+    background-color: transparent;
+    height: 20px;
+    opacity: 80%;
+    right: 75%;
+    top: 30px;
+    transform: rotateY(180deg);
+    /* Left secondary weapon  */
+}

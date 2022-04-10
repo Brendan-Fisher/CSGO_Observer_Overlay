@@ -3,7 +3,7 @@ import { useState } from "react";
 import io from "socket.io-client";
 
 import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull, LogoT, LogoCT } from "../assets/Icons";
-import { gunMap } from "../assets/Weapons";
+import { gunMap,NadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
 function getPrimaryWeapon(side, player) {
@@ -208,7 +208,68 @@ function printArmorKitHealth(player, side) {
         </div>
     );
 }
+function getNades(side,player) {
 
+    var playerSide;
+    if (side === "L") {
+        playerSide = "NadesL";
+    } else {
+
+        playerSide = "NadesR";
+    }
+    if (player.weapons === null) {
+        return <img alt="no nade" className={playerSide} src={gunMap.get("")}></img>;
+    }
+    if (player.weapons.weapon_0 === null) {
+        return <img alt="no nade" className={playerSide} src={gunMap.get("")}></img>;
+    }
+    var x = "";
+    var gun;
+    var nades = Array(4).fill("");
+    var spot = 0;
+    Object.keys(player.weapons).forEach(function (key) {
+        gun = player.weapons[key];
+        if (gun.type === "Grenade") {
+            x = gun.name;
+            nades[spot] = x;
+            spot++;
+        }
+    });
+    if(nades[0] === "") {
+        return;
+    }
+    for(const nade in nades) {
+        if(nades[nade] !== "") {
+            nades[nade] = NadeOrder.get(nades[nade]);
+        }
+    }
+    nades.sort();
+    nades.reverse();
+    if (gunMap.get(x) !== null) {
+        if(side == "L") {
+            return leftTeamNades(nades);
+        }
+        return rightTeamNades(nades);
+    }
+    return <img alt="no nades" className={playerSide} src={gunMap.get(x)}/>;
+}
+function leftTeamNades(nades) {
+
+    return (<div>
+        <img alt="nades" className={"NadesL1"} src={gunMap.get(nades[3])}/>
+        <img alt="nades" className={"NadesL2"} src={gunMap.get(nades[2])}/>
+        <img alt="nades" className={"NadesL3"} src={gunMap.get(nades[1])}/>
+        <img alt="nades" className={"NadesL4"} src={gunMap.get(nades[0])}/>
+    </div>);
+}
+function rightTeamNades(nades) {
+    return (<div>
+        <img alt="nades" className={"NadesR1"} src={gunMap.get(nades[3])}/>
+        <img alt="nades" className={"NadesR2"} src={gunMap.get(nades[2])}/>
+        <img alt="nades" className={"NadesR3"} src={gunMap.get(nades[1])}/>
+        <img alt="nades" className={"NadesR4"} src={gunMap.get(nades[0])}/>
+    </div>);
+}
 export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
     const [teamRight, setTeamRight] = useState(null);
@@ -262,6 +323,7 @@ export function Teams() {
                             <div className="healthBarText">
                                 <div>{getPrimaryWeapon(side, player)}</div>
                                 <div>{getSecondaryWeapon(side, player)}</div>
+                                <div>{getNades(side, player)}</div>
                                 {side === "L" ? (
                                     <p className="pLeft">
                                         {player.observer_slot} | {player.name}{" "}

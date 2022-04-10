@@ -10,7 +10,7 @@ import  weapon_decoy  from "./weapons/decoy.svg";
 import  weapon_elite  from "./weapons/elite.svg";
 import  weapon_famas  from "./weapons/famas.svg";
 import  weapon_fiveseven  from "./weapons/fiveseven.svg";
-import  weapon_flashbang  from "./weapons/flashbang.svg";
+import  weapon_flashbang  from "./weapons/flashbang_2.svg";
 import  weapon_g3sg1  from "./weapons/g3sg1.svg";
 import  weapon_galilar  from "./weapons/galilar.svg";
 import  weapon_glock  from "./weapons/glock.svg";
@@ -142,6 +142,20 @@ gunMap.set("weapon_usp_silencer_off",weapon_usp_silencer_off);
 gunMap.set("weapon_world",weapon_world);
 gunMap.set("weapon_xm1014",weapon_xm1014);
 gunMap.set("",blank);
+gunMap.set(0, weapon_incgrenade);
+gunMap.set(1, weapon_molotov);
+gunMap.set(2,weapon_smokegrenade);
+gunMap.set(3,weapon_flashbang);
+gunMap.set(4,weapon_hegrenade);
+gunMap.set(5,weapon_decoy);
+const NadeOrder = new Map();
+NadeOrder.set("weapon_incgrenade" , 0);
+NadeOrder.set("weapon_molotov" , 1);
+NadeOrder.set("weapon_smokegrenade",2);
+NadeOrder.set("weapon_flashbang",3);
+NadeOrder.set("weapon_hegrenade",4);
+NadeOrder.set("weapon_decoy",5);
 export {
-    gunMap
+    gunMap,
+    NadeOrder
 };
