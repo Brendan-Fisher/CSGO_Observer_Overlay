@@ -31,7 +31,9 @@ export function ScoreBoard() {
                         ? { style: { display: "none" } }
                         : {})}
                 >
-                    <p>{scoreBoard.leftCT ? scoreBoard.CTName : scoreBoard.TName}</p>
+                    <p className="teamLeftName">
+                        {scoreBoard.round <= 15 ? scoreBoard.CTName : scoreBoard.TName}
+                    </p>
                 </div>
                 <div className="teamImage">
                     <img src={scoreBoard.leftCT ? LogoCT : LogoT}></img>
@@ -57,9 +59,10 @@ export function ScoreBoard() {
                     className="TeamName"
                     {...(scoreBoard.phaseInfo.phase !== "freezetime"
                         ? { style: { display: "none" } }
-                        : {})}
-                >
-                    <p>{scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}</p>
+                        : {})}>
+                    <p className="teamRightName">
+                        {scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}
+                    </p>
                 </div>
             </div >
         );
