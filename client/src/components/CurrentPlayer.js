@@ -10,7 +10,7 @@ export function Current() {
     useEffect(() => {
         //console.log("Current Player");
         socket.on("player", (player) => {
-            console.log(player);
+            //console.log(player);
             //console.log(`Spectating ${player.name}`);
             setPlayer(player);
         });
