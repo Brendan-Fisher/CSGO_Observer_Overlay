@@ -28,12 +28,11 @@ export function Current() {
                             {player.state.armor}
 
                         </div>
-                        <div className="playerName"> {player.name} </div>
-                        <Defuse />
+                        <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
-                            <img className="teamImage" src={player.team === "CT" ? LogoCT : LogoT}></img>
+                            <img className="teamImg" src={player.team === "CT" ? LogoCT : LogoT}></img>
                         </div>
                         <div className="playerInfo">
                             <span style={{ color: '#FF0000' }}>ADR</span>{player.match_stats.adr}{" | "}

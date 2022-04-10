@@ -40,7 +40,7 @@
     }
 
 
-    [class*="TName"] {
+    [class*="t-name"] {
         transition: all 0.6s ease;
         background-color: $T-color;
         text-align: left;
@@ -50,7 +50,7 @@
         width: 58%;
     }
 
-    [class*="CTName"] {
+    [class*="ct-name"] {
         transition: all 0.6s ease;
         background-color: $CT-color;
         text-align: left;
