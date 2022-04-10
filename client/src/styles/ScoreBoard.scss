@@ -35,9 +35,10 @@
         font-size: 36px;
         //margin: 0%;
     }
+
     #timelow {
         font-size: 36px;
-        color:red;
+        color: red;
         //margin: 0%;
     }
 
@@ -48,21 +49,30 @@
     }
 }
 
+[class*="ct-score"] {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 48px;
+    background-color: $CT-color;
+    height: 100%;
+    margin: 0;
+}
+
+[class*="tscore"] {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 48px;
+    background-color: $T-color;
+    height: 100%;
+    margin: 0;
+}
+
 .TeamLeft {
     display: table;
     margin: 0 auto;
     text-align: center;
     height: 100%;
     min-width: 100px;
-
-    #CT_score {
-        display: table-cell;
-        vertical-align: middle;
-        font-size: 48px;
-        background-color: $CT-color;
-        height: 100%;
-        margin: 0;
-    }
 }
 
 .TeamRight {
@@ -71,16 +81,9 @@
     margin: 0 auto;
     min-width: 100px;
     height: 100%;
-
-    #T_score {
-        display: table-cell;
-        vertical-align: middle;
-        font-size: 48px;
-        background-color: $T-color;
-        height: 100%;
-        margin: 0;
-    }
 }
+
+
 
 .teamImage {
     min-width: 120px;
@@ -110,6 +113,6 @@
         display: table-cell;
         vertical-align: middle;
         font-size: 36px;
-        color: black;
+        color: rgb(255, 255, 255);
     }
 }
