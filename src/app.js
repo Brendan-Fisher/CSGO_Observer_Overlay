@@ -235,11 +235,11 @@ const parsePlayers = (raw) => {
 
     raw.numrounds >= 15 ? io.emit("switchedSides", true) : io.emit("switchedSides", false)
 
-    raw.allplayers.find(p => p.steamid === raw.player.steamid)
+    let player = raw.allplayers.find(p => p.steamid === raw.player.steamid) ? raw.player : null;
 
     io.emit("leftTeam", leftTeam);
     io.emit("rightTeam", rightTeam);
-    io.emit("player", raw.player);
+    io.emit("player", player);
     io.emit("playerList", raw.allplayers);
 };
 
