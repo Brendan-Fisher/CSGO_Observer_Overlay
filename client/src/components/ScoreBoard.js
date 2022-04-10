@@ -37,7 +37,7 @@ export function ScoreBoard() {
                     <img src={scoreBoard.leftCT ? LogoCT : LogoT}></img>
                 </div>
                 <div className="TeamLeft">
-                    <p className="ct-score">
+                    <p className={scoreBoard.leftCT ? "ct-score" : "tscore"}>
                         {scoreBoard.leftCT ? scoreBoard.CTScore : scoreBoard.TScore}
                     </p>
                 </div>
@@ -46,7 +46,7 @@ export function ScoreBoard() {
                     <div id="round">ROUND {scoreBoard.round + 1}/30</div>
                 </div>
                 <div className="TeamRight">
-                    <p className="tscore">
+                    <p className={scoreBoard.leftCT ? "tscore" : "ct-score"}>
                         {scoreBoard.leftCT ? scoreBoard.TScore : scoreBoard.CTScore}
                     </p>
                 </div>
