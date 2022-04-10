@@ -22,11 +22,13 @@ export function Current() {
                 <div className="playerBlock">
                     <div className="playerInfoTop">
                         <div className="playerVitals">
-                            <HealthFull></HealthFull>
-                            {player.state.health}
-                            {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 ? <ArmorFull /> : <ArmorNone />}
-                            {player.state.armor}
 
+                            <div className="health"> <HealthFull className="icon"></HealthFull> {player.state.health} </div>
+
+                            <div className="armor">
+                                {player.state.helmet ? <ArmorHelmet className="icon" /> : player.state.armor > 0 ? <ArmorFull className="icon" /> : <ArmorNone className="icon" />}
+                                {player.state.armor}
+                            </div>
                         </div>
                         <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
                     </div>
