@@ -8,8 +8,8 @@ function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase == "bomb") {
         return <img className="bombImage" src={Bomb}></img>;
     }
-    if(scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase == "live") {
-      return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
+    if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase == "live") {
+        return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
     }
     return <div id="time">{scoreBoard.phase_ends_in}</div>;
 }
@@ -19,6 +19,7 @@ export function ScoreBoard() {
     useEffect(() => {
         socket.on("scoreboard", (scoreboard) => {
             setSB(scoreboard);
+            //console.log(scoreboard)
         });
     });
     if (scoreBoard) {
@@ -30,14 +31,14 @@ export function ScoreBoard() {
                         ? { style: { display: "none" } }
                         : {})}
                 >
-                    <p>{scoreBoard.round < 15 ? scoreBoard.CTName : scoreBoard.TName}</p>
+                    <p>{scoreBoard.leftCT ? scoreBoard.CTName : scoreBoard.TName}</p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.round < 15 ? LogoCT : LogoT}></img>
+                    <img src={scoreBoard.leftCT ? LogoCT : LogoT}></img>
                 </div>
                 <div className="TeamLeft">
-                    <p id="CT_score">
-                        {scoreBoard.round < 15 ? scoreBoard.CTScore : scoreBoard.TScore}
+                    <p className="ct-score">
+                        {scoreBoard.leftCT ? scoreBoard.CTScore : scoreBoard.TScore}
                     </p>
                 </div>
                 <div className="Match_info">
@@ -45,12 +46,12 @@ export function ScoreBoard() {
                     <div id="round">ROUND {scoreBoard.round + 1}/30</div>
                 </div>
                 <div className="TeamRight">
-                    <p id="T_score">
-                        {scoreBoard.round < 15 ? scoreBoard.TScore : scoreBoard.CTScore}
+                    <p className="tscore">
+                        {scoreBoard.leftCT ? scoreBoard.TScore : scoreBoard.CTScore}
                     </p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.round < 15 ? LogoT : LogoCT}></img>
+                    <img src={scoreBoard.leftCT ? LogoT : LogoCT}></img>
                 </div>
                 <div
                     className="TeamName"
@@ -58,9 +59,9 @@ export function ScoreBoard() {
                         ? { style: { display: "none" } }
                         : {})}
                 >
-                    <p>{scoreBoard.round < 15 ? scoreBoard.TName : scoreBoard.CTName}</p>
+                    <p>{scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}</p>
                 </div>
-            </div>
+            </div >
         );
     } else {
         return <div></div>;

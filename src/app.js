@@ -197,6 +197,8 @@ const parseADR = (raw) => {
 const parseScoreboard = (raw) => {
     //log.info("Parsing Scoreboard");
 
+
+    let leftCT = raw.allplayers.find(p => p.team === 'CT' && p.observer_slot >= 1 && p.observer_slot < 6) ? true : false;
     let scoreboard = {
         phase: raw.mapInfo.phase,
         round: raw.mapInfo.round,
@@ -206,6 +208,7 @@ const parseScoreboard = (raw) => {
         TName: raw.mapInfo.team_t.name,
         phase_ends_in: raw.phaseInfo.phase_ends_in < 0 ? 0 : raw.phaseInfo.phase_ends_in,
         phaseInfo: raw.phaseInfo,
+        leftCT: leftCT,
     };
 
     let time = parseInt(scoreboard.phase_ends_in - 0.2) + 1; // 0.2 for delay generated from communication
