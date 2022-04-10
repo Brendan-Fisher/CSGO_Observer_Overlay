@@ -107,56 +107,86 @@ io.on("connection", (socket) => {
     });
 });
 
+const playerList = (raw) => {
+    if (!raw.allplayers || !raw.map || !raw.phase_countdowns || !raw.round) {
+        return null;
+    }
+
+    return players = Object.entries(raw.allplayers).map(([id, player]) => ({
+        steamid: id,
+        name: player.name,
+        team: player.team,
+        observer_slot: player.observer_slot,
+        state: player.state,
+        match_stats: player.match_stats,
+        weapons: player.weapons,
+        position: player.position,
+        forward: player.forward,
+    }));
+}
+
+
 const parseGamestate = (raw) => {
     //console.log(raw);
     if (!raw.allplayers || !raw.map || !raw.phase_countdowns) {
         return null;
     }
 
+    let players = playerList(raw);
+
     let scoreboard = {
         mapInfo: raw.map,
         phaseInfo: raw.phase_countdowns,
+        allplayers: players
     };
 
     parseScoreboard(scoreboard);
 
     let playerInfo = {
-        allplayers: raw.allplayers,
+        allplayers: players,
         player: raw.player,
+        round: raw.round,
         numrounds: raw.map.round
     };
     parseMinimap(raw);
-    parseADR(raw);
+
     parsePlayers(playerInfo);
 };
 
 var playersMatchDamage = new Map();
-
 var roundOverFlag = false;
+
 const parseADR = (raw) => {
-    //console.log(raw);
-    if (!raw.allplayers || !raw.map || !raw.phase_countdowns || !raw.round) {
+    if (!raw) {
         return null;
     }
-    // update players adr at the end of every round
-    if (!roundOverFlag && raw.round.phase === "over") {
-        Object.entries(raw.allplayers).map(([id, player]) => {
 
-            if (playersMatchDamage.has(id)) {
-                playersMatchDamage.set(id, parseInt(player.state.round_totaldmg) + parseInt(playersMatchDamage.get(id)));
+    // Set ADRs to 0 at beginning of game   
+    raw.allplayers.forEach(p => p.match_stats.adr = raw.numrounds === 0 ? 0 :
+        parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds)));
+
+    // Set ADR of current player 
+    raw.allplayers.find(p => p.steamid === raw.player.steamid) ?
+        raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
+        : 0;
+
+    // Update player ADRs at the end of every round
+    if (!roundOverFlag && raw.round.phase === "over") {
+        for (p of raw.allplayers) {
+
+            if (playersMatchDamage.has(p.steamid)) {
+                playersMatchDamage.set(p.steamid, parseInt(p.state.round_totaldmg) + parseInt(playersMatchDamage.get(p.steamid)));
             }
             else {
-                playersMatchDamage.set(id, parseInt(player.state.round_totaldmg));
+                playersMatchDamage.set(p.steamid, parseInt(p.state.round_totaldmg));
             }
-
-        });
-
+        }
     }
     // if player is new, make their adr 0.
     else if (raw.round.phase !== "over") {
-        Object.entries(raw.allplayers).map(([id, player]) => {
-            if (!playersMatchDamage.has(id)) playersMatchDamage.set(id, 0);
-        });
+        for (p of raw.allplayers) {
+            if (!playersMatchDamage.has(p.steamid)) playersMatchDamage.set(p.steamid, 0);
+        }
     }
 
     if (raw.round.phase === "over") {
@@ -172,8 +202,8 @@ const parseScoreboard = (raw) => {
         round: raw.mapInfo.round,
         CTScore: raw.mapInfo.team_ct.score,
         TScore: raw.mapInfo.team_t.score,
-        CTName: "CT",
-        TName: "T",
+        CTName: raw.mapInfo.team_ct.name,
+        TName: raw.mapInfo.team_t.name,
         phase_ends_in: raw.phaseInfo.phase_ends_in < 0 ? 0 : raw.phaseInfo.phase_ends_in,
         phaseInfo: raw.phaseInfo,
     };
@@ -197,40 +227,20 @@ const parseMinimap = (raw) => {
 
 const parsePlayers = (raw) => {
     //log.info(`Sending player info`);
-    let players = Object.entries(raw.allplayers).map(([id, player]) => ({
-        steamid: id,
-        name: player.name,
-        team: player.team,
-        observer_slot: player.observer_slot,
-        state: player.state,
-        match_stats: player.match_stats,
-        weapons: player.weapons,
-        position: player.position,
-        forward: player.forward,
-    }));
-
-    // Set ADRs to 0 at beginning of game
-    for (const p of players) {
-        p.match_stats.adr = raw.numrounds === 0 ? 0 :
-            parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds));
-    }
-
-    // Set ADR of current player
-    players.find(p => p.steamid === raw.player.steamid) ?
-        raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
-        : 0;
+    parseADR(raw);
 
     // must ensure 5v5
-    let leftTeam = players.filter((p) => p.observer_slot < 6 && p.observer_slot !== 0);
-    let rightTeam = players.filter((p) => p.observer_slot >= 6 || p.observer_slot === 0);
-
+    let leftTeam = raw.allplayers.filter((p) => p.observer_slot < 6 && p.observer_slot !== 0);
+    let rightTeam = raw.allplayers.filter((p) => p.observer_slot >= 6 || p.observer_slot === 0);
 
     raw.numrounds >= 15 ? io.emit("switchedSides", true) : io.emit("switchedSides", false)
+
+    raw.allplayers.find(p => p.steamid === raw.player.steamid)
 
     io.emit("leftTeam", leftTeam);
     io.emit("rightTeam", rightTeam);
     io.emit("player", raw.player);
-    io.emit("playerList", players);
+    io.emit("playerList", raw.allplayers);
 };
 
 app.use(middlewares.notFound);
