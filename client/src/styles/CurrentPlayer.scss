@@ -1,3 +1,5 @@
+@import "_variables";
+
 .currentPlayer {
     display: flex;
     width: 25%;
@@ -14,7 +16,7 @@
     //align-self: center; // vertical centering
     margin: 0 auto;
     width: 85%;
-    background-color: rgba(0, 127, 97, 0.2); //transparent;
+    background-color: rgba(0, 127, 97, 0.0); //transparent;
 }
 
 
@@ -33,16 +35,29 @@
 
         height: 100%;
         width: 37%;
-        background-color: rgba(155, 90, 5, 0.557);
+        font-size: x-large;
+        background-color: $Background-solid;
     }
 
-    .playerName {
+
+    [class*="TName"] {
+        transition: all 0.6s ease;
+        background-color: $T-color;
         text-align: left;
         //align-self: center; // vertical centering
         height: 100%;
         padding-left: 5%;
-        width: 48%;
-        background-color: rgba(228, 0, 0, 0.557);
+        width: 58%;
+    }
+
+    [class*="CTName"] {
+        transition: all 0.6s ease;
+        background-color: $CT-color;
+        text-align: left;
+        //align-self: center; // vertical centering
+        height: 100%;
+        padding-left: 5%;
+        width: 58%;
     }
 }
 
@@ -53,16 +68,14 @@
     margin-left: auto;
     margin-right: auto;
     height: 60%;
-    background-color: rgba(7, 148, 30, 0.35);
-
 
     .team {
         height: 100%;
         width: 37%;
         position: relative;
-        background-color: rgba(7, 148, 30, 0.35);
+        background-color: #212a34e7;
 
-        .teamImage {
+        .teamImg {
             max-height: 100%;
             max-width: 100%;
             width: auto;
@@ -76,15 +89,12 @@
     }
 
 
-
-
-    .playerName {
+    .playerInfo {
         text-align: left;
         //align-self: center; // vertical centering
         height: 100%;
-        padding-left: 5%;
-        width: 48%;
-        background-color: rgba(228, 0, 0, 0.557);
+        width: 63%;
+        background-color: $Background-opacity;
     }
 }
 
