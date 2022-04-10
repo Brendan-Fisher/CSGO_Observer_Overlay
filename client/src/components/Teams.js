@@ -270,6 +270,32 @@ function rightTeamNades(nades) {
         <img alt="nades" className={"NadesR4"} src={gunMap.get(nades[0])}/>
     </div>);
 }
+function printHealthBar(side, player) {
+    var x = ""
+    if(side == "L") {
+        x = "L";
+    } else {
+        x = "R";
+    }
+    var y = "";
+    if(player.team == "CT") {
+        y = "CT";
+    } else {
+        y = "T";
+    }
+    if(player.state.health > 0) {
+       return (<div className={x + "chart"}>
+            {
+                (<div className={side === 'L' ? 'Lbar'+y+'-' + player.state.health : 'Rbar'+y+'-' + player.state.health} />)
+            }
+        </div>);
+    }
+    return (<div className={x + "chart"}>
+        { (
+          <div className={x + 'bar-D'}/>
+        )}
+    </div>);
+}
 export function Teams() {
     const [teamLeft, setTeamLeft] = useState(null);
     const [teamRight, setTeamRight] = useState(null);
@@ -302,15 +328,15 @@ export function Teams() {
         // console.log(props.switched);
 
         return (
-            <div className={side == "L" ? "CTplayers" : "Tplayers"}>
+            <div className={side == "L" ? "Lplayers" : "Rplayers"}>
                 {/* Checks if players are left or right side, misleading variable names */}
                 {props.team.map((player, index) => (
                     <div
-                        className={side == "L" ? "CTplayerBlock" : "TplayerBlock"}
+                        className={side == "L" ? "LplayerBlock" : "RplayerBlock"}
                         key={player.observer_slot}
                     >
                         <div
-                            className={side == "L" ? "CTArmor" : "TArmor"}
+                            className={side == "L" ? "LArmor" : "RArmor"}
                             id={player.steamid === currentSpec.steamid ? "spec" : ""}
                         >
                             {player.state.health > 0 ? (
@@ -319,7 +345,7 @@ export function Teams() {
                                 <Skull className="skull" />
                             )}
                         </div>
-                        <div className={side === "L" ? "CTplayerInfo" : "TplayerInfo"}>
+                        <div className={side === "L" ? "LplayerInfo" : "RplayerInfo"}>
                             <div className="healthBarText">
                                 <div>{getPrimaryWeapon(side, player)}</div>
                                 <div>{getSecondaryWeapon(side, player)}</div>
@@ -334,13 +360,7 @@ export function Teams() {
                                     </p>
                                 )}
                             </div>
-                            <div className={side === "L" ? "CTchart" : "Tchart"}>
-                                {player.state.health > 0 ? (
-                                    <div className={switched + "Tbar-" + player.state.health}></div>
-                                ) : (
-                                    <div className={side === "L" ? "CTbar-D" : "Tbar-D"}></div>
-                                )}
-                            </div>
+                            {printHealthBar(side,player)}
                         </div>
 
                         <div className={side === "L" ? "subTextLeft" : "subTextRight"}>

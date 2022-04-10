@@ -1,6 +1,6 @@
 @import "_variables";
 
-.CTplayers {
+.Lplayers {
     font-family: Roboto-Bold;
     width: 20%;
     position: absolute;
@@ -12,7 +12,7 @@
     /* Players on the left side of the hud */
 }
 
-.Tplayers {
+.Rplayers {
     font-family: Roboto-Bold;
     width: 20%;
     background-color: transparent;
@@ -24,21 +24,21 @@
     /* Players on the right side of the hud */
 }
 
-.TplayerBlock {
+.RplayerBlock {
     margin-bottom: 5px;
     background-color: $Background-opacity;
     height: 60px;
     /* Height and margin of Right Side Block, honestly not sure what this is used for -zach */
 }
 
-.CTplayerBlock {
+.LplayerBlock {
     margin-bottom: 5px;
     background-color: $Background-opacity;
     height: 60px;
     /* Height and  margin of Left Side Block*/
 }
 
-.CTArmor {
+.LArmor {
     display: table-cell;
     width: 20%;
     height: 60px;
@@ -68,7 +68,7 @@
     /* Player being currently viewed */
 }
 
-.CTplayerInfo {
+.LplayerInfo {
     display: table-cell;
     position: relative;
     float: left;
@@ -78,7 +78,7 @@
     /* Left side info, takes up most of the block except for the area reserved for armor and health */
 }
 
-.TArmor {
+.RArmor {
     display: table-cell;
     width: 20%;
     height: 60px;
@@ -103,7 +103,7 @@
     }
 }
 
-.TplayerInfo {
+.RplayerInfo {
     display: table-cell;
     position: relative;
     background-color: #00000062;
@@ -155,7 +155,7 @@
     padding-right: 85px;
 }
 
-.Tchart {
+.Rchart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 0px;
@@ -166,7 +166,7 @@
     /* Right Side Health Bars */
 }
 
-.CTchart {
+.Lchart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 0px;
@@ -177,7 +177,7 @@
     /* Left Side Health Bars */
 }
 
-[class*="Tbar"] {
+[class*="RbarT"] {
     transition: all 0.6s ease;
     background-color: $T-color;
     grid-column-start: 1;
@@ -185,8 +185,24 @@
     max-height: 30px;
     /* More right side health bar stuff */
 }
+[class*="RbarCT"] {
+    transition: all 0.6s ease;
+    background-color: $CT-color;
+    grid-column-start: 1;
+    grid-column-end: 101;
+    max-height: 30px;
+    /* More right side health bar stuff */
+}
 
-[class*="CTbar"] {
+[class*="LbarT"] {
+    transition: all 0.6s ease;
+    background-color: $T-color;
+    grid-column-start: 1;
+    grid-column-end: 101;
+    max-height: 30px;
+    /* More left side health bar stuff*/
+}
+[class*="LbarCT"] {
     transition: all 0.6s ease;
     background-color: $CT-color;
     grid-column-start: 1;
@@ -195,7 +211,7 @@
     /* More left side health bar stuff*/
 }
 
-.CTbar-D {
+.Lbar-D {
     transition: all 0.6s ease;
     background-color: transparent;
     grid-column-start: 1;
@@ -204,7 +220,7 @@
     /* Health bar if dead & left side, doesn't do much except play a fading animation */
 }
 
-.Tbar-D {
+.Rbar-D {
     transition: all 0.6s ease;
     background-color: transparent;
     grid-column-start: 1;
@@ -215,24 +231,29 @@
 
 $totalColumns: 101;
 
-@mixin TchartValue($data) {
+@mixin RchartValue($data) {
     $result: $totalColumns - $data;
     grid-column-start: $result;
     /* Sets grid coordinates for health bar right side */
 }
 
-@mixin CTchartValue($data) {
+@mixin LchartValue($data) {
     grid-column-end: $data + 1;
     /*  Sets grid coordinates for the health bar left side */
 }
 
 @for $i from 0 through $totalColumns {
-    .Tbar-#{$i} {
-        @include TchartValue($i);
+    .RbarT-#{$i} {
+        @include RchartValue($i);
     }
-
-    .CTbar-#{$i} {
-        @include CTchartValue($i);
+    .RbarCT-#{$i} {
+        @include RchartValue($i);
+    }
+    .LbarT-#{$i} {
+        @include LchartValue($i);
+    }
+    .LbarCT-#{$i} {
+        @include LchartValue($i);
     }
     /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
 }
