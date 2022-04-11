@@ -49,10 +49,15 @@ const server = http.createServer((req, res) => {
 
         req.on("data", (data) => {
             try {
+                
                 let jsonData;
+                if(data) {
+                    jsonData = JSON.parse(data);
+                }
+
                 if (connectionCount === 0) {
                     log.error("[SYSTEM] Frontend connection not found via socket");
-                } else if (!(jsonData = JSON.parse(data)).allplayers) {
+                } else if (!jsonData.allplayers) {
                     io.emit("spec", false);
                     log.info("[SYSTEM] Player is not a spectator, refusing to send information via socket");
                 } else {
@@ -60,6 +65,7 @@ const server = http.createServer((req, res) => {
                     parseGamestate(jsonData);
                     log.info("[SYSTEM] Sent data to frontend via socket");
                 }
+
                 if (
                     config.application.logLevel === "trace" ||
                     config.application.logLevel === "debug"
@@ -127,7 +133,7 @@ const playerList = (raw) => {
 
 
 const parseGamestate = (raw) => {
-    //console.log(raw);
+    //log.info("Parsing Gamestate");;
     if (!raw.allplayers || !raw.map || !raw.phase_countdowns) {
         return null;
     }
@@ -157,7 +163,8 @@ var playersMatchDamage = new Map();
 var roundOverFlag = false;
 
 const parseADR = (raw) => {
-    if (!raw) {
+    //log.info("Parsing ADR");
+    if (!raw || !raw.allplayers || !raw.round || !raw.player || !raw.numrounds) {
         return null;
     }
 
@@ -197,6 +204,10 @@ const parseADR = (raw) => {
 const parseScoreboard = (raw) => {
     //log.info("Parsing Scoreboard");
 
+    if(!raw || !raw.allplayers) {
+        return null;
+    }
+
 
     let leftCT = raw.allplayers.find(p => p.team === 'CT' && p.observer_slot >= 1 && p.observer_slot < 6) ? true : false;
     let scoreboard = {
@@ -219,6 +230,8 @@ const parseScoreboard = (raw) => {
 };
 
 const parseMinimap = (raw) => {
+    //log.info("Parsing Minimap");
+    if(!raw) return null;
 
     let map = {
         mapinfo: raw.map,
@@ -229,6 +242,9 @@ const parseMinimap = (raw) => {
 };
 
 const parsePlayers = (raw) => {
+    //log.info("Parsing Players");
+    if(!raw || !raw.allplayers) return null;
+
     //log.info(`Sending player info`);
     parseADR(raw);
 
