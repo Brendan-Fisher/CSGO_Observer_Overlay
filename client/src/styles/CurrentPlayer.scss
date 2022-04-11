@@ -131,6 +131,29 @@
         height: 100%;
         width: 63%;
         background-color: $Background-opacity;
+
+        .player-score {
+            display: flex;
+            flex-direction: row;
+            //flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: stretch;
+            align-content: center;
+            align-self: center;
+            width: 50%;
+            //height: 100%;
+            text-align: center;
+            margin-top: 5%;
+            background-color: pink;
+
+            .label {
+                background-color: green;
+            }
+
+            .value {
+                background-color: blue;
+            }
+        }
     }
 }
 

@@ -30,7 +30,10 @@ export function Current() {
                                 {player.state.armor}
                             </div>
                         </div>
-                        <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
+                        <div className="player-id">
+                            <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
+                        </div>
+
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
