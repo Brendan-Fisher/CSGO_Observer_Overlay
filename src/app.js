@@ -236,8 +236,6 @@ const parsePlayers = (raw) => {
     let leftTeam = raw.allplayers.filter((p) => p.observer_slot < 6 && p.observer_slot !== 0);
     let rightTeam = raw.allplayers.filter((p) => p.observer_slot >= 6 || p.observer_slot === 0);
 
-    raw.numrounds >= 15 ? io.emit("switchedSides", true) : io.emit("switchedSides", false)
-
     let player = raw.allplayers.find(p => p.steamid === raw.player.steamid) ? raw.player : null;
 
     io.emit("leftTeam", leftTeam);
