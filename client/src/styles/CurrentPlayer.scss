@@ -173,9 +173,18 @@
             //align-self: center; // vertical centering
             height: 100%;
             width: 50%;
-            background-color: transparent;
+            background-color: green;
 
             .ammo {}
+
+
+            .grenades {
+                background-color: lime;
+
+                .grenade-img {
+                    height: 20px;
+                }
+            }
         }
     }
 }

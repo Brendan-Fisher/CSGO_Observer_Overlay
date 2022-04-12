@@ -2,6 +2,7 @@ import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb } from '../assets/Icons';
+import { gunMap, NadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
 export function Current() {
@@ -30,6 +31,24 @@ export function Current() {
         }
     }
 
+    function Grenades(player) {
+        if (!player.weapons) return <div></div>
+        let grenades = [...Object.values(player.weapons)].filter(w => w.type === "Grenade");
+        grenades.sort((a, b) => NadeOrder(a.name) - NadeOrder(b.name));
+        //console.log(grenades);
+
+        return (
+            <div className="grenades">
+                {grenades.map((grenade, index) => (
+                    <div className="grenade">
+                        <img alt="grenade" className={"grenade-img"} src={gunMap.get(grenade.name)} />
+                    </div>
+                )
+                )}
+
+            </div>
+        )
+    }
     if (player) {
         return (
             <div className="currentPlayer">
@@ -79,6 +98,7 @@ export function Current() {
 
                             </div>
                             <div className="player-equipment">
+                                {Grenades(player)}
                                 {weapon ? <div className="ammo"> {weapon.ammo_clip}/{weapon.ammo_reserve}</div> :
                                     <div></div>
                                 }
