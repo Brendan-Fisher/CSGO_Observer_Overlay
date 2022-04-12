@@ -78,29 +78,20 @@
 
     .player-id {
         display: flex;
-        width: 100%;
         margin-left: auto;
         margin-right: auto;
         width: 63%;
         text-align: left;
-        background-color: aqua;
+        background-color: $Background-solid;
 
         [class*="t-name"] {
-            display: flex;
-            flex-direction: row;
-            //flex-wrap: nowrap;
-            justify-content: space-evenly;
-            align-items: stretch;
-            align-content: center;
-            align-self: center;
-            width: 100%;
-            //height: 100%;
-
             transition: all 0.6s ease;
             background-color: $T-color;
             text-align: left;
             //align-self: center; // vertical centering
             height: 100%;
+            padding-left: 5%;
+            width: 75%;
         }
 
         [class*="ct-name"] {
@@ -110,7 +101,7 @@
             //align-self: center; // vertical centering
             height: 100%;
             padding-left: 5%;
-            width: 58%;
+            width: 75%;
         }
     }
 
@@ -166,14 +157,14 @@
             //height: 100%;
             text-align: center;
             //margin-top: 0%;
-            background-color: pink;
+            background-color: transparent;
 
             .label {
-                background-color: green;
+                background-color: transparent;
             }
 
             .value {
-                background-color: blue;
+                background-color: transparent;
             }
         }
 
@@ -182,12 +173,10 @@
             //align-self: center; // vertical centering
             height: 100%;
             width: 50%;
-            background-color: green;
+            background-color: transparent;
 
             .ammo {}
         }
-
-
     }
 }
 

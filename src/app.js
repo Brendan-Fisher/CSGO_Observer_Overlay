@@ -243,7 +243,9 @@ const parseMinimap = (raw) => {
 
 const parsePlayers = (raw) => {
     //log.info("Parsing Players");
+  
     if(!raw || !raw.allplayers) return null;
+    
 
     //log.info(`Sending player info`);
     parseADR(raw);
@@ -256,6 +258,7 @@ const parsePlayers = (raw) => {
 
     let player = raw.allplayers.find(p => p.steamid === raw.player.steamid) ? raw.player : null;
 
+    io.emit("bomb", raw.bomb);
     io.emit("leftTeam", leftTeam);
     io.emit("rightTeam", rightTeam);
     io.emit("player", player);

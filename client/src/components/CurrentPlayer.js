@@ -1,12 +1,13 @@
 import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT } from '../assets/Icons';
+import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb } from '../assets/Icons';
 const socket = io("http://localhost:5001");
 
 export function Current() {
     const [player, setPlayer] = useState(null);
     const [weapon, setWeapon] = useState(null);
+    const [bomb, setBomb] = useState(null);
 
     useEffect(() => {
         //console.log("Current Player");
@@ -18,7 +19,24 @@ export function Current() {
             setWeapon([...Object.values(player.weapons)].find(w => w.state === "active"));
             setPlayer(player);
         });
+
+        socket.on("bomb", (bomb) => {
+            console.log("bomb");
+            console.log(bomb);
+            setBomb(bomb);
+        })
     });
+
+    function hasKitOrBomb(player) {   
+        if (player.state.defusekit !== null || bomb !== null ) {
+            if (player.state.defusekit === true) {
+                return <Defuse />;
+            } else {
+                let bomb = [...Object.values(player.weapons)].find(w => w.name === "weapon_c4");
+                if(bomb) return <SmallBomb />
+            }
+        }
+    }
 
     if (player) {
         return (
@@ -36,6 +54,7 @@ export function Current() {
                         </div>
                         <div className="player-id">
                             <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
+                            <div className="kit-bomb">{hasKitOrBomb(player)}</div>
                         </div>
 
                     </div>
