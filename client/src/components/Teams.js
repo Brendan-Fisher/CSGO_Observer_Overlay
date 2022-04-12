@@ -322,8 +322,6 @@ export function Teams() {
         if (!props.team || !props.team[0]) return <div></div>;
 
         let side = props.team === teamLeft ? "L" : "R";
-        let switched = props.team[0].team === "CT" ? "C" : "";
-        // console.log(side);
         // console.log(props.team);
         // console.log(props.switched);
 
