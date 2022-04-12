@@ -7,7 +7,6 @@ const socket = io("http://localhost:5001");
 export function Current() {
     const [player, setPlayer] = useState(null);
     const [weapon, setWeapon] = useState(null);
-    const [bomb, setBomb] = useState(null);
 
     useEffect(() => {
         //console.log("Current Player");
@@ -15,26 +14,19 @@ export function Current() {
             //console.log(player);
             //console.log(`Spectating ${player.name}`);
 
-            console.log([...Object.values(player.weapons)].find(w => w.state === "active"))
+            //console.log([...Object.values(player.weapons)].find(w => w.state === "active"))
             setWeapon([...Object.values(player.weapons)].find(w => w.state === "active"));
             setPlayer(player);
         });
 
-        socket.on("bomb", (bomb) => {
-            console.log("bomb");
-            console.log(bomb);
-            setBomb(bomb);
-        })
     });
 
     function hasKitOrBomb(player) {   
-        if (player.state.defusekit !== null || bomb !== null ) {
-            if (player.state.defusekit === true) {
-                return <Defuse />;
-            } else {
-                let bomb = [...Object.values(player.weapons)].find(w => w.name === "weapon_c4");
-                if(bomb) return <SmallBomb />
-            }
+        if (player.state.defusekit === true) {
+            return <Defuse />;
+        } else {
+            let bomb = [...Object.values(player.weapons)].find(w => w.name === "weapon_c4");
+            if(bomb) return <SmallBomb />
         }
     }
 

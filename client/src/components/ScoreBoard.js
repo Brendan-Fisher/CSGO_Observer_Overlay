@@ -1,12 +1,12 @@
 import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { LogoCT, LogoT, Bomb } from "../assets/Icons";
+import { LogoCT, LogoT, FlashingBomb } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
 function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase == "bomb") {
-        return <img className="bombImage" src={Bomb}></img>;
+        return <FlashingBomb className="bombImage" />
     }
     if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase == "live") {
         return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;

@@ -18,6 +18,7 @@ import { ReactComponent as Pause } from "./images/icon_pause_default.svg";
 import { ReactComponent as Skull } from "./images/icon_skull_default.svg";
 import { ReactComponent as Timer } from "./images/icon_timer_default.svg";
 import { ReactComponent as SmallBomb } from "./images/icon_bomb_default.svg";
+import { ReactComponent as FlashingBomb } from "./images/icon_c4_default.svg";
 import LogoCT from "./images/logo_CT_default.png";
 import LogoT from "./images/logo_T_default.png";
 
@@ -30,6 +31,7 @@ export {
     ArmorNone,
     Blind,
     Bomb,
+    FlashingBomb,
     BombExplosion,
     Bullets,
     Burning,
