@@ -169,20 +169,36 @@
         }
 
         .player-equipment {
-            text-align: right;
+
             //align-self: center; // vertical centering
             height: 100%;
             width: 50%;
-            background-color: green;
+            // background-color: green;
 
-            .ammo {}
+            .ammo {
+                display: flex;
+                flex-direction: row;
+                font-size: medium;
 
+                .icon {
+                    height: 20px;
+                    width: 20px;
+                }
+
+                .ammo-clip {
+                    font-size: large;
+                }
+
+            }
 
             .grenades {
-                background-color: lime;
+                display: flex;
+                flex-direction: row;
+                //background-color: lime;
 
                 .grenade-img {
                     height: 20px;
+                    width: 20px;
                 }
             }
         }

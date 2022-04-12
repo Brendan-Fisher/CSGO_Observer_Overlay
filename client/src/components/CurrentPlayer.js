@@ -1,7 +1,7 @@
 import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb } from '../assets/Icons';
+import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb, Bullets } from '../assets/Icons';
 import { gunMap, NadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
@@ -16,31 +16,31 @@ export function Current() {
             //console.log(`Spectating ${player.name}`);
 
             //console.log([...Object.values(player.weapons)].find(w => w.state === "active"))
-            setWeapon([...Object.values(player.weapons)].find(w => w.state === "active"));
+            if (player) setWeapon([...Object.values(player.weapons)].find(w => w.state === "active"));
             setPlayer(player);
         });
 
     });
 
-    function hasKitOrBomb(player) {   
+    function hasKitOrBomb(player) {
         if (player.state.defusekit === true) {
             return <Defuse />;
         } else {
             let bomb = [...Object.values(player.weapons)].find(w => w.name === "weapon_c4");
-            if(bomb) return <SmallBomb />
+            if (bomb) return <SmallBomb />
         }
     }
 
     function Grenades(player) {
-        if (!player.weapons) return <div></div>
+        if (!player || !player.weapons) return <div></div>
         let grenades = [...Object.values(player.weapons)].filter(w => w.type === "Grenade");
-        grenades.sort((a, b) => NadeOrder(a.name) - NadeOrder(b.name));
+        grenades.sort((a, b) => NadeOrder.get(a.name) - NadeOrder.get(b.name));
         //console.log(grenades);
 
         return (
             <div className="grenades">
                 {grenades.map((grenade, index) => (
-                    <div className="grenade">
+                    <div className="grenade" key={"grenade" + index}>
                         <img alt="grenade" className={"grenade-img"} src={gunMap.get(grenade.name)} />
                     </div>
                 )
@@ -99,11 +99,14 @@ export function Current() {
                             </div>
                             <div className="player-equipment">
                                 {Grenades(player)}
-                                {weapon ? <div className="ammo"> {weapon.ammo_clip}/{weapon.ammo_reserve}</div> :
+                                {weapon ? <div className="ammo">
+                                    <Bullets className="icon" />
+                                    <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
                                     <div></div>
                                 }
 
                             </div>
+
                         </div>
 
 
