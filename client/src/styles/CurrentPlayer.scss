@@ -42,36 +42,37 @@
         .health {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: left;
             text-align: center;
             align-self: center;
             align-content: center;
             margin: 0 auto;
 
-
             //text-align: left;
-            //background-color: green;
+            background-color: green;
+
         }
 
         .armor {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: left;
             text-align: center;
             align-self: center;
             align-content: center;
             margin: 0 auto;
-            margin: 5%;
 
-            //background-color: pink;
+
+            background-color: pink;
         }
 
         .icon {
             width: 35%;
             margin-top: 7%;
             margin-left: 2.5%;
+            padding-right: 10%;
             height: 25%;
-            //background-color: purple;
+            background-color: purple;
         }
     }
 
