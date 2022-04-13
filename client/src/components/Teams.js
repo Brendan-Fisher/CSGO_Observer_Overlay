@@ -218,10 +218,10 @@ function getNades(side, player) {
         playerSide = "NadesR";
     }
     if (player.weapons === null) {
-        return <img alt="no nade" className={playerSide} src={gunMap.get("")}></img>;
+        return <div className="leftTeamNades"></div>;
     }
     if (player.weapons.weapon_0 === null) {
-        return <img alt="no nade" className={playerSide} src={gunMap.get("")}></img>;
+        return <div className="leftTeamNades"></div>;
     }
     var x = "";
     var gun;
@@ -251,24 +251,28 @@ function getNades(side, player) {
         }
         return rightTeamNades(nades);
     }
-    return <img alt="no nades" className={playerSide} src={gunMap.get(x)} />;
+    return <div className="leftTeamNades"><img alt="no nades" className={playerSide} src={gunMap.get(x)} /></div>;
 }
 function leftTeamNades(nades) {
 
-    return (<div>
-        <img alt="nades" className={"NadesL1"} src={gunMap.get(nades[3])} />
-        <img alt="nades" className={"NadesL2"} src={gunMap.get(nades[2])} />
-        <img alt="nades" className={"NadesL3"} src={gunMap.get(nades[1])} />
-        <img alt="nades" className={"NadesL4"} src={gunMap.get(nades[0])} />
-    </div>);
+    return (
+    <div className="leftTeamNades">
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[3])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[2])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[1])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[0])} />
+    </div>
+    );
 }
 function rightTeamNades(nades) {
-    return (<div>
-        <img alt="nades" className={"NadesR1"} src={gunMap.get(nades[3])} />
-        <img alt="nades" className={"NadesR2"} src={gunMap.get(nades[2])} />
-        <img alt="nades" className={"NadesR3"} src={gunMap.get(nades[1])} />
-        <img alt="nades" className={"NadesR4"} src={gunMap.get(nades[0])} />
-    </div>);
+    return (
+    <div className="rightTeamNades">
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[3])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[2])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[1])} />
+        <img alt="nades" className={"Nade"} src={gunMap.get(nades[0])} />
+    </div>
+    );
 }
 function printHealthBar(side, player) {
     var x = ""
@@ -343,27 +347,32 @@ export function Teams() {
                                 <Skull className="skull" />
                             )}
                         </div>
-                        <div className={side === "L" ? "LplayerInfo" : "RplayerInfo"}>
-                            <div className="healthBarText">
-                                <div>{getPrimaryWeapon(side, player)}</div>
-                                <div>{getSecondaryWeapon(side, player)}</div>
-                                <div>{getNades(side, player)}</div>
-                                {side === "L" ? (
-                                    <p className="pLeft">
-                                        {player.observer_slot} | {player.name}{" "}
-                                    </p>
-                                ) : (
-                                    <p className="pRight">
-                                        {player.name} | {player.observer_slot}{" "}
-                                    </p>
-                                )}
+                        <div className="playerInfo">
+                            <div className={side === "L" ? "LplayerInfo" : "RplayerInfo"}>
+                                <div className="healthBarText">
+                                    <div>{getPrimaryWeapon(side, player)}</div>
+                                    
+                                    {side === "L" ? (
+                                        <p className="pLeft">
+                                            {player.observer_slot} | {player.name}{" "}
+                                        </p>
+                                    ) : (
+                                        <p className="pRight">
+                                            {player.name} | {player.observer_slot}{" "}
+                                        </p>
+                                    )}
+                                </div>
+                                {printHealthBar(side, player)}
                             </div>
-                            {printHealthBar(side, player)}
-                        </div>
 
-                        <div className={side === "L" ? "subTextLeft" : "subTextRight"}>
-                            {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                            {player.match_stats.deaths} ADR: {player.match_stats.adr}
+                            <div className={side === "L" ? "subTextLeft" : "subTextRight"}>
+                                <div className="secondary">{getSecondaryWeapon(side, player)}</div>
+                                <div className="Nades">{getNades(side, player)}</div>
+                                <div className="playerStats">
+                                    {player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                                    {player.match_stats.deaths}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}

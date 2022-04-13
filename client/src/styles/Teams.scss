@@ -141,20 +141,6 @@
     }
 }
 
-.subTextLeft {
-    height: 30px;
-    max-height: 30px;
-    padding-top: 35px;
-    padding-left: 85px;
-}
-
-.subTextRight {
-    height: 30px;
-    max-height: 30px;
-    padding-top: 35px;
-    padding-right: 85px;
-}
-
 .Rchart {
     display: grid;
     grid-template-columns: repeat(100, 1fr);
@@ -293,124 +279,95 @@ $totalColumns: 101;
     transform: rotateY(180deg);
     /* Right player primary weapon unequipped */
 }
-.GunL2 {
-    position: absolute;
-    background-color: transparent;
+
+
+.subTextLeft {
+    flex-direction: row-reverse;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
     height: 30px;
-    opacity: 40%;
-    right: 0;
-    top: 30px;
-    /* Left secondary weapon  */
+    max-height: 30px;
+
+    .leftTeamNades {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80px;
+        height: 100%;
+    
+        .Nades {
+            max-height: 25px;
+        }
+    }
+    
 }
 
-.GunR2 {
-    position: absolute;
-    background-color: transparent;
+.Nade {
+    max-height: 25px;
+}
+
+.Nades {
+    height:100%;
+    width: 80px;
+}
+
+.subTextRight {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
     height: 30px;
-    opacity: 40%;
-    top: 30px;
-    left: 0;
-    transform: rotateY(180deg);
-    /* Right secondary weapon */
-}
-.GunL2e {
-    position: absolute;
-    background-color: transparent;
-    height: 30px;
-    opacity: 90%;
-    right: 0;
-    top: 30px;
-    /* Left secondary weapon unequipped */
+    max-height: 30px;
+
+    .rightTeamNades {
+        display:flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        align-items: center;
+        width: 80px;
+        height: 100%;
+    }
+    
 }
 
-.GunR2e {
-    position: absolute;
-    background-color: transparent;
-    height: 30px;
-    opacity: 90%;
-    top: 30px;
-    left: 0;
-    transform: rotateY(180deg);
-    /* Right secondary weapon unequipped */
+.secondary{
+    height: 100%;
+    max-height: 30px;
+    align-self: flex-start;
+    width:30px;
+
+    img {
+        height: 30px;
+    }
+
+    .GunR2 {
+        transform: rotateY(180deg);
+        opacity: 30%;
+    }
+
+    .GunL2 {
+        opacity: 30%;
+    }
+
+    .GunR2e {
+        transform: rotateY(180deg);
+        opacity: 100%;
+    }
+
+    .GunL2e {
+        opacity: 100%;
+    }
 }
 
-.NadesL1 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    top: 30px;
-    left: 65%
+.playerStats {
+    display:flex;
+    align-self: flex-end;
+    align-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
 
-    /* Right secondary weapon */
-}
-.NadesL2 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    top: 30px;
-    left: 70%;
 
-    /* Right secondary weapon */
-}
-.NadesL3 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    top: 30px;
-    left: 75%;
-
-    /* Right secondary weapon */
-}
-.NadesL4 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    top: 30px;
-    left: 80%;
-
-    /* Right secondary weapon */
-}
-.NadesR1 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    right: 60%;
-    top: 30px;
-    transform: rotateY(180deg);
-    /* Left secondary weapon  */
-}
-.NadesR2 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    right: 65%;
-    top: 30px;
-    transform: rotateY(180deg);
-    /* Left secondary weapon  */
-}
-.NadesR3 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    right: 70%;
-    top: 30px;
-    transform: rotateY(180deg);
-    /* Left secondary weapon  */
-}
-.NadesR4 {
-    position: absolute;
-    background-color: transparent;
-    height: 20px;
-    opacity: 80%;
-    right: 75%;
-    top: 30px;
-    transform: rotateY(180deg);
-    /* Left secondary weapon  */
-}
