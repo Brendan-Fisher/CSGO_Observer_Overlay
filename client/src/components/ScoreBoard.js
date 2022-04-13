@@ -1,24 +1,58 @@
 import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { LogoCT, LogoT, FlashingBomb } from "../assets/Icons";
+import { LogoCT, LogoT, FlashingBomb, Bomb } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
+
+
+var currentBombTime = 40;
+
 function printTime(scoreBoard) {
-    if (scoreBoard.phaseInfo.phase == "bomb") {
+    if (scoreBoard.phaseInfo.phase === "bomb") {
         return <FlashingBomb className="bombImage" />
     }
-    if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase == "live") {
+    if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase === "live") {
         return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
     }
     return <div id="time">{scoreBoard.phase_ends_in}</div>;
 }
+
+function BombTimer(scoreBoard) {
+    if (!scoreBoard) <div></div>
+
+    if (scoreBoard.phaseInfo.phase === "bomb") {
+        return <div className="BombTimer">
+
+            {scoreBoard.phaseInfo.phase === "defuse" ?
+                <div className="Rchart">
+                    <div className={"defuse-" + scoreBoard.phaseInfo.phase_ends_in}></div>
+                </div>
+                : <div></div>
+            }
+
+            <div className="Rchart">
+                <div className={"bomb-" + currentBombTime}></div>
+            </div>
+
+
+        </div >
+    }
+}
+
 export function ScoreBoard() {
     const [scoreBoard, setSB] = useState(null);
 
     useEffect(() => {
         socket.on("scoreboard", (scoreboard) => {
             setSB(scoreboard);
+
+            if (scoreBoard && scoreBoard.phaseInfo.phase === "bomb") {
+                if (scoreBoard.phaseInfo.phase_ends_in === "40.0")
+                    setInterval(currentBombTime--, 1000);
+                console.log(currentBombTime)
+
+            }
             //console.log(scoreboard)
         });
     });
@@ -64,7 +98,10 @@ export function ScoreBoard() {
                         {scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}
                     </p>
                 </div>
-            </div >
+
+                {BombTimer(scoreBoard)}
+            </div>
+
         );
     } else {
         return <div></div>;
