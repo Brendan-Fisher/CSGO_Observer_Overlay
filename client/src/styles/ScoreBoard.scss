@@ -37,7 +37,7 @@
             width: 48px;
             fill: white;
         }
-        
+
     }
 
     #time {
@@ -133,4 +133,88 @@
         font-size: 36px;
         color: rgb(255, 255, 255);
     }
+}
+
+.BombTimer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: GoBold;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 275%);
+    height: 2vh;
+    width: 54vh;
+    top: 20px;
+    background-color: $Background-solid;
+    padding: 1%;
+    padding-left: 0;
+    padding-right: 0;
+
+    .Rchart {
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        grid-row-gap: 0px;
+        height: 100%;
+        max-height: 100%;
+        width: 48%;
+        /* Right Side Health Bars */
+        //background-color: beige;
+    }
+
+    .LChart {
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        grid-row-gap: 0px;
+        height: 100%;
+        max-height: 100%;
+        width: 48%;
+        /* Left Side Health Bars */
+    }
+
+    [class*="bomb"] {
+        transition: all 0.6s ease;
+        background-color: $T-color;
+        grid-column-start: 1;
+        grid-column-end: 101;
+        max-height: 30px;
+        /* More right side health bar stuff */
+    }
+
+    [class*="defuse"] {
+        transition: all 0.6s ease;
+        background-color: $CT-color;
+        grid-column-start: 1;
+        grid-column-end: 101;
+        max-height: 30px;
+        /* More right side health bar stuff */
+    }
+
+    $totalColumns: 101;
+
+    @mixin BombChartValue($data) {
+        grid-column-end: $data + 1;
+        /* Sets grid coordinates for health bar right side */
+    }
+
+    @mixin DefuseChartValue($data) {
+        $result: $totalColumns - $data;
+        grid-column-start: $result;
+        /*  Sets grid coordinates for the health bar left side */
+    }
+
+    @for $i from 0 through $totalColumns {
+        .bomb-#{$i} {
+            @include BombChartValue($i);
+        }
+
+        .defuse-#{$i} {
+            @include DefuseChartValue($i);
+        }
+
+        /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
+    }
+
 }
