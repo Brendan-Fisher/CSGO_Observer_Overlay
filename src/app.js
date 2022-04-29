@@ -141,6 +141,8 @@ const parseGamestate = (raw) => {
     let players = playerList(raw);
 
     let scoreboard = {
+        previously: raw.previously,
+        bomb: raw.bomb,
         mapInfo: raw.map,
         phaseInfo: raw.phase_countdowns,
         allplayers: players
@@ -211,6 +213,8 @@ const parseScoreboard = (raw) => {
 
     let leftCT = raw.allplayers.find(p => p.team === 'CT' && p.observer_slot >= 1 && p.observer_slot < 6) ? true : false;
     let scoreboard = {
+        previously: raw.previously,
+        bomb: raw.bomb,
         phase: raw.mapInfo.phase,
         round: raw.mapInfo.round,
         CTScore: raw.mapInfo.team_ct.score,
