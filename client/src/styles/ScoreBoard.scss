@@ -139,7 +139,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     font-family: GoBold;
     position: absolute;
@@ -155,22 +155,37 @@
 
     .Rchart {
         display: grid;
-        grid-template-columns: repeat(100, 1fr);
+        grid-template-columns: repeat(400, .25fr);
         grid-row-gap: 0px;
         height: 100%;
         max-height: 100%;
-        width: 48%;
-        /* Right Side Health Bars */
+        max-width: 99% !important;
+        width: 100%;
+        right: 0;
         //background-color: beige;
     }
 
-    .LChart {
+    .BombRevchart {
+        display: grid;
+        grid-template-columns: repeat(400, .25fr);
+        grid-row-gap: 0px;
+        height: 100%;
+        max-height: 100%;
+        max-width: 99% !important;
+        width: 100%;
+        left: 0;
+        /* Left Side Health Bars */
+    }
+
+    .Lchart {
         display: grid;
         grid-template-columns: repeat(100, 1fr);
         grid-row-gap: 0px;
         height: 100%;
         max-height: 100%;
-        width: 48%;
+        max-width: 99% !important;
+        width: 100%;
+        left: 0;
         /* Left Side Health Bars */
     }
 
@@ -178,7 +193,7 @@
         transition: all 0.6s ease;
         background-color: $T-color;
         grid-column-start: 1;
-        grid-column-end: 101;
+        grid-column-end: 401;
         max-height: 30px;
         /* More right side health bar stuff */
     }
@@ -192,26 +207,41 @@
         /* More right side health bar stuff */
     }
 
-    $totalColumns: 101;
+    $bombColumns: 401;
+    $defuseColumns: 101;
 
     @mixin BombChartValue($data) {
         grid-column-end: $data + 1;
         /* Sets grid coordinates for health bar right side */
     }
 
-    @mixin DefuseChartValue($data) {
-        $result: $totalColumns - $data;
+    @mixin BombChartReverseValue($data) {
+        $result: $bombColumns - $data;
         grid-column-start: $result;
         /*  Sets grid coordinates for the health bar left side */
     }
 
-    @for $i from 0 through $totalColumns {
+    @mixin DefuseChartValue($data) {
+        $result: $defuseColumns - $data;
+        grid-column-start: $result;
+        /*  Sets grid coordinates for the health bar left side */
+    }
+
+    @for $i from 0 through $defuseColumns {
+        .defuse-#{$i} {
+            @include DefuseChartValue($i);
+        }
+
+        /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
+    }
+    
+    @for $i from 0 through $bombColumns {
         .bomb-#{$i} {
             @include BombChartValue($i);
         }
 
-        .defuse-#{$i} {
-            @include DefuseChartValue($i);
+        .bombReverse-#{$i} {
+            @include BombChartReverseValue($i);
         }
 
         /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */

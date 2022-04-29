@@ -1,42 +1,58 @@
 import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { LogoCT, LogoT, FlashingBomb, Bomb } from "../assets/Icons";
+import { LogoCT, LogoT, FlashingBomb, Bomb, Defuse } from "../assets/Icons";
 
 const socket = io("http://localhost:5001");
 
 
-var currentBombTime = 40;
+var PlantedBombTime;
+var prevCount = 400;
 
 function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase === "bomb") {
         return <FlashingBomb className="bombImage" />
     }
+    if (scoreBoard.phaseInfo.phase === "defuse"){
+        return <Defuse className="bombImage" />
+    }
     if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase === "live") {
         return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
     }
+    
     return <div id="time">{scoreBoard.phase_ends_in}</div>;
 }
 
 function BombTimer(scoreBoard) {
-    if (!scoreBoard) <div></div>
+    if (!scoreBoard.bomb) return <div></div>;
 
-    if (scoreBoard.phaseInfo.phase === "bomb") {
+    if (scoreBoard.bomb.state === "planted") {
         return <div className="BombTimer">
+                    <div className="BombRevchart">
+                        <div className={"bombReverse-" + (scoreBoard.bomb.countdown * 10)}></div>
+                    </div>
+                    <div className="Rchart">
+                        <div className={"bomb-" + (scoreBoard.bomb.countdown * 10)}></div>
+                    </div>
+                </div >
+        
+    }
 
-            {scoreBoard.phaseInfo.phase === "defuse" ?
-                <div className="Rchart">
-                    <div className={"defuse-" + scoreBoard.phaseInfo.phase_ends_in}></div>
+    if(scoreBoard.bomb.state === "defusing"){
+        if(scoreBoard.previously.bomb.state === "planted") {
+            PlantedBombTime = new Date();
+            prevCount = scoreBoard.previously.bomb.countdown * 10;            
+        }
+        var diff = prevCount - Math.round(Math.abs(new Date() - PlantedBombTime) / 100);
+
+        return  <div className="BombTimer">
+                    <div className="Lchart">
+                        <div className={"defuse-" + (scoreBoard.bomb.countdown * 10)}></div>
+                    </div>
+                    <div className="Rchart">
+                        <div className={"bomb-" + diff}></div>
+                    </div>
                 </div>
-                : <div></div>
-            }
-
-            <div className="Rchart">
-                <div className={"bomb-" + currentBombTime}></div>
-            </div>
-
-
-        </div >
     }
 }
 
@@ -46,14 +62,6 @@ export function ScoreBoard() {
     useEffect(() => {
         socket.on("scoreboard", (scoreboard) => {
             setSB(scoreboard);
-
-            if (scoreBoard && scoreBoard.phaseInfo.phase === "bomb") {
-                if (scoreBoard.phaseInfo.phase_ends_in === "40.0")
-                    setInterval(currentBombTime--, 1000);
-                console.log(currentBombTime)
-
-            }
-            //console.log(scoreboard)
         });
     });
     if (scoreBoard) {
