@@ -114,6 +114,28 @@
     /* right side info, basically everything except health and armor */
 }
 
+.RChart {
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
+    grid-row-gap: 0px;
+    height: 30px;
+    max-height: 30px;
+    width: 100%;
+    padding: 0px;
+    /* Right Side Health Bars */
+}
+
+.LChart {
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
+    grid-row-gap: 0px;
+    height: 30px;
+    max-height: 30px;
+    width: 100%;
+    padding: 0px;
+    /* Left Side Health Bars */
+}
+
 .healthBarText {
     height: 100%;
     width: 100%;

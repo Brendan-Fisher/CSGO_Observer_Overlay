@@ -288,13 +288,13 @@ function printHealthBar(side, player) {
         y = "T";
     }
     if (player.state.health > 0) {
-        return (<div className={x + "chart"}>
+        return (<div className={x + "Chart"}>
             {
                 (<div className={side === 'L' ? 'Lbar' + y + '-' + player.state.health : 'Rbar' + y + '-' + player.state.health} />)
             }
         </div>);
     }
-    return (<div className={x + "chart"}>
+    return (<div className={x + "Chart"}>
         {(
             <div className={x + 'bar-D'} />
         )}
