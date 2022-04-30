@@ -19,7 +19,7 @@ function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase_ends_in < 10 && scoreBoard.phaseInfo.phase === "live") {
         return <div id="timelow">{scoreBoard.phaseInfo.phase_ends_in}</div>;
     }
-    
+
     return <div id="time">{scoreBoard.phase_ends_in}</div>;
 }
 
@@ -35,13 +35,13 @@ function BombTimer(scoreBoard) {
                         <div className={"bomb-" + (scoreBoard.bomb.countdown * 10)}></div>
                     </div>
                 </div >
-        
+
     }
 
     if(scoreBoard.bomb.state === "defusing"){
         if(scoreBoard.previously.bomb.state === "planted") {
             PlantedBombTime = new Date();
-            prevCount = scoreBoard.previously.bomb.countdown * 10;            
+            prevCount = scoreBoard.previously.bomb.countdown * 10;
         }
         var diff = prevCount - Math.round(Math.abs(new Date() - PlantedBombTime) / 100);
 
@@ -56,6 +56,30 @@ function BombTimer(scoreBoard) {
     }
 }
 
+function roundWin(scoreBoard) {
+  if(scoreBoard.phaseInfo.phase !== "over") {
+    return <div/>; //Return if phase isn't over
+    //Causes undefined behavior otherwise
+  }
+  //console.log(scoreBoard.roundWins[scoreBoard.round])
+  var roundWinType = scoreBoard.roundWins[scoreBoard.round]
+  var s = ""
+  //Gets the GSI string relating to who won the current round, given that the round phase is 'over'
+  if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
+    //CT WIN ROUND
+    return <div className = "roundEnd">
+      <div className={"CTWin"}><div className="roundEndText">Counter-Terrorists Win</div>
+      </div>
+    </div>
+  } else {
+    //T WIN ROUND
+    return <div className = "roundEnd">
+      <div className={"TWin"}><div className="roundEndText">Terrorists Win</div>
+      </div>
+    </div>
+  }
+}
+
 export function ScoreBoard() {
     const [scoreBoard, setSB] = useState(null);
 
@@ -64,6 +88,7 @@ export function ScoreBoard() {
             setSB(scoreboard);
         });
     });
+    //console.log(scoreBoard)
     if (scoreBoard) {
         return (
             <div className="scoreboard">
@@ -108,6 +133,7 @@ export function ScoreBoard() {
                 </div>
 
                 {BombTimer(scoreBoard)}
+              {roundWin(scoreBoard)}
             </div>
 
         );

@@ -135,6 +135,29 @@
     }
 }
 
+.roundEnd{
+    width: 25%;
+    height:100%;
+    overflow: hidden;
+    position: fixed;
+    top: 200%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    min-width: 70%;
+    opacity: 75%;
+    font-size: 35px;
+    .TWin{
+        background-color: $T-color;
+    }
+    .CTWin{
+        background-color: $CT-color;
+    }
+}
+.roundEndText {
+    text-align: center;
+}
+
 .BombTimer {
     display: flex;
     flex-direction: row;
@@ -234,7 +257,7 @@
 
         /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
     }
-    
+
     @for $i from 0 through $bombColumns {
         .bomb-#{$i} {
             @include BombChartValue($i);
@@ -248,3 +271,4 @@
     }
 
 }
+

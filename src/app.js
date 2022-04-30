@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
 
         req.on("data", (data) => {
             try {
-                
+
                 let jsonData;
                 if(data) {
                     jsonData = JSON.parse(data);
@@ -170,11 +170,11 @@ const parseADR = (raw) => {
         return null;
     }
 
-    // Set ADRs to 0 at beginning of game   
+    // Set ADRs to 0 at beginning of game
     raw.allplayers.forEach(p => p.match_stats.adr = raw.numrounds === 0 ? 0 :
         parseInt(parseInt(playersMatchDamage.get(p.steamid)) / parseInt(raw.numrounds)));
 
-    // Set ADR of current player 
+    // Set ADR of current player
     raw.allplayers.find(p => p.steamid === raw.player.steamid) ?
         raw.player.match_stats.adr = parseInt(parseInt(playersMatchDamage.get(raw.player.steamid)) / parseInt(raw.numrounds))
         : 0;
@@ -223,6 +223,7 @@ const parseScoreboard = (raw) => {
         TName: raw.mapInfo.team_t.name,
         phase_ends_in: raw.phaseInfo.phase_ends_in < 0 ? 0 : raw.phaseInfo.phase_ends_in,
         phaseInfo: raw.phaseInfo,
+        roundWins: raw.mapInfo.round_wins,
         leftCT: leftCT,
     };
 
@@ -247,9 +248,9 @@ const parseMinimap = (raw) => {
 
 const parsePlayers = (raw) => {
     //log.info("Parsing Players");
-  
+
     if(!raw || !raw.allplayers) return null;
-    
+
 
     //log.info(`Sending player info`);
     parseADR(raw);
