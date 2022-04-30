@@ -136,25 +136,35 @@
 }
 
 .roundEnd{
-    width: 25%;
-    height:100%;
-    overflow: hidden;
+    height: 100%;
+    overflow-x: visible;
+    white-space: nowrap;
     position: fixed;
-    top: 200%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    min-width: 70%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    top: 150%;
     opacity: 75%;
-    font-size: 35px;
+    font-size: 30px;
+
     .TWin{
         background-color: $T-color;
+        min-width: 90%;
     }
     .CTWin{
         background-color: $CT-color;
+        min-width: 90%;
+    }
+    .teamLogoEnd {
+        height: 100%;
+        background-color: $Background-opacity;
+    }
+    .teamLogoEnd img {
+        max-height: 100%;
     }
 }
 .roundEndText {
+    margin: 10px 10px 10px 10px ;
     text-align: center;
 }
 

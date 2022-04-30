@@ -68,13 +68,19 @@ function roundWin(scoreBoard) {
   if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
     //CT WIN ROUND
     return <div className = "roundEnd">
-      <div className={"CTWin"}><div className="roundEndText">Counter-Terrorists Win</div>
+      <div className={"teamLogoEnd"}> <img src={LogoCT}/></div>
+      <div className={"CTWin"}>
+        <div className="roundEndText">Counter-Terrorists</div> <div className={"CTWin"}><div className="roundEndText">WINS THE ROUND </div>
+      </div>
       </div>
     </div>
   } else {
     //T WIN ROUND
     return <div className = "roundEnd">
-      <div className={"TWin"}><div className="roundEndText">Terrorists Win</div>
+      <div className={"teamLogoEnd"}> <img src={LogoT}/></div>
+      <div className={"TWin"}>
+        <div className="roundEndText">Terrorists</div> <div className={"TWin"}><div className="roundEndText">WINS THE ROUND </div>
+      </div>
       </div>
     </div>
   }
