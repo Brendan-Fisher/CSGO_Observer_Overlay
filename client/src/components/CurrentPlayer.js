@@ -55,7 +55,13 @@ export function Current() {
         )
     }
     function getAmmo(player) {
-        if(weapon.type == "Knife") {
+        if(!player) {
+            return;
+        }
+        if(weapon == null) {
+            return
+        }
+        if(weapon.type == "Knife" || weapon.type == "Grenade") {
             return <div></div>
         }
         return (weapon ? <div className="ammo">
