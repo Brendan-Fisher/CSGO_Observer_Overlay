@@ -35,7 +35,13 @@ export function Current() {
         if (!player || !player.weapons) return <div></div>
         let grenades = [...Object.values(player.weapons)].filter(w => w.type === "Grenade");
         grenades.sort((a, b) => NadeOrder.get(a.name) - NadeOrder.get(b.name));
-        console.log(grenades);
+        if(grenades.length === 0){
+            return (
+                <div className="Nades">
+                    <p>NO UTILITY</p>
+                </div>
+            )
+        }
 
         return (
             <div className="Nades">
