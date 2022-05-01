@@ -2,7 +2,7 @@ import "./../styles/Teams.scss";
 import { useState } from "react";
 import io from "socket.io-client";
 
-import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull, LogoT, LogoCT } from "../assets/Icons";
+import { ArmorHelmet, ArmorFull, Defuse, SmallBomb, Skull, LogoT, LogoCT, Bomb } from "../assets/Icons";
 import { gunMap, NadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
@@ -74,10 +74,10 @@ function getPrimaryWeapon(side, player) {
         } //If knife is unequipped, change playerSide so a different class will grey out the knife
         return (
             <img
-                alt="knife"
-                className={playerSide}
-                src={gunMap.get(player.weapons.weapon_0.name)}
-            ></img>
+  alt="knife"
+  className={playerSide}
+  src={gunMap.get(player.weapons.weapon_0.name)}
+  />
         );
         //Return the knife icon, haven't tested yet with non-default knives but it should work
     }
@@ -167,6 +167,23 @@ function hasKit(player) {
         }
     }
 }
+
+function hasBomb(player) {
+
+    if (player.team != "T") {
+        return;
+    }
+    var s = false;
+    Object.keys(player.weapons).forEach(function (key) {
+        //Iterates through all weapons of the given player
+        if(player.weapons[key].name == "weapon_c4") {
+            s = true;
+        }
+    });
+    if(s) {
+        return <Bomb />;
+    }
+}
 function printArmorKitHealth(player, side) {
     if (side != "L") {
         return (
@@ -185,6 +202,7 @@ function printArmorKitHealth(player, side) {
                     {player.state.health}
                 </p>
                 {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 && <ArmorFull />}
+                {hasBomb(player)}
                 {hasKit(player)}
             </div>
         );
@@ -204,6 +222,7 @@ function printArmorKitHealth(player, side) {
                 {player.state.health}
             </p>
             {hasKit(player)}
+            {hasBomb(player)}
             {player.state.helmet ? <ArmorHelmet /> : player.state.armor > 0 && <ArmorFull />}
         </div>
     );
@@ -351,7 +370,7 @@ export function Teams() {
                             <div className={side === "L" ? "LplayerInfo" : "RplayerInfo"}>
                                 <div className="healthBarText">
                                     <div>{getPrimaryWeapon(side, player)}</div>
-                                    
+
                                     {side === "L" ? (
                                         <p className="pLeft">
                                             {player.observer_slot} | {player.name}{" "}

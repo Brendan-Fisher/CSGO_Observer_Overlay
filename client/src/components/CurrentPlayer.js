@@ -54,6 +54,22 @@ export function Current() {
             </div>
         )
     }
+    function getAmmo(player) {
+        if(!player) {
+            return;
+        }
+        if(weapon == null) {
+            return
+        }
+        if(weapon.type == "Knife" || weapon.type == "Grenade") {
+            return <div></div>
+        }
+        return (weapon ? <div className="ammo">
+              <Bullets className="icon" />
+              <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
+          <div></div>
+        )
+    }
     if (player) {
         return (
             <div className="currentPlayer">
@@ -104,11 +120,7 @@ export function Current() {
                             </div>
                             <div className="player-equipment">
                                 {Grenades(player)}
-                                {weapon ? <div className="ammo">
-                                    <Bullets className="icon" />
-                                    <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
-                                    <div></div>
-                                }
+                                {getAmmo(player)}
 
                             </div>
 
