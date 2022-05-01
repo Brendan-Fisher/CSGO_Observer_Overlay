@@ -167,7 +167,11 @@ function hasKit(player) {
         }
     }
 }
-
+function getPlayerKills(player,side) {
+    //Unused for now
+    //Data to get player kills in the current round
+    //is located at player.state.round_kills
+}
 function hasBomb(player) {
 
     if (player.team != "T") {
