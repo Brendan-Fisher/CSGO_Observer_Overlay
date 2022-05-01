@@ -208,21 +208,57 @@
                 //background-color: lime;
             }
 
-            .grenades {
-                display: flex;
-                flex-direction: row;
-                justify-content: right;
-
-                //background-color: lime;
-
-                .grenade-img {
-                    height: 20px;
-                    width: 20px;
-                }
-
-                //background-color: red;
-            }
+            
         }
+    }
+}
+
+.Nades {
+    height:100%;
+    width: 80px;
+    min-width: 100px;
+    max-height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .Nade {
+        max-height: 28px;
+        min-width: 18px;
+    }
+
+    .weapon_incgrenade{
+        height: 28px;
+        margin-bottom: 3px;
+    }
+
+    .weapon_molotov{
+        height: 28px;
+        margin-bottom: 3px;
+    }
+
+    .weapon_smokegrenade{
+        height: 25px;
+        margin: 1.5px;
+        margin-top: 0px;
+    }
+
+    .weapon_flashbang{
+        height: 22.5px;
+        margin-right: 1px;
+        margin-left: 1px;
+        margin-bottom: 2px;
+    }
+
+    .weapon_hegrenade{
+        height: 23px;
+    }
+
+    .weapon_decoy{
+        height: 75%;
+        margin-right: 1px;
+        margin-left: 1px;
+        margin-bottom: 2px;
     }
 }
 

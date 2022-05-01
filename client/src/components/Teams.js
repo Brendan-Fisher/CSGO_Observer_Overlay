@@ -257,20 +257,20 @@ function leftTeamNades(nades) {
 
     return (
     <div className="leftTeamNades">
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[3])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[2])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[1])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[0])} />
+        <img alt="nades" className={`Nade ${nades[3]}`} src={gunMap.get(nades[3])} />
+        <img alt="nades" className={`Nade ${nades[2]}`} src={gunMap.get(nades[2])} />
+        <img alt="nades" className={`Nade ${nades[1]}`} src={gunMap.get(nades[1])} />
+        <img alt="nades" className={`Nade ${nades[0]}`} src={gunMap.get(nades[0])} />
     </div>
     );
 }
 function rightTeamNades(nades) {
     return (
     <div className="rightTeamNades">
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[3])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[2])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[1])} />
-        <img alt="nades" className={"Nade"} src={gunMap.get(nades[0])} />
+        <img alt="nades" className={`Nade ${nades[3]}`} src={gunMap.get(nades[3])} />
+        <img alt="nades" className={`Nade ${nades[2]}`} src={gunMap.get(nades[2])} />
+        <img alt="nades" className={`Nade ${nades[1]}`} src={gunMap.get(nades[1])} />
+        <img alt="nades" className={`Nade ${nades[0]}`} src={gunMap.get(nades[0])} />
     </div>
     );
 }

@@ -35,17 +35,16 @@ export function Current() {
         if (!player || !player.weapons) return <div></div>
         let grenades = [...Object.values(player.weapons)].filter(w => w.type === "Grenade");
         grenades.sort((a, b) => NadeOrder.get(a.name) - NadeOrder.get(b.name));
-        //console.log(grenades);
+        console.log(grenades);
 
         return (
-            <div className="grenades">
+            <div className="Nades">
                 {grenades.map((grenade, index) => (
-                    <div className="grenade" key={"grenade" + index}>
-                        <img alt="grenade" className={"grenade-img"} src={gunMap.get(grenade.name)} />
+                    <div className="Nade" key={"grenade" + index}>
+                        <img alt="grenade" className={`${grenade.name}`} src={gunMap.get(grenade.name)} />
                     </div>
                 )
                 )}
-
             </div>
         )
     }

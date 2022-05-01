@@ -142,19 +142,19 @@ gunMap.set("weapon_usp_silencer_off",weapon_usp_silencer_off);
 gunMap.set("weapon_world",weapon_world);
 gunMap.set("weapon_xm1014",weapon_xm1014);
 gunMap.set("",blank);
-gunMap.set(0, weapon_incgrenade);
-gunMap.set(1, weapon_molotov);
-gunMap.set(2,weapon_smokegrenade);
-gunMap.set(3,weapon_flashbang);
-gunMap.set(4,weapon_hegrenade);
-gunMap.set(5,weapon_decoy);
+gunMap.set("aInc",weapon_incgrenade);
+gunMap.set("aMol",weapon_molotov);
+gunMap.set("bSmo",weapon_smokegrenade);
+gunMap.set("cFla",weapon_flashbang);
+gunMap.set("dHe",weapon_hegrenade);
+gunMap.set("eDec",weapon_decoy);
 const NadeOrder = new Map();
-NadeOrder.set("weapon_incgrenade" , 0);
-NadeOrder.set("weapon_molotov" , 1);
-NadeOrder.set("weapon_smokegrenade",2);
-NadeOrder.set("weapon_flashbang",3);
-NadeOrder.set("weapon_hegrenade",4);
-NadeOrder.set("weapon_decoy",5);
+NadeOrder.set("weapon_incgrenade" , "aInc");
+NadeOrder.set("weapon_molotov" , "aMol");
+NadeOrder.set("weapon_smokegrenade","bSmo");
+NadeOrder.set("weapon_flashbang","cFla");
+NadeOrder.set("weapon_hegrenade","dHe");
+NadeOrder.set("weapon_decoy","eDec");
 export {
     gunMap,
     NadeOrder
