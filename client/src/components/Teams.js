@@ -177,7 +177,6 @@ function hasBomb(player) {
     Object.keys(player.weapons).forEach(function (key) {
         //Iterates through all weapons of the given player
         if(player.weapons[key].name == "weapon_c4") {
-            console.log(player)
             s = true;
         }
     });
