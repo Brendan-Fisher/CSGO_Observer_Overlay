@@ -101,7 +101,7 @@ export function ScoreBoard() {
                 <div
                     className="TeamName"
                     {...(scoreBoard.phaseInfo.phase !== "freezetime"
-                        ? { style: { display: "none" } }
+                        ? { id:"hidden" }
                         : {})}
                 >
                     <p className="teamLeftName">
@@ -131,7 +131,7 @@ export function ScoreBoard() {
                 <div
                     className="TeamName"
                     {...(scoreBoard.phaseInfo.phase !== "freezetime"
-                        ? { style: { display: "none" } }
+                        ? { id:"hidden" }
                         : {})}>
                     <p className="teamRightName">
                         {scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}
