@@ -25,17 +25,31 @@ function printTime(scoreBoard) {
 
 function BombTimer(scoreBoard) {
     if (!scoreBoard.bomb) return <div></div>;
+    if(scoreBoard.bomb.state == "carried") {
+      return <div></div>
+    }
 
     if (scoreBoard.bomb.state === "planted") {
+      if (scoreBoard.bomb.countdown > 10) {
         return <div className="BombTimer">
-                    <div className="BombRevchart">
-                        <div className={"bombReverse-" + (scoreBoard.bomb.countdown * 10)}></div>
-                    </div>
-                    <div className="Rchart">
-                        <div className={"bomb-" + (scoreBoard.bomb.countdown * 10)}></div>
-                    </div>
-                </div >
+          <div className="BombRevchart">
+            <div className={'bombReverse-' + (scoreBoard.bomb.countdown * 10)}/>
+          </div>
+          <div className="Rchart">
+            <div className={'bomb-' + (scoreBoard.bomb.countdown * 10)}/>
+          </div>
+        </div>
 
+      } else {
+        return <div className="BombTimer">
+          <div className="BombRevchart">
+            <div className={'tensecondsReverse-' + (scoreBoard.bomb.countdown * 10)}/>
+          </div>
+          <div className="Rchart">
+            <div className={'tenseconds-' + (scoreBoard.bomb.countdown * 10)}/>
+          </div>
+        </div>
+      }
     }
 
     if(scoreBoard.bomb.state === "defusing"){
@@ -47,10 +61,10 @@ function BombTimer(scoreBoard) {
 
         return  <div className="BombTimer">
                     <div className="Lchart">
-                        <div className={"defuse-" + (scoreBoard.bomb.countdown * 10)}></div>
+                        <div className={'defuse-' + (scoreBoard.bomb.countdown * 10)}/>
                     </div>
                     <div className="Rchart">
-                        <div className={"bomb-" + diff}></div>
+                        <div className={'bomb-' + diff}/>
                     </div>
                 </div>
     }

@@ -252,6 +252,14 @@
         /* More right side health bar stuff */
     }
 
+    [class*="tenseconds"] {
+        transition: all 0.6s ease;
+        background-color: red;
+        grid-column-start: 1;
+        grid-column-end: 401;
+        max-height: 30px;
+    }
+
     $bombColumns: 401;
     $defuseColumns: 101;
 
@@ -288,6 +296,14 @@
         .bombReverse-#{$i} {
             @include BombChartReverseValue($i);
         }
+        .tenseconds-#{$i} {
+            @include BombChartValue($i);
+        }
+
+        .tensecondsReverse-#{$i} {
+            @include BombChartReverseValue($i);
+        }
+
 
         /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
     }
