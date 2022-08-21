@@ -55,7 +55,7 @@
 
         [class*="LbarT"] {
             transition: all 0.6s ease;
-            background-color: $T-color;
+            background: linear-gradient(90deg, rgba(156,36,0,1) 0%, rgba(152,79,0,1) 25%, rgba(213,96,0,1) 100%);
             grid-column-start: 1;
             grid-column-end: 101;
             max-height: 30px;
@@ -63,7 +63,7 @@
         }
         [class*="LbarCT"] {
             transition: all 0.6s ease;
-            background-color: $CT-color;
+            background: linear-gradient(90deg, rgb(0, 63, 176) 0%, rgb(0, 84, 185) 25%, rgba(0,135,176,1) 100%);
             grid-column-start: 1;
             grid-column-end: 101;
             max-height: 30px;
@@ -163,7 +163,7 @@
 
             [class*="RbarT"] {
                 transition: all 0.6s ease;
-                background-color: $T-color;
+                background: linear-gradient(90deg, rgba(213,96,0,1) 0%, rgba(152,79,0,1) 25%, rgba(156,36,0,1) 100%);
                 grid-column-start: 1;
                 grid-column-end: 101;
                 max-height: 30px;
@@ -171,7 +171,7 @@
             }
             [class*="RbarCT"] {
                 transition: all 0.6s ease;
-                background-color: $CT-color;
+                background: linear-gradient(90deg, rgba(0,135,176,1) 0%, rgb(0, 84, 185) 25%, rgb(0, 63, 176) 100%);
                 grid-column-start: 1;
                 grid-column-end: 101;
                 max-height: 30px;
