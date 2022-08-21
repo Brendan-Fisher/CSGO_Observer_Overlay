@@ -33,9 +33,19 @@ export function Current() {
 
     function Grenades(player) {
         if (!player || !player.weapons) return <div></div>
-        let grenades = [...Object.values(player.weapons)].filter(w => w.type === "Grenade");
-        grenades.sort((a, b) => NadeOrder.get(a.name) - NadeOrder.get(b.name));
-        if(grenades.length === 0){
+        var x = "";
+        var gun;
+        var nades = Array(4).fill("");
+        var spot = 0;
+        Object.keys(player.weapons).forEach(function (key) {
+            gun = player.weapons[key];
+            if (gun.type === "Grenade") {
+                x = gun.name;
+                nades[spot] = x;
+                spot++;
+            }
+        });
+        if(nades[0] === ""){
             return (
                 <div className="Nades">
                     <p>NO UTILITY</p>
@@ -43,14 +53,20 @@ export function Current() {
             )
         }
 
+        for (const nade in nades) {
+            if (nades[nade] !== "") {
+                nades[nade] = NadeOrder.get(nades[nade]);
+            }
+        }
+        nades.sort();
+        nades.reverse();
+
         return (
             <div className="Nades">
-                {grenades.map((grenade, index) => (
-                    <div className="Nade" key={"grenade" + index}>
-                        <img alt="grenade" className={`${grenade.name}`} src={gunMap.get(grenade.name)} />
-                    </div>
-                )
-                )}
+                    <img alt="Nade" className={`Nade ${nades[3]}`} src={gunMap.get(nades[3])} />
+                    <img alt="Nade" className={`Nade ${nades[2]}`} src={gunMap.get(nades[2])} />
+                    <img alt="Nade" className={`Nade ${nades[1]}`} src={gunMap.get(nades[1])} />
+                    <img alt="Nade" className={`Nade ${nades[0]}`} src={gunMap.get(nades[0])} />
             </div>
         )
     }
@@ -65,8 +81,8 @@ export function Current() {
             return <div></div>
         }
         return (weapon ? <div className="ammo">
-              <Bullets className="icon" />
-              <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
+                <Bullets className="icon" />
+                <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
           <div></div>
         )
     }
@@ -96,11 +112,6 @@ export function Current() {
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
-
-                                <div>
-                                    <div className="label">ADR</div>
-                                    <div className="value">{player.match_stats.adr}{" "}</div>
-                                </div>
 
                                 <div>
                                     <div className="label">K</div>
