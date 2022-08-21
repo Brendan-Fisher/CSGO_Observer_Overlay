@@ -79,6 +79,10 @@
             /* Health bar if dead & left side, doesn't do much except play a fading animation */
         }
     }    
+
+    .dead{
+        width: 70%;
+    }
     
     .LChart {
         display: grid;
@@ -171,7 +175,6 @@
                 /* Health bar if dead & right side, doesn't do much except play a fading animation */
             }
         }
-        
         .RChart {
             display: grid;
             grid-template-columns: repeat(100, 1fr);
@@ -183,10 +186,15 @@
             /* Right Side Health Bars */
         }
     }
+
+    .dead{
+        width: 70%;
+        margin-left: 30%;
+    }
 }
 
 #spec {
-    background-color: #fbff006a;
+    border: 5px inset white;
     /* Player being currently viewed */
 }
 
@@ -222,12 +230,12 @@ $totalColumns: 101;
 
 @mixin RchartValue($data) {
     $result: $totalColumns - $data;
-    grid-column-start: $result;
+    grid-column-start: $result !important;
     /* Sets grid coordinates for health bar right side */
 }
 
 @mixin LchartValue($data) {
-    grid-column-end: $data + 1;
+    grid-column-end: $data + 1 !important;
     /*  Sets grid coordinates for the health bar left side */
 }
 
@@ -292,6 +300,7 @@ $totalColumns: 101;
     width: 80%;
     height: 30px;
     max-height: 30px;
+    min-width: 75px;
 
     .leftTeamNades {
         display:flex;
@@ -408,6 +417,9 @@ $totalColumns: 101;
     align-content: flex-end;
     align-items: center;
     height: 100%;
+    min-width: 75px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 

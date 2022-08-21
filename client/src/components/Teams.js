@@ -357,12 +357,12 @@ export function Teams() {
                 {/* Checks if players are left or right side, misleading variable names */}
                 {props.team.map((player, index) => (
                     <div
-                        className={side == "L" ? "LplayerBlock" : "RplayerBlock"}
+                        className={(player.state.health == "0" ? "dead " : "alive ") + (side == "L" ? "LplayerBlock" : "RplayerBlock")}
                         key={player.observer_slot}
+                        id={player.steamid === currentSpec?.steamid ? "spec" : ""}
                     >
                         <div
                             className={side == "L" ? "LArmor" : "RArmor"}
-                            id={player.steamid === currentSpec?.steamid ? "spec" : ""}
                         >
                             {player.state.health > 0 ? (
                                 <div>{printArmorKitHealth(player, side)}</div>
