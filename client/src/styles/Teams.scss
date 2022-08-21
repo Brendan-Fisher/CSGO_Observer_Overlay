@@ -81,7 +81,19 @@
     }    
 
     .dead{
-        width: 70%;
+        width: 60%;
+        
+        .secondary{
+            display:none;
+        }
+
+        .Nades {
+            display: none;
+        }
+
+        .playerStats{
+            margin-right: 5px;
+        }
     }
     
     .LChart {
@@ -188,8 +200,20 @@
     }
 
     .dead{
-        width: 70%;
-        margin-left: 30%;
+        width: 60%;
+        margin-left: 40%;
+        
+        .secondary{
+            display:none;
+        }
+
+        .Nades {
+            display: none;
+        }
+
+        .playerStats{
+            margin-left: 5px;
+        }
     }
 }
 
@@ -295,12 +319,13 @@ $totalColumns: 101;
 .subTextLeft {
     flex-direction: row-reverse;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 80%;
     height: 30px;
     max-height: 30px;
     min-width: 75px;
+    margin-left: 60px;
 
     .leftTeamNades {
         display:flex;
@@ -308,18 +333,28 @@ $totalColumns: 101;
         justify-content: flex-end;
         width: 100%;
         height: 100%;
+    }
 
+    .playerStats {
+        margin-left: 5px;
+        display:flex;
+        align-self: flex-end;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        min-width: 90px;
     }
 }
 
 .subTextRight {
     flex-direction: row;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 80%;
     height: 30px;
-    max-height: 30px;
+    min-width: 75px;
+    margin-right: 60px;
 
     .rightTeamNades {
         display:flex;
@@ -330,6 +365,15 @@ $totalColumns: 101;
         height: 100%;
     }
 
+    .playerStats {
+        margin-right: 5px;
+        display: flex;
+        align-self: flex-end;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        min-width: 90px;
+    }
 }
 
 
@@ -378,10 +422,6 @@ $totalColumns: 101;
     }
 }
 
-
-
-
-
 .secondary{
     height: 100%;
     max-height: 30px;
@@ -410,16 +450,3 @@ $totalColumns: 101;
         opacity: 100%;
     }
 }
-
-.playerStats {
-    display:flex;
-    align-self: flex-end;
-    align-content: flex-end;
-    align-items: center;
-    height: 100%;
-    min-width: 75px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-

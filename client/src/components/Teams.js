@@ -392,8 +392,8 @@ export function Teams() {
                                 <div className="secondary">{getSecondaryWeapon(side, player)}</div>
                                 <div className="Nades">{getNades(side, player)}</div>
                                 <div className="playerStats">
-                                    {player.match_stats.kills} / {player.match_stats.assists} /{" "}
-                                    {player.match_stats.deaths}
+                                    <p>{player.match_stats.kills} / {player.match_stats.assists} /{" "}
+                                    {player.match_stats.deaths}</p>
                                 </div>
                             </div>
                         </div>
