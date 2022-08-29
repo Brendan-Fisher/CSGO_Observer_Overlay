@@ -29,6 +29,7 @@ export function Current() {
             let bomb = [...Object.values(player.weapons)].find(w => w.name === "weapon_c4");
             if (bomb) return <SmallBomb />
         }
+        return false;
     }
 
     function Grenades(player) {
@@ -45,7 +46,7 @@ export function Current() {
                 spot++;
             }
         });
-        if(nades[0] === ""){
+        if(nades[0] === "" && !hasKitOrBomb(player)){
             return (
                 <div className="Nades">
                     <p>NO UTILITY</p>
@@ -67,6 +68,7 @@ export function Current() {
                     <img alt="Nade" className={`Nade ${nades[2]}`} src={gunMap.get(nades[2])} />
                     <img alt="Nade" className={`Nade ${nades[1]}`} src={gunMap.get(nades[1])} />
                     <img alt="Nade" className={`Nade ${nades[0]}`} src={gunMap.get(nades[0])} />
+                    {hasKitOrBomb(player)}
             </div>
         )
     }
@@ -86,6 +88,34 @@ export function Current() {
           <div></div>
         )
     }
+
+    function printHealthBar(side, player) {
+        var x = ""
+        if (side == "L") {
+            x = "L";
+        } else {
+            x = "R";
+        }
+        var y = "";
+        if (player.team == "CT") {
+            y = "CT";
+        } else {
+            y = "T";
+        }
+        if (player.state.health > 0) {
+            return (<div className={x + "Chart"}>
+                {
+                    (<div className={side === 'L' ? 'Lbar' + y + '-' + player.state.health : 'Rbar' + y + '-' + player.state.health} />)
+                }
+            </div>);
+        }
+        return (<div className={x + "Chart"}>
+            {(
+                <div className={x + 'bar-D'} />
+            )}
+        </div>);
+    }
+
     if (player) {
         return (
             <div className="currentPlayer">
@@ -93,7 +123,14 @@ export function Current() {
                     <div className="playerInfoTop">
                         <div className="playerVitals">
 
-                            <div className="health"> <HealthFull className="icon"></HealthFull> {player.state.health} </div>
+                            <div className="health"> <HealthFull className="icon" style={{
+                                fill:
+                                    player.state.health > 50
+                                        ? "white"
+                                        : player.state.health > 20
+                                            ? "orange"
+                                            : "red",
+                            }}></HealthFull> {player.state.health} </div>
 
                             <div className="armor">
                                 {player.state.helmet ? <ArmorHelmet className="icon" /> : player.state.armor > 0 ? <ArmorFull className="icon" /> : <ArmorNone className="icon" />}
@@ -101,8 +138,8 @@ export function Current() {
                             </div>
                         </div>
                         <div className="player-id">
-                            <div className={player.team === "CT" ? "ct-name" : "t-name"}> {player.name} </div>
-                            <div className="kit-bomb">{hasKitOrBomb(player)}</div>
+                            <div className={player.team === "CT" ? "ct-name" : "t-name"}> <p className="pLeft">{player.name}</p></div>
+                            {printHealthBar("L",player)}
                         </div>
 
                     </div>

@@ -79,34 +79,94 @@
 
 
     .player-id {
-        display: flex;
+        display: table-cell;
+        position: relative;
+        float: left;
         margin-left: auto;
         margin-right: auto;
         width: 63%;
         text-align: left;
         background-color: $Background-solid;
 
+        .pLeft {
+            margin: 0;
+            max-height: 30px;
+            overflow: visible;
+            min-width: 150px;
+            padding-top: 5px;
+            padding-left: 9px;
+        }
+
         [class*="t-name"] {
-            transition: all 0.6s ease;
-            background-color: $T-color;
-            text-align: left;
-            //align-self: center; // vertical centering
             height: 100%;
-            padding-left: 5%;
-            width: 75%;
+            width: 100%;
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            overflow: visible;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
 
         [class*="ct-name"] {
-            transition: all 0.6s ease;
-            background-color: $CT-color;
-            text-align: left;
-            //align-self: center; // vertical centering
             height: 100%;
-            padding-left: 5%;
-            width: 75%;
+            width: 100%;
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            overflow: visible;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        [class*="LbarT"] {
+            transition: all 0.6s ease;
+            background: linear-gradient(90deg, rgba(156,36,0,1) 0%, rgba(152,79,0,1) 25%, rgba(213,96,0,1) 100%);
+            grid-column-start: 1;
+            grid-column-end: 101;
+            /* More left side health bar stuff*/
+        }
+        [class*="LbarCT"] {
+            transition: all 0.6s ease;
+            background: linear-gradient(90deg, rgb(0, 63, 176) 0%, rgb(0, 84, 185) 25%, rgba(0,135,176,1) 100%);
+            grid-column-start: 1;
+            grid-column-end: 101;
+            /* More left side health bar stuff*/
+        }
+
+        .Lbar-D {
+            transition: all 0.6s ease;
+            background-color: transparent;
+            grid-column-start: 1;
+            grid-column-end: 101;
+            /* Health bar if dead & left side, doesn't do much except play a fading animation */
         }
     }
 
+    .LChart {
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        grid-row-gap: 0px;
+        height: 100%;
+        width: 100%;
+        padding: 0px;
+        /* Left Side Health Bars */
+    }
+}
+
+$totalColumns: 101;
+
+@mixin LchartValue($data) {
+    grid-column-end: $data + 1 !important;
+    /*  Sets grid coordinates for the health bar left side */
+}
+
+@for $i from 0 through $totalColumns {
+    .LbarT-#{$i} {
+        @include LchartValue($i);
+    }
+    .LbarCT-#{$i} {
+        @include LchartValue($i);
+    }
+    /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
 }
 
 .playerInfoBottom {
@@ -214,6 +274,7 @@
 }
 
 .Nades {
+    padding-left: 20px;
     height:100%;
     width: 80px;
     min-width: 100px;
@@ -221,6 +282,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-direction: row;
 
     .Nade {
         max-height: 28px;
