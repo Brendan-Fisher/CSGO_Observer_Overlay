@@ -148,14 +148,14 @@ gunMap.set("bSmo",weapon_smokegrenade);
 gunMap.set("cFla",weapon_flashbang);
 gunMap.set("dHe",weapon_hegrenade);
 gunMap.set("eDec",weapon_decoy);
-const NadeOrder = new Map();
-NadeOrder.set("weapon_incgrenade" , "aInc");
-NadeOrder.set("weapon_molotov" , "aMol");
-NadeOrder.set("weapon_smokegrenade","bSmo");
-NadeOrder.set("weapon_flashbang","cFla");
-NadeOrder.set("weapon_hegrenade","dHe");
-NadeOrder.set("weapon_decoy","eDec");
+const nadeOrder = new Map();
+nadeOrder.set("weapon_incgrenade" , "aInc");
+nadeOrder.set("weapon_molotov" , "aMol");
+nadeOrder.set("weapon_smokegrenade","bSmo");
+nadeOrder.set("weapon_flashbang","cFla");
+nadeOrder.set("weapon_hegrenade","dHe");
+nadeOrder.set("weapon_decoy","eDec");
 export {
     gunMap,
-    NadeOrder
+    nadeOrder
 };

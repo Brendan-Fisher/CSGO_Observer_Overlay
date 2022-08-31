@@ -2,7 +2,7 @@ import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb, Bullets } from '../assets/Icons';
-import { gunMap, NadeOrder } from "../assets/Weapons";
+import { gunMap, nadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
 export function Current() {
@@ -56,7 +56,7 @@ export function Current() {
 
         for (const nade in nades) {
             if (nades[nade] !== "") {
-                nades[nade] = NadeOrder.get(nades[nade]);
+                nades[nade] = nadeOrder.get(nades[nade]);
             }
         }
         nades.sort();
