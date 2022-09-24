@@ -1,0 +1,168 @@
+{
+  provider: {
+    name: 'Counter-Strike: Global Offensive',
+    appid: 730,
+    version: 13843,
+    steamid: '76561198262847598',
+    timestamp: 1664047257
+  },
+  player: {
+    steamid: '76561198081539014',
+    name: '[MTU]Retnuh',
+    observer_slot: 6,
+    team: 'T',
+    activity: 'playing',
+    state: {
+      health: 100,
+      armor: 100,
+      helmet: false,
+      flashed: 0,
+      smoked: 0,
+      burning: 0,
+      money: 0,
+      round_kills: 0,
+      round_killhs: 0,
+      round_totaldmg: 0,
+      equip_value: 650
+    },
+    match_stats: { kills: 0, assists: 0, deaths: 0, mvps: 0, score: 0 },
+    weapons: { weapon_0: [Object] },
+    spectarget: '76561198081539014',
+    position: '-432.0, -2208.0, -163.3',
+    forward: '0.309, 0.951, -0.000'
+  },
+  map: {
+    mode: 'competitive',
+    name: 'workshop/2821088824/de_ancient',
+    phase: 'live',
+    round: 0,
+    team_ct: {
+      score: 0,
+      name: 'Gator Esports',
+      flag: 'US',
+      consecutive_round_losses: 1,
+      timeouts_remaining: 1,
+      matches_won_this_series: 0
+    },
+    team_t: {
+      score: 0,
+      name: 'Michigan Tech Huskies',
+      flag: 'US',
+      consecutive_round_losses: 1,
+      timeouts_remaining: 1,
+      matches_won_this_series: 0
+    },
+    num_matches_to_win_series: 0,
+    current_spectators: 0,
+    souvenirs_total: 0
+  },
+  round: { phase: 'freezetime' },
+  grenades: {},
+  allplayers: {
+    '76561198081153940': {
+      name: 'UF > Superious',
+      observer_slot: 1,
+      team: 'CT',
+      match_stats: [Object],
+      position: '-352.0, 1488.0, 28.0',
+      forward: '-0.027, -0.995, -0.096',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198081539014': {
+      name: '[MTU]Retnuh',
+      observer_slot: 6,
+      team: 'T',
+      match_stats: [Object],
+      position: '-432.0, -2208.0, -163.3',
+      forward: '0.309, 0.951, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198233955160': {
+      name: 'UF > Prtzul',
+      observer_slot: 2,
+      team: 'CT',
+      match_stats: [Object],
+      position: '-480.0, 1488.0, 27.0',
+      forward: '0.000, -1.000, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198243405420': {
+      name: '[MTU]TheSolace',
+      observer_slot: 7,
+      team: 'T',
+      match_stats: [Object],
+      position: '-560.0, -2208.0, -163.3',
+      forward: '0.615, 0.788, -0.014',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198077375991': {
+      name: '[MTU]LordOPies',
+      observer_slot: 8,
+      team: 'T',
+      match_stats: [Object],
+      position: '-576.0, -2272.0, -162.3',
+      forward: '-0.208, 0.978, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198341370795': {
+      name: '[MTU]Ahmoar',
+      observer_slot: 9,
+      team: 'T',
+      match_stats: [Object],
+      position: '-416.0, -2272.0, -163.3',
+      forward: '0.242, 0.970, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198262847598': {
+      name: 'UF > havok',
+      observer_slot: 3,
+      team: 'CT',
+      match_stats: [Object],
+      position: '-288.0, 1504.0, 27.3',
+      forward: '0.000, -1.000, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198212948461': {
+      name: 'UF > rick',
+      observer_slot: 4,
+      team: 'CT',
+      match_stats: [Object],
+      position: '-224.0, 1488.0, 25.2',
+      forward: '0.000, -1.000, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198054941126': {
+      name: 'UF > dadjorts',
+      observer_slot: 5,
+      team: 'CT',
+      match_stats: [Object],
+      position: '-416.0, 1504.0, 32.0',
+      forward: '0.000, -1.000, -0.000',
+      state: [Object],
+      weapons: [Object]
+    },
+    '76561198446871035': {
+      name: '[MTU]SayYouWill',
+      observer_slot: 0,
+      team: 'T',
+      match_stats: [Object],
+      position: '-368.0, -2224.0, -163.3',
+      forward: '-0.000, 1.000, -0.000',
+      state: [Object],
+      weapons: [Object]
+    }
+  },
+  phase_countdowns: { phase: 'freezetime', phase_ends_in: '3.1' },
+  previously: {
+    allplayers: { '76561198243405420': [Object] },
+    phase_countdowns: { phase_ends_in: '3.3' }
+  }
+}
