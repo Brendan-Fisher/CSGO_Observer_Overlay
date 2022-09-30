@@ -1,0 +1,36 @@
+<div class="scoreboard">
+    <div class="teamOne">
+        <div class="teamOneName"><h1 [style.opacity]="phases.phase !== 'freezetime' ? '0' : '1'" [style.visibility]="phases.phase !== 'freezetime' ? 'hidden' : 'visible'">{{ teamOneName }}</h1></div>
+        <div class="teamOneLogo"><img src="assets/match-info/teamOne.png"></div>
+        <div class="teamOneScore {{teamOneSide}}"><p>{{ teamOneScore }}</p></div>
+    </div>
+    <div class="matchInfo">
+        <div class="phaseInfo">
+            <p *ngIf="phases.phase === 'live' || phases.phase === 'over' ">{{phases.phase_ends_in}}</p>
+            <img *ngIf="phases.phase === 'freezetime'" src="assets/images/pauseIcon.svg">
+            <img *ngIf="phases.phase === 'bomb'" src="assets/images/icon_c4_default.svg">
+            <img *ngIf="phases.phase === 'defuse'" src="assets/images/icon_defuse_default.svg">
+        </div>
+        <div class="roundInfo" *ngIf="mapInfo.round <= 30"><p>ROUND: {{mapInfo.round}}/30</p></div>
+        <div class="roundInfo" *ngIf="mapInfo.round > 30"><p>OT {{(mapInfo.round - 30)/6}}: {{(mapInfo.round - 30) % 6}}/6</p></div>
+    </div>
+    <div class="teamTwo">
+        <div class="teamTwoName"><h1 [style.opacity]="phases.phase !== 'freezetime' ? '0' : '1'" [style.visibility]="phases.phase !== 'freezetime' ? 'hidden' : 'visible'">{{ teamTwoName }}</h1></div>
+        <div class="teamTwoLogo"><img src="assets/match-info/teamTwo.png"></div>
+        <div class="teamTwoScore {{teamTwoSide}}"><p>{{ teamTwoScore }}</p></div>
+    </div>
+</div>
+<div class="countDown" *ngIf="phases.phase === 'bomb' || phases.phase === 'defuse'">
+    <img class="icon" *ngIf="phases.phase === 'bomb'" src="assets/images/icon_c4_default.svg">
+    <img class="icon" *ngIf="phases.phase === 'defuse'" src="assets/images/icon_defuse_default.svg">
+    <div class="timer" *ngIf="phases.phase === 'bomb'">
+        <div class="bomb" *ngIf="phases.phase === 'bomb'">
+            <div class={{bombTime}}></div>
+        </div>
+
+        <div class="defuse" *ngIf="phases.phase === 'defuse'">
+            <div class="defuseTime"></div>
+        </div>
+    </div>
+    <div *ngIf="phases.phase === 'defuse'"></div>
+</div>

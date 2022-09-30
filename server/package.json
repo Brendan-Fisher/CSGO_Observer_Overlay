@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/socket.io": "^3.0.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "simple-node-logger": "^21.8.12",
+    "socket.io": "^4.5.2"
+  }
+}
