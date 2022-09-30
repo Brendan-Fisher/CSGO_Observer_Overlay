@@ -157,15 +157,73 @@ p {
 .countDown {
     background-color: $Background-solid;
     display: flex;
-    justify-content: flex-start;
-    width: 30vw;
-    height: 4vh;
+    justify-content: space-around;
+    align-items: center;
+    width: 40vw;
+    height: 3vh;
     position: absolute;
-    left: 35vw;
+    left: 30vw;
     top: 12vh;
+
+    .bombTimer {
+        display: grid;
+        grid-template-columns: repeat(400,.25fr);
+        width: 18vw;
+        height: 2vh;
+    }
 
     .icon {
         height: 100%;
-        padding-left: 5px;
+        width: 3vh;
     }
+
+    .defuseTimer {
+        display: grid;
+        grid-template-columns: repeat(100,1fr);
+        height: 2vh;
+        width: 18vw;
+    }
+
+    
+}
+
+[class*="bomb"] {
+    transition: all 0.6s ease;
+    grid-column-start: 401;
+    grid-column-end: 1;
+    max-height: 2vh;
+}
+
+[class*="defuse"] {
+    transition: all 0.6s ease;
+    grid-column-start: 1;
+    grid-column-end: 101;
+    max-height: 2vh;
+}
+
+$bombColumns: 401;
+$defuseColumns: 101;
+
+@mixin BombChartValue($data) {
+    grid-column-end: $bombColumns - $data;
+}
+
+@mixin DefuseChartValue($data) {
+    grid-column-end: $data;
+}
+
+@for $i from 0 through $bombColumns {
+    .bomb-#{$i} {
+        background-color: $T-color;
+        @include BombChartValue($i);
+    }
+}
+
+@for $i from 0 through $defuseColumns {
+    .defuse-#{$i} {
+        background-color: $CT-color;
+        @include DefuseChartValue($i);
+    }
+
+    /* Basically on compile this creates like a hundred classes with name Tbar- and CTbar- + $i ,which is basically just a variable number in a for loop */
 }

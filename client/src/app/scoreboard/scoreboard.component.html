@@ -20,17 +20,12 @@
         <div class="teamTwoScore {{teamTwoSide}}"><p>{{ teamTwoScore }}</p></div>
     </div>
 </div>
-<div class="countDown" *ngIf="phases.phase === 'bomb' || phases.phase === 'defuse'">
-    <img class="icon" *ngIf="phases.phase === 'bomb'" src="assets/images/icon_c4_default.svg">
-    <img class="icon" *ngIf="phases.phase === 'defuse'" src="assets/images/icon_defuse_default.svg">
-    <div class="timer" *ngIf="phases.phase === 'bomb'">
-        <div class="bomb" *ngIf="phases.phase === 'bomb'">
-            <div class={{bombTime}}></div>
-        </div>
-
-        <div class="defuse" *ngIf="phases.phase === 'defuse'">
-            <div class="defuseTime"></div>
-        </div>
+<div class="countDown" *ngIf="phases.phase === 'defused' || phases.phase === 'bomb' || phases.phase === 'defuse'">
+    <div class="bombTimer">
+        <div class={{bombTime}}></div>
     </div>
-    <div *ngIf="phases.phase === 'defuse'"></div>
+    <img class="icon" src="assets/images/icon_c4_default.svg">
+    <div class="defuseTimer">
+        <div class={{defuseTime}}></div>
+    </div>
 </div>

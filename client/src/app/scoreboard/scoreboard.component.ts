@@ -22,14 +22,15 @@ export class ScoreboardComponent implements OnInit {
   bomb: any;
   prevState: any;
   mapInfo: any;
-  bombTime: any;
-  defuseTime: any;
+  bombTime = "bomb-0";
+  defuseTime = "defuse-";
   prevCount = 400;
   plantedBombTime: any;
 
   
   ngOnInit(): void {
     this.socketService.socket.on('scoreboard', (data: any) => {
+      console.log(data);
       this.phases = data.phases;
       this.bomb = data.bomb;
       this.mapInfo = data.mapInfo;
@@ -45,33 +46,33 @@ export class ScoreboardComponent implements OnInit {
       this.teamOneScore = (this.teamOneSide === 'CT') ? this.mapInfo.team_ct.score : this.mapInfo.team_t.score;
       this.teamTwoScore = (this.teamTwoSide === 'CT') ? this.mapInfo.team_ct.score : this.mapInfo.team_t.score;
 
-      this.bombTimer(this.bomb);
-      this.defuseTimer(this.bomb);
+      this.timers(data.bomb);
     })
   }
 
 
-  bombTimer(bomb: any) {
-    if(bomb.state === 'defusing'){
+  timers(bomb: any) {
+    console.log("Setting timers");
+    console.log(bomb.state);
+    if(bomb.state === "defusing"){
+
+      this.defuseTime = "defuse-" + (bomb.countdown * 20);
+
       if(this.prevState.bomb.state === "planted"){
+        console.log("Bomb is being defused");
         this.plantedBombTime = new Date();
         this.prevCount = this.prevState.bomb.countdown * 10;
       }
 
       var diff = this.prevCount -  Math.round(Math.abs(new Date().getTime() - this.plantedBombTime.getTime()) / 100);
-
+      console.log(diff);
       this.bombTime = "bomb-" + diff;
+
+      
+      
     }
     else if(bomb.state === 'planted'){
       this.bombTime = "bomb-" + (bomb.countdown * 10);
-    }
-    
-
-  }
-
-  defuseTimer(bomb: any){
-    if(bomb.state === 'defusing'){
-      this.defuseTime = "defuse-" + (bomb.countdown * 10);
     }
   }
 }

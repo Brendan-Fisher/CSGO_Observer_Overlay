@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
             catch (e) {
                 log.error(`[GAME API] Error retrieving data from API: ${e}`);
             }
-            
+            res.end(JSON.stringify(data));
         })
     }
 })
