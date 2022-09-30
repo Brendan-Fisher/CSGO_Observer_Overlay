@@ -84,7 +84,7 @@ function roundWin(scoreBoard) {
     return <div className = "roundEnd">
       <div className={"teamLogoEnd"}> <img src={LogoCT}/></div>
       <div className={"CTWin"}>
-        <div className="roundEndText">Counter-Terrorists</div> <div className={"CTWin"}><div className="roundEndText">WINS THE ROUND </div>
+        <div className="roundEndText">Counter-Terrorists</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
@@ -93,7 +93,7 @@ function roundWin(scoreBoard) {
     return <div className = "roundEnd">
       <div className={"teamLogoEnd"}> <img src={LogoT}/></div>
       <div className={"TWin"}>
-        <div className="roundEndText">Terrorists</div> <div className={"TWin"}><div className="roundEndText">WINS THE ROUND </div>
+        <div className="roundEndText">Terrorists</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
