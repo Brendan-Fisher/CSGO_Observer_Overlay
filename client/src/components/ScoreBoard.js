@@ -2,13 +2,15 @@ import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { LogoCT, LogoT, FlashingBomb, Bomb, Defuse } from "../assets/Icons";
+import cfg from '../config.json';
 
 const socket = io("http://localhost:5001");
 
 
 var PlantedBombTime;
 var prevCount = 400;
-
+var teamOne = ""
+var teamTwo = ""
 function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase === "bomb") {
         return <FlashingBomb className="bombImage" />
@@ -84,7 +86,7 @@ function roundWin(scoreBoard) {
     return <div className = "roundEnd">
       <div className={"teamLogoEnd"}> <img src={LogoCT}/></div>
       <div className={"CTWin"}>
-        <div className="roundEndText">Counter-Terrorists</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{teamOne}</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
@@ -93,7 +95,7 @@ function roundWin(scoreBoard) {
     return <div className = "roundEnd">
       <div className={"teamLogoEnd"}> <img src={LogoT}/></div>
       <div className={"TWin"}>
-        <div className="roundEndText">Terrorists</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{teamTwo}</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
@@ -108,6 +110,11 @@ export function ScoreBoard() {
             setSB(scoreboard);
         });
     });
+    useEffect(() => {
+        const cfg = require('../config.json');
+        teamOne = cfg.teamOne;
+        teamTwo = cfg.teamTwo;
+        }, []);
     //console.log(scoreBoard)
     if (scoreBoard) {
         return (
