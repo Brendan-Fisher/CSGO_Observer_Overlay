@@ -1,16 +1,15 @@
 import "./../styles/ScoreBoard.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { LogoCT, LogoT, FlashingBomb, Bomb, Defuse } from "../assets/Icons";
-import cfg from '../config.json';
+import {FlashingBomb, Bomb, Defuse } from "../assets/Icons";
+import { teamOneLogo, teamTwoLogo, teamOneName, teamTwoName, } from "../teamInfo.js"
 
 const socket = io("http://localhost:5001");
 
 
 var PlantedBombTime;
 var prevCount = 400;
-var teamOne = ""
-var teamTwo = ""
+
 function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase === "bomb") {
         return <FlashingBomb className="bombImage" />
@@ -84,18 +83,18 @@ function roundWin(scoreBoard) {
   if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
     //CT WIN ROUND
     return <div className = "roundEnd">
-      <div className={"teamLogoEnd"}> <img src={LogoCT}/></div>
+      <div className={"teamLogoEnd"}> <img src={teamOneLogo}/></div>
       <div className={"CTWin"}>
-        <div className="roundEndText">{teamOne}</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{teamOneName}</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
   } else {
     //T WIN ROUND
     return <div className = "roundEnd">
-      <div className={"teamLogoEnd"}> <img src={LogoT}/></div>
+      <div className={"teamLogoEnd"}> <img src={teamTwoLogo}/></div>
       <div className={"TWin"}>
-        <div className="roundEndText">{teamTwo}</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{teamTwoName}</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
@@ -110,11 +109,6 @@ export function ScoreBoard() {
             setSB(scoreboard);
         });
     });
-    useEffect(() => {
-        const cfg = require('../config.json');
-        teamOne = cfg.teamOne;
-        teamTwo = cfg.teamTwo;
-        }, []);
     //console.log(scoreBoard)
     if (scoreBoard) {
         return (
@@ -126,11 +120,11 @@ export function ScoreBoard() {
                         : {})}
                 >
                     <p className="teamLeftName">
-                        {scoreBoard.round <= 15 ? scoreBoard.CTName : scoreBoard.TName}
+                        {teamOneName}
                     </p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.leftCT ? LogoCT : LogoT}></img>
+                    <img src={scoreBoard.leftCT ? teamOneLogo : teamTwoLogo}></img>
                 </div>
                 <div className="TeamLeft">
                     <p className={scoreBoard.leftCT ? "ct-score" : "tscore"}>
@@ -147,7 +141,7 @@ export function ScoreBoard() {
                     </p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.leftCT ? LogoT : LogoCT}></img>
+                    <img src={scoreBoard.leftCT ? teamTwoLogo : teamOneLogo}></img>
                 </div>
                 <div
                     className="TeamName"
@@ -155,7 +149,7 @@ export function ScoreBoard() {
                         ? { id:"hidden" }
                         : {})}>
                     <p className="teamRightName">
-                        {scoreBoard.round <= 15 ? scoreBoard.TName : scoreBoard.CTName}
+                        {teamTwoName}
                     </p>
                 </div>
 

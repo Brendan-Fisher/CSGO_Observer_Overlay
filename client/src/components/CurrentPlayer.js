@@ -1,7 +1,8 @@
 import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull, LogoCT, LogoT, SmallBomb, Bullets } from '../assets/Icons';
+import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull,SmallBomb, Bullets } from '../assets/Icons';
+import {teamOneLogo, teamTwoLogo} from "../teamInfo";
 import { gunMap, nadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
 
@@ -145,7 +146,7 @@ export function Current() {
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
-                            <img className="teamImg" src={player.team === "CT" ? LogoCT : LogoT}></img>
+                            <img className="teamImg" src={player.team === "CT" ? teamOneLogo : teamTwoLogo}></img>
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
