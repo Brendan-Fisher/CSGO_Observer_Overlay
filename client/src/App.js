@@ -5,7 +5,6 @@ import io from "socket.io-client";
 import Teams from "./components/Teams";
 import ScoreBoard from "./components/ScoreBoard";
 import Current from "./components/CurrentPlayer";
-import MiniMap from "./components/MiniMap";
 
 const ENDPOINT = "http://localhost:5001/";
 
