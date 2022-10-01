@@ -11,12 +11,7 @@ export function Current() {
     const [weapon, setWeapon] = useState(null);
 
     useEffect(() => {
-        //console.log("Current Player");
         socket.on("player", (player) => {
-            //console.log(player);
-            //console.log(`Spectating ${player.name}`);
-
-            //console.log([...Object.values(player.weapons)].find(w => w.state === "active"))
             if (player) setWeapon([...Object.values(player.weapons)].find(w => w.state === "active"));
             setPlayer(player);
         });
@@ -80,25 +75,25 @@ export function Current() {
         if(weapon == null) {
             return
         }
-        if(weapon.type == "Knife" || weapon.type == "Grenade") {
-            return <div></div>
+        if(weapon.type === "Knife" || weapon.type === "Grenade") {
+            return <div/>
         }
         return (weapon ? <div className="ammo">
                 <Bullets className="icon" />
                 <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
-          <div></div>
+          <div/>
         )
     }
 
     function printHealthBar(side, player) {
         var x = ""
-        if (side == "L") {
+        if (side === "L") {
             x = "L";
         } else {
             x = "R";
         }
         var y = "";
-        if (player.team == "CT") {
+        if (player.team === "CT") {
             y = "CT";
         } else {
             y = "T";
@@ -123,16 +118,7 @@ export function Current() {
                 <div className="playerBlock">
                     <div className="playerInfoTop">
                         <div className="playerVitals">
-
-                            <div className="health"> <HealthFull className="icon" style={{
-                                fill:
-                                    player.state.health > 50
-                                        ? "white"
-                                        : player.state.health > 20
-                                            ? "orange"
-                                            : "red",
-                            }}></HealthFull> {player.state.health} </div>
-
+                            <div className="health"> <HealthFull className="icon" style={{fill: player.state.health > 50 ? 'white' : player.state.health > 20 ? 'orange': 'red'}}/> {player.state.health} </div>
                             <div className="armor">
                                 {player.state.helmet ? <ArmorHelmet className="icon" /> : player.state.armor > 0 ? <ArmorFull className="icon" /> : <ArmorNone className="icon" />}
                                 {player.state.armor}
@@ -146,7 +132,7 @@ export function Current() {
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
-                            <img className="teamImg" src={player.team === "CT" ? teamOneLogo : teamTwoLogo}></img>
+                            <img className="teamImg" src={player.team === 'CT' ? teamOneLogo : teamTwoLogo}/>
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
@@ -181,7 +167,7 @@ export function Current() {
             </div>
         );
     } else {
-        return <div></div>;
+        return <div/>;
     }
 }
 
