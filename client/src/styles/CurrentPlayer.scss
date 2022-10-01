@@ -8,7 +8,6 @@
     left: 50%;
     top: 86.5%;
     transform: translate(-50%, -50%);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     background-color: rgba(0, 127, 97, 0.0); //transparent;
 }
 
@@ -268,7 +267,7 @@ $totalColumns: 101;
                 //background-color: lime;
             }
 
-            
+
         }
     }
 }
