@@ -9,6 +9,40 @@ const socket = io("http://localhost:5001");
 
 var PlantedBombTime;
 var prevCount = 400;
+let swap = 0
+window.addEventListener("keydown", (event) => {
+  if(event.key === "`") {
+    if(swap === 0) {
+      swap = 1
+    } else {
+      swap = 0
+    }
+  }
+});
+
+function printTeamName(side){
+  if(side === "R") {
+      return teamTwoName
+  } else {
+      return teamOneName
+  }
+}
+
+function printTeamLogo(side) {
+  if (side) {
+    if(swap === 0){
+      return teamOneLogo;
+    } else {
+      return teamTwoLogo;
+    }
+  } else {
+    if(swap === 0) {
+      return teamTwoLogo;
+    } else {
+      return teamOneLogo;
+    }
+  }
+}
 
 function printTime(scoreBoard) {
     if (scoreBoard.phaseInfo.phase === "bomb") {
@@ -71,6 +105,38 @@ function BombTimer(scoreBoard) {
     }
 }
 
+function printCTWinName() {
+  if(swap) {
+    return teamTwoName;
+  } else {
+    return teamOneName;
+  }
+}
+
+function printTWinName() {
+  if(swap) {
+    return teamOneName;
+  } else {
+    return teamTwoName;
+  }
+}
+
+function printCTWinLogo(){
+  if(swap) {
+    return teamTwoLogo;
+  } else {
+    return teamOneLogo;
+  }
+}
+
+function printTWinLogo(){
+  if(swap) {
+    return teamOneLogo;
+  } else {
+    return teamTwoLogo;
+  }
+}
+
 function roundWin(scoreBoard) {
   if(scoreBoard.phaseInfo.phase !== "over") {
     return <div/>; //Return if phase isn't over
@@ -83,18 +149,18 @@ function roundWin(scoreBoard) {
   if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
     //CT WIN ROUND
     return <div className = "roundEnd">
-      <div className={"teamLogoEnd"}> <img src={teamOneLogo}/></div>
+      <div className={"teamLogoEnd"}> <img src={printCTWinLogo()}/></div>
       <div className={"CTWin"}>
-        <div className="roundEndText">{teamOneName}</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{printCTWinName()}</div> <div className={"CTWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
   } else {
     //T WIN ROUND
     return <div className = "roundEnd">
-      <div className={"teamLogoEnd"}> <img src={teamTwoLogo}/></div>
+      <div className={"teamLogoEnd"}> <img src={printTWinLogo()}/></div>
       <div className={"TWin"}>
-        <div className="roundEndText">{teamTwoName}</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
+        <div className="roundEndText">{printTWinName()}</div> <div className={"TWin"}><div className="roundEndText">WIN THE ROUND </div>
       </div>
       </div>
     </div>
@@ -120,11 +186,11 @@ export function ScoreBoard() {
                         : {})}
                 >
                     <p className="teamLeftName">
-                        {teamOneName}
+                      {printTeamName("L")}
                     </p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.leftCT ? teamOneLogo : teamTwoLogo}></img>
+                    <img src={printTeamLogo(scoreBoard.leftCT)}></img>
                 </div>
                 <div className="TeamLeft">
                     <p className={scoreBoard.leftCT ? "ct-score" : "tscore"}>
@@ -141,7 +207,7 @@ export function ScoreBoard() {
                     </p>
                 </div>
                 <div className="teamImage">
-                    <img src={scoreBoard.leftCT ? teamTwoLogo : teamOneLogo}></img>
+                    <img src={printTeamLogo(!scoreBoard.leftCT)}></img>
                 </div>
                 <div
                     className="TeamName"
@@ -149,7 +215,7 @@ export function ScoreBoard() {
                         ? { id:"hidden" }
                         : {})}>
                     <p className="teamRightName">
-                        {teamTwoName}
+                        {printTeamName("R")}
                     </p>
                 </div>
 
