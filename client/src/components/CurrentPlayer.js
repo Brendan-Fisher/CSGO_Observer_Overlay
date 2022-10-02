@@ -5,6 +5,32 @@ import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull,SmallBomb,
 import {teamOneLogo, teamTwoLogo} from "../teamInfo";
 import { gunMap, nadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
+let swap = 0
+window.addEventListener("keydown", (event) => {
+    if(event.key === "`") {
+        if(swap === 0) {
+            swap = 1
+        } else {
+            swap = 0
+        }
+    }
+});
+
+function printTeamLogo(side) {
+    if (side === "CT") {
+        if(swap === 0){
+            return teamOneLogo;
+        } else {
+            return teamTwoLogo;
+        }
+    } else {
+        if(swap === 0) {
+            return teamTwoLogo;
+        } else {
+            return teamOneLogo;
+        }
+    }
+}
 
 export function Current() {
     const [player, setPlayer] = useState(null);
@@ -132,7 +158,7 @@ export function Current() {
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
-                            <img className="teamImg" src={player.team === 'CT' ? teamOneLogo : teamTwoLogo}/>
+                            <img className="teamImg" src={printTeamLogo(player.team)}/>
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
