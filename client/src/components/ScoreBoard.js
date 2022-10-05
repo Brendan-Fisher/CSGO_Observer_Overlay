@@ -9,7 +9,8 @@ const socket = io("http://localhost:5001");
 
 var PlantedBombTime;
 var prevCount = 400;
-let swap = 0
+let swap = 0;
+let startingSide = 'ct'; //starting side for team one
 window.addEventListener("keydown", (event) => {
   if(event.key === "`") {
     if(swap === 0) {
@@ -18,12 +19,27 @@ window.addEventListener("keydown", (event) => {
       swap = 0
     }
   }
+  if(event.key === "0") {
+    if(startingSide === 'ct') {
+      startingSide = 't'
+    } else {
+      startingSide = 'ct'
+    }
+  }
 });
 
 function printTeamName(side){
+  //team one is always at left
+  //team one should start ct, if they don't, press 0
   if(side === "R") {
+      if(startingSide === 't') {
+        return teamOneName;
+      }
       return teamTwoName
   } else {
+      if(startingSide === 't') {
+        return teamTwoName;
+      }
       return teamOneName
   }
 }
