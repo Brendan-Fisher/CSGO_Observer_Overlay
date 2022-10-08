@@ -153,15 +153,7 @@ function printTWinLogo(){
   }
 }
 
-function roundWin(scoreBoard) {
-  if(scoreBoard.phaseInfo.phase !== "over") {
-    return <div/>; //Return if phase isn't over
-    //Causes undefined behavior otherwise
-  }
-  //console.log(scoreBoard.roundWins[scoreBoard.round])
-  var roundWinType = scoreBoard.roundWins[scoreBoard.round]
-  var s = ""
-  //Gets the GSI string relating to who won the current round, given that the round phase is 'over'
+function printWinDiv(roundWinType){
   if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
     //CT WIN ROUND
     return <div className = "roundEnd">
@@ -181,6 +173,79 @@ function roundWin(scoreBoard) {
       </div>
     </div>
   }
+}
+
+function roundWin(scoreBoard) {
+  if(scoreBoard.phaseInfo.phase !== "over") {
+    return <div/>; //Return if phase isn't over
+    //Causes undefined behavior otherwise
+  }
+  //console.log(scoreBoard.roundWins[scoreBoard.round])
+  let roundWinType = scoreBoard.roundWins[scoreBoard.round];
+  //Gets the GSI string relating to who won the current round, given that the round phase is 'over'
+  if(scoreBoard.round <= 30) { //Regulation
+    return printWinDiv(roundWinType)
+  } else { //Overtime occurred here, round is greater than or equal to 31
+    //Overtime is weird in the sense that it deletes the roundWins array literally like the second round 31 starts, and wipes every OT
+    //so roundWins array is instead back to like size 1 after round 31 ends, and goes up to size 5. Round 36/42/48 is not stored for some reason. NO IDEA WHY
+    //So you end up with something like this
+    // {
+    //     "1": "ct_win_elimination",
+    //     "2": "t_win_elimination",
+    //     "3": "t_win_elimination",
+    //     "4": "t_win_elimination",
+    //     "5": "ct_win_defuse"
+    // }
+    // at round 36, but no round 36 result
+    let OTModulo = (scoreBoard.round - 30) % 6;
+    if(OTModulo === 0) {
+      //CSGO literally doesn't tell you who wins rd 36/42/48
+      let tScore = (scoreBoard.round - 6)/2;
+      let ctScore = (scoreBoard.round - 6)/2;
+      for(let i = 1; i < 4; i++) {
+        roundWinType = scoreBoard.roundWins[i]
+        if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
+          tScore = tScore + 1
+        } else {
+          ctScore = ctScore + 1
+        }
+      }
+      for(let i = 4; i < 6; i++) {
+        roundWinType = scoreBoard.roundWins[i]
+        if(roundWinType === "ct_win_elimination" ||roundWinType ===  "ct_win_defuse" || roundWinType === "ct_win_time") {
+          ctScore = ctScore + 1
+        } else {
+          tScore = tScore + 1
+        }
+      }
+      if(ctScore === scoreBoard.CTScore) {
+        return printWinDiv("t_win_elimination")
+      } else {
+        return printWinDiv("ct_win_elimination")
+      }
+    } else {
+      roundWinType = scoreBoard.roundWins[OTModulo];
+      return printWinDiv(roundWinType)
+    }
+  }
+}
+
+function printRound(num,CTScore,TScore) {
+    if(num <= 29) {
+      return <div> ROUND {num + 1}/30 </div>
+    } else {
+      let OTNumber = Math.floor((num - 30)/6) + 1
+      let OTModulo = (num - 30) % 6;
+      if(OTModulo === 0) {
+        if(CTScore !== TScore) {
+          OTNumber = OTNumber - 1
+        }
+      }
+      return <div>
+        <div> Overtime {OTNumber}</div>
+        <div> First to {15 + OTNumber*3 + 1} </div>
+      </div>
+    }
 }
 
 export function ScoreBoard() {
@@ -215,7 +280,7 @@ export function ScoreBoard() {
                 </div>
                 <div className="Match_info">
                     {printTime(scoreBoard)}
-                    <div id="round">ROUND {scoreBoard.round + 1}/30</div>
+                    <div id="round"> {printRound(scoreBoard.round,scoreBoard.CTScore,scoreBoard.TScore)}</div>
                 </div>
                 <div className="TeamRight">
                     <p className={scoreBoard.leftCT ? "tscore" : "ct-score"}>
