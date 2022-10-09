@@ -1,7 +1,7 @@
 import "./../styles/CurrentPlayer.scss";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse, Skull,SmallBomb, Bullets } from '../assets/Icons';
+import { HealthFull, ArmorNone, ArmorFull, ArmorHelmet, Defuse,SmallBomb, Bullets } from '../assets/Icons';
 import {teamOneLogo, teamTwoLogo} from "../teamInfo";
 import { gunMap, nadeOrder } from "../assets/Weapons";
 const socket = io("http://localhost:5001");
@@ -55,11 +55,11 @@ export function Current() {
     }
 
     function Grenades(player) {
-        if (!player || !player.weapons) return <div></div>
-        var x = "";
-        var gun;
-        var nades = Array(4).fill("");
-        var spot = 0;
+        if (!player || !player.weapons) return <div/>
+        let x = '';
+        let gun;
+        let nades = Array(4).fill("");
+        let spot = 0;
         Object.keys(player.weapons).forEach(function (key) {
             gun = player.weapons[key];
             if (gun.type === "Grenade") {
@@ -112,13 +112,13 @@ export function Current() {
     }
 
     function printHealthBar(side, player) {
-        var x = ""
+        let x ;
         if (side === "L") {
             x = "L";
         } else {
             x = "R";
         }
-        var y = "";
+        let y;
         if (player.team === "CT") {
             y = "CT";
         } else {
@@ -158,7 +158,7 @@ export function Current() {
                     </div>
                     <div className="playerInfoBottom">
                         <div className="team">
-                            <img className="teamImg" src={printTeamLogo(player.team)}/>
+                            <img className="teamImg" src={printTeamLogo(player.team)} alt=""/>
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
