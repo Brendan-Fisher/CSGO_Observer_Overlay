@@ -106,7 +106,8 @@ export function Current() {
         }
         return (weapon ? <div className="ammo">
                 <Bullets className="icon" />
-                <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div> :
+                <div className="ammo-clip">{weapon.ammo_clip}</div> /{weapon.ammo_reserve}</div>
+            :
           <div/>
         )
     }
@@ -144,10 +145,10 @@ export function Current() {
                 <div className="playerBlock">
                     <div className="playerInfoTop">
                         <div className="playerVitals">
-                            <div className="health"> <HealthFull className="icon" style={{fill: player.state.health > 50 ? 'white' : player.state.health > 20 ? 'orange': 'red'}}/> {player.state.health} </div>
+                            <div className="health"> <HealthFull className="icon" style={{fill:'white'}}/> <div className = "vitalNum"> {player.state.health} </div> </div>
                             <div className="armor">
                                 {player.state.helmet ? <ArmorHelmet className="icon" /> : player.state.armor > 0 ? <ArmorFull className="icon" /> : <ArmorNone className="icon" />}
-                                {player.state.armor}
+                                <div className = "vitalNum"> {player.state.armor} </div>
                             </div>
                         </div>
                         <div className="player-id">
@@ -162,27 +163,29 @@ export function Current() {
                         </div>
                         <div className="playerInfo">
                             <div className="player-score">
-
-                                <div>
+                                <div className="score-container">
                                     <div className="label">K</div>
                                     <div className="value">{player.match_stats.kills}{" "}</div>
                                 </div>
 
-                                <div>
+                                <div className="score-container">
                                     <div className="label">A</div>
                                     <div className="value">{player.match_stats.assists}{" "}</div>
                                 </div>
 
-                                <div>
+                                <div className="score-container">
                                     <div className="label">D</div>
                                     <div className="value">{player.match_stats.deaths}{" "}</div>
                                 </div>
 
                             </div>
                             <div className="player-equipment">
-                                {Grenades(player)}
-                                {getAmmo(player)}
-
+                                <div style={{ height : '50%'}}>
+                                    {Grenades(player)}
+                                </div>
+                                <div style={{ height : '50%'}}>
+                                    {getAmmo(player)}
+                                </div>
                             </div>
 
                         </div>

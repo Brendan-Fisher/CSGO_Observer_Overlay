@@ -53,6 +53,12 @@
 
         }
 
+        .vitalNum {
+            text-align: left;
+            width: 70%;
+            font-size: 85%;
+        }
+
         .armor {
             display: flex;
             flex-direction: row;
@@ -218,13 +224,16 @@ $totalColumns: 101;
             text-align: center;
             //margin-top: 0%;
             background-color: transparent;
+            font-size: 100%;
+            .score-container {
+                max-width: 33%;
+                .label {
+                    background-color: transparent;
+                }
 
-            .label {
-                background-color: transparent;
-            }
-
-            .value {
-                background-color: transparent;
+                .value {
+                    background-color: transparent;
+                }
             }
         }
 
@@ -237,23 +246,19 @@ $totalColumns: 101;
             align-items: stretch;
             align-content: center;
             align-self: center;
-
             //align-self: center; // vertical centering
             height: 100%;
-            width: 45%;
+            width: 50%;
             //background-color: green;
 
-            align-items: stretch;
-            align-content: center;
-            align-self: center;
             //height: 100%;
             text-align: center;
-
             .ammo {
                 display: flex;
                 flex-direction: row;
-                justify-content: right;
-                font-size: medium;
+                justify-content: center;
+                align-content: center;
+                font-size: large;
 
                 .icon {
                     height: 20px;
