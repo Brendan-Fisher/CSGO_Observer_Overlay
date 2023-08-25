@@ -2,6 +2,8 @@
 
 Custom overlay for CSGO Casters and Observers which uses an Express API and a React Frontend
 
+[Check the new repository
+](https://github.com/zachtyson/uf_csgo_observer_overlay)
 ## Project Setup
 
 - Clone repo
